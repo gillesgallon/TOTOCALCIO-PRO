@@ -510,7 +510,8 @@ main .nav{background:rgba(5,18,30,.94)!important;box-shadow:0 6px 15px #0004}
 <div class="toolbar no-print" style="margin:0 0 16px;padding:14px;border:2px solid #f5d26d;border-radius:12px;background:#132c3c"><button id="clear-selections" style="background:#ffd966;color:#132c3c;font-weight:800;font-size:18px;padding:14px 20px" type="button">🧹 Effacer les sélections</button></div>
 <div aria-label="Choisir le sport" class="sport-picker no-print"><strong>Choisir mon sport :</strong><button class="active" data-sport="football" type="button">⚽ Football</button><button data-sport="basket" type="button">🏀 Basket</button><button data-sport="tennis" type="button">🎾 Tennis</button><button data-sport="pingpong" type="button">🏓 Ping-pong</button><button data-sport="rugby" type="button">🏉 Rugby</button><button data-sport="mixte" type="button">🌈 Grille multisports</button><div class="sport-hint" id="sport-hint">Football : calendrier en ligne et saisie manuelle. Tes données sont enregistrées séparément pour chaque sport.</div></div>
 <div class="dashboard" hidden style="display:none!important"><div class="metric"><small>Groupes</small><strong>15</strong><small>6 lignes</small></div><div class="metric"><small>Matchs renseignés</small><strong id="match-count">0 / 12</strong><div class="progressbar"><div id="match-bar"></div></div></div><div class="metric"><small>Pronostics choisis</small><strong id="pick-count">0 / 30</strong><div class="progressbar"><div id="pick-bar"></div></div></div><div class="metric"><small>Systèmes disponibles</small><strong>19 / 29 / 64 / 72 / 120*</strong><small>Actualisation instantanée</small></div></div>
-<nav aria-label="Navigation" class="nav no-print"><button data-view="calendar" id="calendar-nav" type="button">📅 Calendrier football</button><button class="active" data-view="groups" type="button">📋 Mes groupes (A à O)</button><button data-view="grids" type="button">▦ 29 grilles</button><button data-view="64" type="button">▦ 64 grilles</button><button data-view="72" type="button">▦ 72 grilles · 3 bleus min.</button><button data-view="19" type="button">▦ 19 grilles · 1 vert min.</button></nav>
+<nav aria-label="Navigation" class="nav no-print"><button data-view="calendar" id="calendar-nav" type="button">📅 Calendrier football</button><button class="active" data-view="groups" type="button">📋 Mes groupes (A à O)</button><button data-view="grids" type="button">▦ 29 grilles</button><button data-view="64" type="button">▦ 64 grilles</button><button data-view="72" type="button">▦ 72 grilles · 3 bleus min.</button><button data-view="19" type="button">▦ 19 grilles · 1 vert min.</button><button data-view="ia" type="button">🧠 Analyse & conseils IA</button></nav>
+<div class="view" id="view-ia"><section class="tc-ia-section"><h2>🧠 Analyse & conseils IA ChatGPT</h2><p>Prépare une demande d’analyse pour les rencontres saisies dans « Mes groupes ». ChatGPT peut examiner les formes récentes, absences, statistiques et incertitudes à partir des données disponibles. Aucun résultat n’est garanti.</p><div class="toolbar"><button id="tc-ia-refresh" type="button">🔄 Préparer les rencontres</button><button id="tc-ia-copy" type="button">📋 Copier pour ChatGPT</button><button id="tc-ia-open" type="button">↗ Ouvrir ChatGPT</button></div><p id="tc-ia-status" role="status" class="hint">Clique sur « Préparer les rencontres ».</p><textarea id="tc-ia-prompt" aria-label="Demande d’analyse des rencontres" style="width:100%;min-height:260px;margin-top:10px" spellcheck="true"></textarea><p class="hint">L’analyse n’est pas générée automatiquement dans cette page : copie la demande dans ChatGPT. Les rencontres sont enregistrées dans ton navigateur et ne sont pas envoyées à un service externe par ce bouton.</p></section></div>
 <div class="view" id="view-calendar"><section id="calendar"><h2>1. Calendrier public des rencontres</h2><p class="hint">Les rencontres sont chargées depuis TheSportsDB (source publique indépendante de Betclic). La disponibilité dépend de ce service et de ta connexion Internet.</p><div class="toolbar"><div><label for="league">Championnat</label><select class="league" id="league"><option value="4334">Ligue 1 (France)</option><option value="4328">Premier League (Angleterre)</option><option value="4335">La Liga (Espagne)</option><option value="4332">Serie A (Italie)</option><option value="4331">Bundesliga (Allemagne)</option><option value="4480">🏆 Ligue des champions (UEFA)</option><option value="4481">🏆 Ligue Europa (UEFA)</option><option value="5071">🏆 Ligue Conférence (UEFA)</option></select></div><button id="load">Charger les prochains matchs</button><div><label for="destination">Placer dans</label><select id="destination"></select></div></div><div id="status" role="status">Sélectionne un championnat et clique sur « Charger les prochains matchs ».</div><div id="matches"></div></section></div>
 <div class="view active" id="view-groups"><section class="groups-section"><div class="toolbar" style="justify-content:space-between"><h2>2. Saisie des groupes — <span class="group-count">15 groupes A à O</span> · <span id="group-sport-label">Football</span></h2><div class="stats" id="progress"></div></div><p class="hint" id="group-help">Les 2 matchs de chaque ligne sont identiques dans tous ses groupes : A = B = C, D = E = F, G = H = I, J = K, L = M, N = O. Saisis une équipe une seule fois : elle est recopiée automatiquement. Les pronostics restent indépendants pour chaque groupe.</p><div aria-label="Mode de saisie des groupes" class="bc-mode-toolbar no-print" role="group">
 <span class="bc-mode-title">Mode de saisie</span>
@@ -2782,6 +2783,33 @@ main>section,.groups-section{padding:9px!important;margin:5px 0!important}
 (function(){
  const main=document.querySelector('main'),nav=main&&main.querySelector('nav.nav'),groups=document.getElementById('view-groups');
  if(main&&nav&&groups){nav.after(groups);}
+})();
+</script>
+<script id="tc-ia-connect">
+(function(){
+ const status=document.getElementById('tc-ia-status'), area=document.getElementById('tc-ia-prompt');
+ function prepare(){
+   const lines=[],seen=new Set();
+   if(typeof GROUPS==='undefined'||typeof getSlotData!=='function'||typeof getSlotSport!=='function'){
+      status.textContent='La saisie des groupes doit être chargée avant de préparer une analyse.';return;
+   }
+   for(const row of GROUPS)for(let i=0;i<2;i++){
+      const c=row[0],d=getSlotData(c,i)||{},home=String(d[c+i+'a']||'').trim(),away=String(d[c+i+'b']||'').trim(),sp=getSlotSport(c,i);
+      if(!home&&!away)continue;
+      const label=(typeof SPORT_NAMES!=='undefined'&&SPORT_NAMES[sp])||sp;
+      const key=sp+'|'+home+'|'+away+'|'+i;
+      if(seen.has(key))continue;seen.add(key);
+      const picks=row.map(g=>{const x=getSlotData(g,i)||{};return x[g+i+'p']?g+': '+x[g+i+'p']:''}).filter(Boolean).join(', ');
+      lines.push('- '+label+' — '+(home||'Équipe 1 non renseignée')+' / '+(away||'Équipe 2 non renseignée')+(picks?' | Mes pronostics : '+picks:''));
+   }
+   if(!lines.length){status.textContent='Aucune rencontre saisie dans Mes groupes pour le sport sélectionné.';area.value='';return}
+   area.value='Analyse les rencontres suivantes pour m’aider à comprendre leurs enjeux sportifs. Pour chaque rencontre : vérifie si possible la date, la compétition, la forme sur les 5 derniers matchs, les résultats domicile/extérieur, les confrontations, les blessures et absences confirmées, puis donne les arguments pour 1, X et 2 (si applicable), une estimation prudente du total de points ou buts, et les incertitudes. Ne fabrique aucune statistique ni information non vérifiée. Distingue faits, hypothèses et opinions, cite des sources récentes avec leur date si tu peux y accéder. Ne présente aucun pronostic comme certain.\n\n'+lines.join('\n');
+   status.textContent=lines.length+' rencontre(s) préparée(s). Copie la demande, puis ouvre ChatGPT.';
+ }
+ document.getElementById('tc-ia-refresh').addEventListener('click',prepare);
+ document.querySelector('[data-view="ia"]').addEventListener('click',prepare);
+ document.getElementById('tc-ia-copy').addEventListener('click',async()=>{if(!area.value)prepare();if(!area.value)return;try{await navigator.clipboard.writeText(area.value);status.textContent='Demande copiée : colle-la dans ChatGPT.'}catch(e){area.focus();area.select();status.textContent='Texte sélectionné : utilise Ctrl+C puis colle dans ChatGPT.'}});
+ document.getElementById('tc-ia-open').addEventListener('click',()=>{if(!area.value)prepare();window.open('https://chatgpt.com/','_blank','noopener,noreferrer');status.textContent='ChatGPT ouvert : utilise Copier pour ChatGPT, puis colle avec Ctrl+V.'});
 })();
 </script>
 <script src="mise-a-jour.js"></script>
