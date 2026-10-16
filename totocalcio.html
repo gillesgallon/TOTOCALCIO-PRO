@@ -2740,6 +2740,41 @@ $('print').onclick=()=>{expanded=true;render();window.print()};
 nav.onclick=()=>{showView('cinq-triples');render()};
 render();
 })();
-</script><script src="mise-a-jour.js"></script>
+</script><style id="tc-layout-saisie-en-haut">
+/* Saisie prioritaire : interface compacte et sans photos de gardien */
+main{max-width:1400px!important;padding:5px 10px!important}
+main>section,.groups-section{padding:9px!important;margin:5px 0!important}
+.brand-header{padding-top:5px!important;padding-bottom:5px!important}
+.nav{margin:3px 0 5px!important;padding:3px!important;gap:4px!important}
+#view-groups .groups-section>.toolbar{margin:0 0 3px!important;gap:5px!important}
+#view-groups h2{font-size:15px!important;margin:2px 0!important}
+#view-groups .bc-mode-toolbar{padding:3px!important;margin:2px 0!important}
+#bulletin-groups{gap:5px!important;margin:3px 0!important}
+#bulletin-groups .bc-top{padding:6px 9px!important;border-radius:7px!important;box-shadow:none!important;gap:5px!important}
+#bulletin-groups .bc-top-title{font-size:14px!important;letter-spacing:0!important}
+#bulletin-groups .bc-top-sub{font-size:10px!important}
+#bulletin-groups .bc-top-score{padding:4px 6px!important;font-size:11px!important}
+#bulletin-groups .bc-line{border-radius:7px!important;box-shadow:none!important}
+#bulletin-groups .bc-line-head{padding:5px 8px!important}
+#bulletin-groups .bc-line-head strong{font-size:12px!important}
+#bulletin-groups .bc-line-body{padding:5px!important;gap:5px!important}
+#bulletin-groups .bc-group{background:#fff!important;background-image:none!important;box-shadow:none!important;min-height:0!important}
+#bulletin-groups .bc-group::before,#bulletin-groups .bc-group::after,
+#groups .group::before,#groups .group::after{content:none!important;background:none!important;display:none!important}
+#groups .group{background:#fff!important;background-image:none!important;border-radius:7px!important;padding:6px!important;box-shadow:none!important}
+#bulletin-groups .bc-group-top{background:#f1f5f9!important;background-image:none!important;color:#162b3d!important;text-shadow:none!important;min-height:0!important;padding:3px 5px!important}
+#bulletin-groups .bc-group-picks{padding:4px!important}
+#bulletin-groups input,#bulletin-groups select{font-size:11px!important;padding:4px 5px!important}
+#bulletin-groups button{font-size:11px!important;padding:4px 6px!important}
+#view-groups .hint{font-size:11px!important;margin:3px 0!important}
+@media(max-width:650px){main{padding:4px!important}#bulletin-groups .bc-top-sub{font-size:9px!important}}
+</style>
+<script id="tc-saisie-haut">
+(function(){
+ const main=document.querySelector('main'),nav=main&&main.querySelector('nav.nav'),groups=document.getElementById('view-groups');
+ if(main&&nav&&groups){nav.after(groups);}
+})();
+</script>
+<script src="mise-a-jour.js"></script>
  
 </body></html>
