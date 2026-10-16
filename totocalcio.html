@@ -920,7 +920,7 @@ function makeGroups(){
    for(let i=0;i<2;i++){
      const s=getSlotSport(c,i),options=SPORT_OPTIONS[s];
      const wrap=document.createElement('div');wrap.className='match-editor';
-     wrap.innerHTML=`<label>Match ${i+1}<span class="sport-inline">${slotEmoji(c,i)} ${SPORT_NAMES[s]}</span></label>${s==='football'?leagueBarHTML(c,i):s==='rugby'?rugbyBarHTML(c,i):''}<div class="fixture">${teamInputHTML(c,i,'a',s)}<select class="ball sport-ball-select" data-ball-group="${c}" data-ball-match="${i}" title="Clique ici pour choisir le sport du match" aria-label="Sport du match ${i+1} de la ligne ${r+1}">${SPORT_KEYS.map(k=>`<option value="${k}">${SPORT_ICONS[k]} ${SPORT_NAMES[k]}</option>`).join('')}</select>${teamInputHTML(c,i,'b',s)}<select class="prono" aria-label="${c} match ${i+1} pronostic" data-key="${c+i+'p'}">${tcMarketHTML(s,getSlotData(c,i)[c+i+'p']||'')}</select></div>${tcMarketWidgets(c+i+'p',s,getSlotData(c,i)[c+i+'p']||'','detail')}${tcOddsHTML(c,i)}${s==='tennis'?`<div class="jeux-field"><div class="jeux-title">🎾 NOMBRE DE JEUX — TOTAL DU MATCH</div><div class="jeux-controls"><div><label for="jeux-mode-${c+i}">Mon pronostic :</label><select id="jeux-mode-${c+i}" class="jeux-mode" aria-label="Type de pronostic sur le nombre de jeux, groupe ${c}, match ${i+1}"><option value="">Choisir…</option><option value="JEUX_PLUS">Plus de jeux</option><option value="JEUX_MOINS">Moins de jeux</option><option value="JEUX_EXACT">Nombre exact</option></select></div><div><label class="jeux-number-label" for="jeux-${c+i}">Nombre de jeux / seuil :</label><input id="jeux-${c+i}" type="number" inputmode="decimal" min="0" max="200" step="0.5" placeholder="Ex. 22,5" data-jeux-key="${c+i+'j'}" aria-label="Nombre total de jeux, groupe ${c}, match ${i+1}"></div></div><small>Exemple : « Plus de 22,5 jeux ». Additionne les jeux des deux joueurs sur tous les sets. Ce choix apparaît automatiquement sur tes grilles.</small></div>`:''}<div class="date" id="date-${c+i}"></div>`;
+     wrap.innerHTML=`<label>Match ${i+1}<span class="sport-inline">${slotEmoji(c,i)} ${SPORT_NAMES[s]}</span></label>${s==='football'?leagueBarHTML(c,i):s==='rugby'?rugbyBarHTML(c,i):''}<div class="fixture">${teamInputHTML(c,i,'a',s)}<select class="ball sport-ball-select" data-ball-group="${c}" data-ball-match="${i}" title="Clique ici pour choisir le sport du match" aria-label="Sport du match ${i+1} de la ligne ${r+1}">${SPORT_KEYS.map(k=>`<option value="${k}">${SPORT_ICONS[k]} ${SPORT_NAMES[k]}</option>`).join('')}</select>${teamInputHTML(c,i,'b',s)}<select class="prono" aria-label="${c} match ${i+1} pronostic" data-key="${c+i+'p'}">${tcMarketHTML(s,getSlotData(c,i)[c+i+'p']||'')}</select></div>${tcMarketWidgets(c+i+'p',s,getSlotData(c,i)[c+i+'p']||'','detail')}<button type="button" class="tc-match-advice" data-advice-group="${c}" data-advice-index="${i}">🧠 Conseil IA · forme, absences et points</button>${tcOddsHTML(c,i)}${s==='tennis'?`<div class="jeux-field"><div class="jeux-title">🎾 NOMBRE DE JEUX — TOTAL DU MATCH</div><div class="jeux-controls"><div><label for="jeux-mode-${c+i}">Mon pronostic :</label><select id="jeux-mode-${c+i}" class="jeux-mode" aria-label="Type de pronostic sur le nombre de jeux, groupe ${c}, match ${i+1}"><option value="">Choisir…</option><option value="JEUX_PLUS">Plus de jeux</option><option value="JEUX_MOINS">Moins de jeux</option><option value="JEUX_EXACT">Nombre exact</option></select></div><div><label class="jeux-number-label" for="jeux-${c+i}">Nombre de jeux / seuil :</label><input id="jeux-${c+i}" type="number" inputmode="decimal" min="0" max="200" step="0.5" placeholder="Ex. 22,5" data-jeux-key="${c+i+'j'}" aria-label="Nombre total de jeux, groupe ${c}, match ${i+1}"></div></div><small>Exemple : « Plus de 22,5 jeux ». Additionne les jeux des deux joueurs sur tous les sets. Ce choix apparaît automatiquement sur tes grilles.</small></div>`:''}<div class="date" id="date-${c+i}"></div>`;
      box.appendChild(wrap);
    }
    holder.appendChild(box);
@@ -2136,7 +2136,7 @@ function bcMatchHTML(r,i,c){
  const sportSelect=`<select class="bc-sport" data-bc-sport="${r}-${i}" aria-label="Sport ligne ${r+1} match ${i+1}">${SPORT_KEYS.map(k=>`<option value="${k}" ${s===k?'selected':''}>${SPORT_ICONS[k]} ${SPORT_NAMES[k]}</option>`).join('')}</select>`;
  const league=s==='football'?`<select class="bc-country" data-bc-country="${r}-${i}" aria-label="Pays ou coupe ligne ${r+1} match ${i+1}">${bcCountryOptions(p)}</select><select class="bc-division" data-bc-division="${r}-${i}" aria-label="Championnat ligne ${r+1} match ${i+1}">${bcDivisionOptions(p)}</select>`:'';
  const list=s==='football'?` list="bc-team-list-${r}-${i}"`:'';
- return `<div class="bc-match"><div class="bc-match-label"><b>${String(r*2+i+1).padStart(2,'0')}</b><span>Match ${i+1}</span></div><div class="bc-match-edit"><div class="bc-match-top">${sportSelect}${league}</div><div class="bc-teams"><input type="text" autocomplete="off" data-bc-team="${c+i+'a'}" ${list} value="${safe(d[c+i+'a']||'')}" placeholder="${safe(participantPlaceholder(s,1))}" aria-label="Domicile ou joueur 1, ligne ${r+1} match ${i+1}"><span class="bc-versus">VS</span><input type="text" autocomplete="off" data-bc-team="${c+i+'b'}" ${list} value="${safe(d[c+i+'b']||'')}" placeholder="${safe(participantPlaceholder(s,2))}" aria-label="Extérieur ou joueur 2, ligne ${r+1} match ${i+1}"></div>${s==='football'?bcTeamList(r,i,c):''}${d[c+i+'date']?`<div class="bc-date">📅 ${safe(d[c+i+'date'])}</div>`:''}</div></div>`;
+ return `<div class="bc-match"><div class="bc-match-label"><b>${String(r*2+i+1).padStart(2,'0')}</b><span>Match ${i+1}</span></div><div class="bc-match-edit"><div class="bc-match-top">${sportSelect}${league}</div><div class="bc-teams"><input type="text" autocomplete="off" data-bc-team="${c+i+'a'}" ${list} value="${safe(d[c+i+'a']||'')}" placeholder="${safe(participantPlaceholder(s,1))}" aria-label="Domicile ou joueur 1, ligne ${r+1} match ${i+1}"><span class="bc-versus">VS</span><input type="text" autocomplete="off" data-bc-team="${c+i+'b'}" ${list} value="${safe(d[c+i+'b']||'')}" placeholder="${safe(participantPlaceholder(s,2))}" aria-label="Extérieur ou joueur 2, ligne ${r+1} match ${i+1}"></div>${s==='football'?bcTeamList(r,i,c):''}<button type="button" class="tc-match-advice" data-advice-group="${c}" data-advice-index="${i}">🧠 Conseil IA du match</button>${d[c+i+'date']?`<div class="bc-date">📅 ${safe(d[c+i+'date'])}</div>`:''}</div></div>`;
 }
 function bcWritePick(k,v){setVal(k,v);const detailed=document.querySelector('#groups [data-key="'+k+'"]');if(detailed){detailed.value=tcCustomIsActive(getSlotSport(k[0],Number(k[1])),v)?TC_CUSTOM_MARKET:v;updateJeuxField(detailed)}}
 function renderBulletinGroups(){
@@ -2810,6 +2810,79 @@ main>section,.groups-section{padding:9px!important;margin:5px 0!important}
  document.querySelector('[data-view="ia"]').addEventListener('click',prepare);
  document.getElementById('tc-ia-copy').addEventListener('click',async()=>{if(!area.value)prepare();if(!area.value)return;try{await navigator.clipboard.writeText(area.value);status.textContent='Demande copiée : colle-la dans ChatGPT.'}catch(e){area.focus();area.select();status.textContent='Texte sélectionné : utilise Ctrl+C puis colle dans ChatGPT.'}});
  document.getElementById('tc-ia-open').addEventListener('click',()=>{if(!area.value)prepare();window.open('https://chatgpt.com/','_blank','noopener,noreferrer');status.textContent='ChatGPT ouvert : utilise Copier pour ChatGPT, puis colle avec Ctrl+V.'});
+})();
+</script>
+
+<style id="tc-conseil-rencontre-style">
+.tc-match-advice{margin:5px 0;padding:6px 9px!important;font-size:12px!important;background:#153d59!important;color:white!important;border:1px solid #76bfe5!important;border-radius:7px!important;cursor:pointer}
+.tc-match-advice:hover{background:#22678c!important}
+#tc-match-advice-dialog{width:min(700px,96vw);max-width:96vw;max-height:90vh;overflow:auto;border:1px solid #83a9bb;border-radius:13px;padding:17px;background:white;color:#192c39;box-shadow:0 12px 45px #0006}
+#tc-match-advice-dialog::backdrop{background:#081823b5}
+#tc-match-advice-dialog h2{font-size:19px;margin:0 0 9px}
+#tc-match-advice-dialog p{font-size:13px}
+.tc-advice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tc-advice-grid label{font-size:12px;color:#203b4a}
+.tc-advice-grid input,.tc-advice-grid textarea{display:block;width:100%;margin:4px 0 0;padding:6px;background:#f8fafc;color:#162d3a}
+.tc-advice-actions{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0}
+.tc-advice-actions button{font-size:12px!important;padding:8px!important}
+#tc-advice-text{width:100%;min-height:150px;font-size:12px;background:#f7fafc;color:#162d3a}
+@media(max-width:600px){.tc-advice-grid{grid-template-columns:1fr}}
+</style>
+<dialog id="tc-match-advice-dialog">
+<h2>🧠 Conseil IA — analyse de la rencontre</h2>
+<p id="tc-advice-fixture"></p>
+<p>Tu peux ajouter des données que tu connais. La demande transmise à ChatGPT sollicitera des statistiques récentes, la forme, les absences vérifiées et une projection du total de points ou de buts.</p>
+<div class="tc-advice-grid">
+<label>Forme équipe ou joueur 1<input data-tc-note="forme1" placeholder="5 derniers matchs"></label>
+<label>Forme équipe ou joueur 2<input data-tc-note="forme2" placeholder="5 derniers matchs"></label>
+<label>Absences confirmées équipe ou joueur 1<textarea data-tc-note="abs1" rows="2" placeholder="Joueur, raison, source"></textarea></label>
+<label>Absences confirmées équipe ou joueur 2<textarea data-tc-note="abs2" rows="2" placeholder="Joueur, raison, source"></textarea></label>
+<label>Moyenne points/buts marqués équipe 1<input data-tc-note="points1" placeholder="Ex. 28,5"></label>
+<label>Moyenne points/buts marqués équipe 2<input data-tc-note="points2" placeholder="Ex. 21,5"></label>
+<label>Confrontations et autres statistiques<textarea data-tc-note="stats" rows="2" placeholder="Domicile/extérieur, dernières oppositions"></textarea></label>
+<label>Compétition et date<textarea data-tc-note="date" rows="2" placeholder="Date, heure, compétition"></textarea></label>
+</div>
+<div class="tc-advice-actions">
+<button id="tc-advice-prepare" type="button">🔄 Préparer l'analyse</button>
+<button id="tc-advice-copy" type="button">📋 Copier</button>
+<button id="tc-advice-chatgpt" type="button">↗ ChatGPT</button>
+<button id="tc-advice-close" type="button">Fermer</button>
+</div>
+<p id="tc-advice-status" role="status"></p>
+<textarea id="tc-advice-text" aria-label="Demande à transmettre à ChatGPT"></textarea>
+<p class="hint">Pas de récupération automatique de statistiques ni de réponse IA directement dans TotoCalcio sans service de données et API connectés. Toute estimation reste incertaine.</p>
+</dialog>
+<script id="tc-conseil-rencontre-script">
+(function(){
+ const dlg=document.getElementById('tc-match-advice-dialog'),out=document.getElementById('tc-advice-text'),status=document.getElementById('tc-advice-status');
+ const notes=Array.from(dlg.querySelectorAll('[data-tc-note]'));
+ let current=null;
+ function noteKey(c,i){return 'tc_match_advice_v1_'+getSlotSport(c,i)+'_'+GROUPS.findIndex(row=>row.includes(c))+'_'+i;}
+ function save(){if(!current)return;const obj={};notes.forEach(n=>obj[n.dataset.tcNote]=n.value);try{localStorage.setItem(noteKey(current.c,current.i),JSON.stringify(obj))}catch(e){}}
+ function prepare(){
+  if(!current)return;
+  save();
+  const {c,i}=current,s=getSlotSport(c,i),d=getSlotData(c,i)||{};
+  const home=String(d[c+i+'a']||'').trim(),away=String(d[c+i+'b']||'').trim();
+  const extras=notes.filter(n=>n.value.trim()).map(n=>n.closest('label').firstChild.textContent.trim()+': '+n.value.trim()).join('\n');
+  const competition=s==='rugby'?((typeof RUGBY_COMPETITIONS!=='undefined')?RUGBY_COMPETITIONS[localStorage.getItem(rugbyLeagueKey(c,i))||'top14']:'Rugby'):'';
+  out.value='Analyse cette rencontre sportive en français à partir de sources récentes et datées. Vérifie d’abord que les deux participants, la compétition et la date correspondent bien au match. Fournis : statistiques sur les 5 à 10 derniers matchs, forme actuelle, points/buts marqués et encaissés, performances domicile et extérieur, confrontations, joueurs absents ou incertains avec confirmation et source, et informations tactiques utiles. Estime avec prudence les probabilités 1/X/2 si applicable, une fourchette de points/buts totaux attendus et les arguments pour Plus/Moins. '+(s==='rugby'?'Pour le rugby, compare notamment les seuils 35, 40, 45, 50, 55, 60, 65 et 70 points. ':'')+'Donne un bilan clair, distingue faits vérifiés, hypothèses et estimations. N’invente ni statistiques ni absences et signale explicitement ce que tu ne peux pas vérifier. Ne promets aucun résultat.\n\nSport : '+(SPORT_NAMES[s]||s)+'\nCompétition : '+(competition||'À vérifier')+'\nMatch : '+(home||'Équipe 1 non renseignée')+' contre '+(away||'Équipe 2 non renseignée')+'\n'+(d[c+i+'date']?'Date saisie : '+d[c+i+'date']+'\n':'')+(extras?'\nNotes personnelles à vérifier :\n'+extras:'');
+  status.textContent='Demande prête pour cette rencontre : copie-la puis ouvre ChatGPT.';
+ }
+ function open(c,i){
+  current={c,i};let obj={};try{obj=JSON.parse(localStorage.getItem(noteKey(c,i))||'{}')}catch(e){}
+  notes.forEach(n=>n.value=obj[n.dataset.tcNote]||'');
+  const d=getSlotData(c,i)||{};
+  document.getElementById('tc-advice-fixture').textContent=(SPORT_NAMES[getSlotSport(c,i)]||'Rencontre')+' · '+(d[c+i+'a']||'Équipe 1 à saisir')+' — '+(d[c+i+'b']||'Équipe 2 à saisir');
+  prepare();
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');
+ }
+ document.addEventListener('click',e=>{const b=e.target.closest('.tc-match-advice');if(b){e.preventDefault();open(b.dataset.adviceGroup,Number(b.dataset.adviceIndex));}});
+ notes.forEach(n=>n.addEventListener('input',save));
+ document.getElementById('tc-advice-prepare').addEventListener('click',prepare);
+ document.getElementById('tc-advice-copy').addEventListener('click',async()=>{prepare();try{await navigator.clipboard.writeText(out.value);status.textContent='Texte copié. Colle-le dans ChatGPT.'}catch(e){out.focus();out.select();status.textContent='Texte sélectionné : Ctrl+C puis Ctrl+V dans ChatGPT.'}});
+ document.getElementById('tc-advice-chatgpt').addEventListener('click',()=>{prepare();window.open('https://chatgpt.com/','_blank','noopener,noreferrer');status.textContent='Ouvre ChatGPT, puis copie/colle la demande depuis cette fenêtre.'});
+ document.getElementById('tc-advice-close').addEventListener('click',()=>dlg.close?dlg.close():dlg.removeAttribute('open'));
 })();
 </script>
 <script src="mise-a-jour.js"></script>
