@@ -581,6 +581,7 @@ const TC_MARKET_TEMPLATES={
  football:[['Buteur : ','Buteur — saisir le nom du joueur'],['Premier buteur : ','Premier buteur — saisir le joueur'],['Dernier buteur : ','Dernier buteur — saisir le joueur'],['Joueur averti : ','Carton joueur — saisir le nom'],['Tir cadré joueur : ','Tirs cadrés — saisir le joueur et le seuil'],['Passe décisive : ','Passe décisive — saisir le joueur'],['Score exact : ','Autre score exact — saisir le score']],
  basket:[['Meilleur marqueur : ','Meilleur marqueur — saisir le joueur'],['Points joueur : ','Points joueur — saisir joueur et seuil'],['Rebonds joueur : ','Rebonds joueur — saisir joueur et seuil'],['Passes joueur : ','Passes joueur — saisir joueur et seuil'],['3 points joueur : ','Paniers à 3 points — joueur et seuil']],
  tennis:[['Aces joueur : ','Aces — joueur et seuil'],['Doubles fautes : ','Doubles fautes — joueur et seuil'],['Breaks joueur : ','Breaks — joueur et seuil']],
+ rugby:[['Score exact : ','Score exact — saisir le score'],['Marqueur essai : ','Joueur qui marque un essai']],
  pingpong:[['Score exact en sets : ','Autre score exact — saisir le score']]
 };
 function tcPairs(prefix, values, suffix=''){return values.map(v=>[prefix+v+suffix,prefix+v+suffix])}
@@ -623,7 +624,7 @@ function tcMarketCatalog(s){
  sections.push({title:'✍️ Paris sur joueur / sur mesure',items:TC_MARKET_TEMPLATES[s].map(([prefix,label])=>[TC_CUSTOM_MARKET+prefix,label])});
  return sections;
 }
-const TC_MARKET_CATALOG=Object.fromEntries(['football','basket','tennis','pingpong'].map(s=>[s,tcMarketCatalog(s)]));
+const TC_MARKET_CATALOG=Object.fromEntries(['football','basket','tennis','pingpong','rugby'].map(s=>[s,tcMarketCatalog(s)]));
 function tcMarketIsKnown(s,v){return TC_MARKET_CATALOG[s].some(g=>g.items.some(([x])=>x===v))}
 function tcMarketHTML(s,current='',excludeMain=false,query=''){
  const q=query.trim().toLocaleLowerCase('fr');
