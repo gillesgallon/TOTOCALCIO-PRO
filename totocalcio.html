@@ -2696,4 +2696,49 @@ $('print').onclick=()=>{expanded=true;render();window.print()};
 nav.onclick=()=>{showView('quatre-triples');render()};render();
 })();
 </script>
+
+<style id="tc-cinq-triples-css">
+#view-cinq-triples .ct-panel{border:1px solid #b8cbdc;background:#eef5fc;color:#163148;padding:12px;border-radius:10px;margin:12px 0}
+#view-cinq-triples .ct-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+#view-cinq-triples .ct-ticket{border:2px solid #ca4252;border-radius:10px;background:#fff;padding:12px;margin:10px 0}
+#view-cinq-triples .ct-col{display:inline-block;border-radius:5px;padding:4px 8px;margin:3px;font-weight:800}
+#view-cinq-triples .ct-col.green{background:#1b914b;color:white}
+#view-cinq-triples .ct-col.blue{background:#2768c4;color:white}
+#view-cinq-triples .ct-col.red{background:#bb273f;color:white}
+#view-cinq-triples .ct-fixtures{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:8px}
+#view-cinq-triples .ct-fixture{background:#f1f5f9;color:#233047;padding:8px;border-radius:7px}
+@media print{#view-cinq-triples .ct-controls{display:none!important}}
+</style>
+<div class="view" id="view-cinq-triples"><section>
+<h2>5 triples — de 2 à 3 groupes verts et minimum 1 rouge</h2>
+<p class="hint">Cinq séries de trois groupes : ABC, DEF, GHI, JKL et MNO. Une lettre retenue dans chaque série, soit cinq groupes et dix rencontres par grille. Les couleurs suivent celles des groupes existants.</p>
+<div class="ct-panel"><strong>Conditions :</strong> 2 ou 3 groupes verts inclus, et au moins 1 groupe rouge. Les autres combinaisons sont exclues.</div>
+<div class="ct-controls no-print"><button type="button" id="ct-prev">← Précédente</button><label>Grille <select id="ct-select"></select></label><button type="button" id="ct-next">Suivante →</button><button type="button" id="ct-all">Voir toutes les grilles</button><button type="button" id="ct-copy">Copier</button><button type="button" id="ct-print">Imprimer / PDF</button></div>
+<p id="ct-count" role="status"></p><div id="ct-results"></div>
+<p class="hint">Développement intégral conditionné, sans garantie de résultat. Le nombre de grilles est calculé avant toute mise.</p>
+</section></div>
+<script id="tc-cinq-triples-js">
+(function(){'use strict';
+const rows=['ABC','DEF','GHI','JKL','MNO'];
+const groupColor=c=>{const row=GROUPS.find(x=>x.includes(c));return row?COLORS[row.indexOf(c)]:'blue'};
+const all=rows.reduce((arr,row)=>arr.flatMap(s=>[...row].map(c=>s+c)),['']);
+const grids=all.filter(s=>{let green=0,red=0;for(const c of s){const color=groupColor(c);if(color==='green')green++;if(color==='red')red++;}return green>=2&&green<=3&&red>=1;});
+const view=document.getElementById('view-cinq-triples');document.querySelector('main').append(view);
+const nav=document.createElement('button');nav.type='button';nav.dataset.view='cinq-triples';nav.textContent='5 triples · 2–3 verts + 1 rouge';document.querySelector('.nav').append(nav);
+const $=id=>document.getElementById('ct-'+id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\u0027':'&#39;'}[c]));
+let current=0,expanded=false;
+function ticket(combo,i){const cs=[...combo],g=cs.filter(c=>groupColor(c)==='green').length,r=cs.filter(c=>groupColor(c)==='red').length;return '<article class="ct-ticket"><h3>Grille '+(i+1)+' / '+grids.length+' — '+cs.join(' · ')+'</h3><p>'+g+' verts · '+r+' rouge(s)</p><div>'+cs.map(c=>'<span class="ct-col '+groupColor(c)+'">'+c+'</span>').join('')+'</div><div class="ct-fixtures">'+cs.map(c=>'<div class="ct-fixture"><strong>Groupe '+c+'</strong>'+[0,1].map(j=>{const d=getSlotData(c,j);return '<p>'+esc(d[c+j+'a']||'Équipe 1')+' – '+esc(d[c+j+'b']||'Équipe 2')+'<br>Pronostic : '+esc(d[c+j+'p']||'—')+'</p>'}).join('')+'</div>').join('')+'</div></article>'}
+function render(){const entries=expanded?grids.map((v,i)=>[v,i]):[[grids[current],current]];$('results').innerHTML=entries.map(([v,i])=>ticket(v,i)).join('');$('count').textContent=grids.length+' grilles retenues sur '+all.length+' combinaisons intégrales · '+(expanded?'Toutes les grilles':'Grille '+(current+1));$('select').innerHTML=grids.map((s,i)=>'<option value="'+i+'">'+(i+1)+' — '+s+'</option>').join('');$('select').value=String(current);$('prev').disabled=expanded||current===0;$('next').disabled=expanded||current>=grids.length-1;$('all').textContent=expanded?'Une seule grille':'Voir toutes les grilles';}
+$('prev').onclick=()=>{current=Math.max(0,current-1);render()};
+$('next').onclick=()=>{current=Math.min(grids.length-1,current+1);render()};
+$('select').onchange=()=>{current=Number($('select').value);expanded=false;render()};
+$('all').onclick=()=>{expanded=!expanded;render()};
+$('copy').onclick=()=>{const s='TOTOCALCIO PRO — 5 triples — 2 à 3 verts et au moins 1 rouge\\n'+grids.map((v,i)=>(i+1)+'. '+[...v].join(' - ')).join('\\n');if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(s).then(()=>$('count').textContent+=' · Liste copiée').catch(()=>fallback(s));else fallback(s)};
+function fallback(s){const a=document.createElement('textarea');a.value=s;document.body.append(a);a.select();document.execCommand('copy');a.remove();$('count').textContent+=' · Liste copiée'}
+$('print').onclick=()=>{expanded=true;render();window.print()};
+nav.onclick=()=>{showView('cinq-triples');render()};
+render();
+})();
+</script>
 </body></html>
