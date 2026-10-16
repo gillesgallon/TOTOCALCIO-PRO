@@ -74,3 +74,59 @@ b.onclick=check;r.onclick=function(){location.reload();};check();setInterval(fun
   `;
   document.head.appendChild(style);
 })();
+
+
+/* TotoCalcio PRO : saisie des pronostics en tableau ultra-compact */
+(function(){
+ var style=document.createElement('style');
+ style.id='tc-pronos-ultra-compacts';
+ style.textContent=`
+ #bulletin-groups{gap:5px!important;margin:3px 0!important}
+ #bulletin-groups .bc-line{border-radius:7px!important;box-shadow:none!important}
+ #bulletin-groups .bc-line-head{padding:3px 7px!important;min-height:24px!important}
+ #bulletin-groups .bc-line-head strong{font-size:11px!important}
+ #bulletin-groups .bc-badge{height:20px!important;min-width:20px!important;border-radius:4px!important;font-size:11px!important;box-shadow:none!important}
+ #bulletin-groups .bc-line-body{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)!important;align-items:start!important;gap:6px!important;padding:5px!important}
+ #bulletin-groups .bc-pronos-title{display:none!important}
+ #bulletin-groups .bc-matches{gap:4px!important}
+ #bulletin-groups .bc-match{grid-template-columns:22px minmax(0,1fr)!important;gap:4px!important;padding:4px!important;border-radius:5px!important}
+ #bulletin-groups .bc-match-label{padding:1px 0!important;font-size:0!important;gap:0!important}
+ #bulletin-groups .bc-match-label b{font-size:11px!important}
+ #bulletin-groups .bc-match-label span{display:none!important}
+ #bulletin-groups .bc-match-edit{gap:3px!important}
+ #bulletin-groups .bc-match-top{gap:3px!important;flex-wrap:nowrap!important}
+ #bulletin-groups .bc-match select,#bulletin-groups .bc-match input{min-height:24px!important;padding:2px 4px!important;font-size:10px!important;border-radius:4px!important}
+ #bulletin-groups .bc-sport{min-width:0!important;max-width:95px!important;flex:0 1 80px!important}
+ #bulletin-groups .bc-country,#bulletin-groups .bc-division{min-width:0!important;max-width:none!important;flex:1 1 0!important}
+ #bulletin-groups .bc-teams{gap:3px!important}
+ #bulletin-groups .bc-versus{font-size:9px!important}
+ #bulletin-groups .bc-date{font-size:9px!important}
+ #bulletin-groups .bc-pronos,#bulletin-groups .bc-pronos.two{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important}
+ #bulletin-groups .bc-pronos.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #bulletin-groups .bc-group{display:block!important;padding:3px!important;border-radius:5px!important;min-width:0!important}
+ #bulletin-groups .bc-group-top{display:flex!important;min-height:20px!important;gap:3px!important;padding:1px 3px!important;margin:0 0 2px!important;font-size:0!important}
+ #bulletin-groups .bc-group-top>span:not(.bc-badge){display:none!important}
+ #bulletin-groups .bc-group-picks{display:grid!important;grid-template-columns:1fr!important;gap:2px!important;padding:0!important}
+ #bulletin-groups .bc-pickrow{display:flex!important;align-items:center!important;gap:3px!important;margin:0!important;flex-wrap:nowrap!important;min-height:24px!important}
+ #bulletin-groups .bc-pickrow-label{width:18px!important;flex:0 0 18px!important;font-size:10px!important}
+ #bulletin-groups .bc-signs{gap:2px!important;flex:0 0 auto!important}
+ #bulletin-groups .bc-sign{min-width:23px!important;min-height:23px!important;height:23px!important;padding:2px 3px!important;font-size:11px!important;border-radius:4px!important}
+ #bulletin-groups .bc-extra{min-width:0!important;max-width:none!important;flex:1 1 55px!important;min-height:23px!important;padding:1px 2px!important;font-size:9px!important}
+ #bulletin-groups .bc-standard-pick{min-height:23px!important;font-size:10px!important;padding:2px!important;width:100%!important}
+ #bulletin-groups .bc-jeux{margin:2px 0!important;padding:2px!important}
+ #bulletin-groups .bc-go-systems{padding:5px 10px!important;font-size:11px!important}
+ @media(max-width:1150px){
+  #bulletin-groups .bc-line-body{grid-template-columns:1fr!important}
+  #bulletin-groups .bc-pronos,#bulletin-groups .bc-pronos.two{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ }
+ @media(max-width:570px){
+  #bulletin-groups .bc-pronos,#bulletin-groups .bc-pronos.two{grid-template-columns:1fr!important}
+  #bulletin-groups .bc-group{display:grid!important;grid-template-columns:24px minmax(0,1fr)!important;gap:3px!important}
+  #bulletin-groups .bc-group-picks{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #bulletin-groups .bc-pickrow{flex-wrap:wrap!important}
+  #bulletin-groups .bc-match-top{flex-wrap:wrap!important}
+ }
+ @media print{#tc-pronos-ultra-compacts{display:none!important}}
+ `;
+ document.head.appendChild(style);
+})();
