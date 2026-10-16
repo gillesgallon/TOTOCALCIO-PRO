@@ -1,5 +1,5 @@
 (function(){'use strict';
-var url='https://api.github.com/repos/gillesgallon/TOTOCALCIO-PRO/commits?path=totocalcio.html&per_page=1';
+var url='https://api.github.com/repos/gillesgallon/TOTOCALCIO-PRO/commits?per_page=1';
 var panel=document.createElement('div');panel.id='tc-update-panel';
 panel.style.cssText='position:fixed;right:12px;bottom:12px;z-index:10000;background:#152c40;color:white;padding:10px;border-radius:9px;box-shadow:0 3px 15px #0005;font:13px Arial;max-width:320px';
 panel.innerHTML='<span id="tc-update-status">Vérification de la version…</span> <button type="button" id="tc-update-check">Vérifier</button> <button type="button" id="tc-update-reload" hidden>Actualiser</button>';
@@ -10,13 +10,13 @@ function check(){b.disabled=true;fetch(url,{cache:'no-store'}).then(function(x){
 b.onclick=check;r.onclick=function(){location.reload();};check();setInterval(function(){if(!document.hidden)check();},600000);
 })();
 
-/* Apparence compacte TOTOCALCIO : boutons gris clair, texte noir et selection orange-rouge */
+/* Boutons compacts : noir / bleu clair, sports jaunes, selection orange */
 (function(){
   'use strict';
   var style=document.createElement('style');
   style.id='tc-boutons-compacts-2026';
   style.textContent=`
-  :root{--tc-btn-bg:#e5e7eb;--tc-btn-border:#c3c8cf;--tc-btn-ink:#171b21;--tc-btn-hot:#f15a24;--tc-btn-hot2:#dc3828}
+  :root{--tc-btn-bg:#101b28;--tc-btn-border:#395b71;--tc-btn-ink:#8cddff;--tc-btn-hot:#f15a24;--tc-btn-hot2:#dc3828}
   button:not(.sport-logo-button):not(.sport-ball-button):not(.ticket-sport-button),
   input[type="button"],input[type="submit"],input[type="reset"],
   .nav button,.sport-picker button,.sport-logo-menu button,.match-sport-menu button{
@@ -45,7 +45,7 @@ b.onclick=check;r.onclick=function(){location.reload();};check();setInterval(fun
   }
   button:not(.sport-logo-button):not(.sport-ball-button):not(.ticket-sport-button):hover,
   input[type="button"]:hover,input[type="submit"]:hover,input[type="reset"]:hover{
-    background:#ffcfb7!important;border-color:#f18a5b!important;color:#1c1512!important;
+    background:#24485e!important;border-color:#75cfff!important;color:#dcf6ff!important;
   }
   button.active:not(.sport-logo-button):not(.sport-ball-button),
   button[aria-pressed="true"]:not(.sport-logo-button):not(.sport-ball-button),
@@ -63,14 +63,14 @@ b.onclick=check;r.onclick=function(){location.reload();};check();setInterval(fun
   .nav,.toolbar,.sport-picker,.ct-controls{gap:5px!important}
   .nav{padding:6px 0!important;margin-bottom:9px!important}
   .sport-picker{padding:8px 10px!important;margin-bottom:10px!important}
-  .sport-picker button{flex:0 1 auto!important}
-  .toolbar{align-items:center!important}
+  .sport-picker button{flex:0 1 auto!important;background:#ffde4d!important;color:#121212!important;border-color:#d6a92b!important}\n  .sport-picker button:hover{background:#ffe990!important;color:#111!important}\n  .sport-picker button.active{background:#f15a24!important;color:#fff!important}
+  .toolbar{align-items:center!important}\n  .nav button{min-height:29px!important;max-width:100%;font-size:12px!important;line-height:1.2!important}
   /* Garder les boutons de logo et ballon intacts : ce sont des selecteurs visuels speciaux. */
   @media(max-width:680px){
     .nav button,.sport-picker button{flex:0 1 auto!important}
     button:not(.sport-logo-button):not(.sport-ball-button):not(.ticket-sport-button){font-size:11.5px!important;padding:5px 7px!important}
   }
-  @media print{#tc-boutons-compacts-2026{display:none}}
+  @media print{#tc-update-panel{display:none!important}}
   `;
   document.head.appendChild(style);
 })();
