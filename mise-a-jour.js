@@ -130,3 +130,33 @@ b.onclick=check;r.onclick=function(){location.reload();};check();setInterval(fun
  `;
  document.head.appendChild(style);
 })();
+
+
+/* Suppression visuelle des cotes et densification des blocs de pronostics */
+(function(){
+ const style=document.createElement('style');
+ style.id='tc-sans-cotes-pronos-serres';
+ style.textContent=`
+ /* Les cotes ne sont plus affichées, sans altérer les calculs ni les données. */
+ #tc-all-odds,.tc-all-odds,.tc-bookmaker-field,.tc-odd-on-ticket,
+ .tc-odds-intro,.tc-all-odds-grid{display:none!important}
+ #bulletin-groups .bc-line{margin:0!important;border-radius:5px!important}
+ #bulletin-groups .bc-line-head{min-height:20px!important;padding:2px 5px!important}
+ #bulletin-groups .bc-line-body{padding:3px!important;gap:4px!important}
+ #bulletin-groups .bc-matches{gap:2px!important}
+ #bulletin-groups .bc-match{padding:2px 3px!important;gap:3px!important;min-height:0!important}
+ #bulletin-groups .bc-match-edit{gap:2px!important}
+ #bulletin-groups .bc-match-top{gap:2px!important}
+ #bulletin-groups .bc-group{padding:2px!important;border-radius:4px!important}
+ #bulletin-groups .bc-group-top{margin:0 0 1px!important;min-height:17px!important}
+ #bulletin-groups .bc-badge{height:18px!important;min-width:18px!important;font-size:10px!important}
+ #bulletin-groups .bc-pickrow{min-height:22px!important;margin:0!important}
+ #bulletin-groups .bc-sign{height:22px!important;min-height:22px!important;min-width:22px!important;padding:1px 3px!important}
+ #bulletin-groups .bc-extra{min-height:22px!important}
+ #bulletin-groups .bc-group-picks{gap:1px!important}
+ #bulletin-groups .bc-pronos{gap:3px!important}
+ #bulletin-groups .bc-match select,#bulletin-groups .bc-match input{min-height:22px!important}
+ @media(min-width:1151px){#bulletin-groups .bc-line-body{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)!important}}
+ `;
+ document.head.appendChild(style);
+})();
