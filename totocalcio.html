@@ -3816,4 +3816,28 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 body header.brand-header,body header{background:#1e5aa8!important;background-color:#1e5aa8!important;background-image:none!important;color:#fff!important;border-bottom:4px solid #16477f!important}
 body header.brand-header h1,body header.brand-header .subtitle,body header h1,body header .subtitle{color:#fff!important}
 </style>
+
+<style id="tc-sports-header-validated">
+body header.brand-header,body header{background:#1e5aa8!important;background-image:none!important;border-bottom:3px solid #17487c!important;min-height:94px!important;position:relative!important}
+body header.brand-header .brand-copy h1,body header.brand-header h1{display:none!important}
+body header.brand-header .subtitle{display:none!important}
+body header.brand-header .brand-wrap{display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;min-height:86px!important}
+#tc-five-sports-banner{width:min(100%,700px);min-height:82px;display:flex;align-items:center;justify-content:center;gap:clamp(10px,3vw,38px);padding:10px 12px;flex-wrap:nowrap;line-height:1}
+#tc-five-sports-banner span{display:flex;align-items:center;justify-content:center;font-size:clamp(30px,4vw,54px);filter:drop-shadow(0 4px 5px #07264488)}
+@media(max-width:620px){#tc-five-sports-banner{min-height:58px;gap:8px;padding:8px 2px}#tc-five-sports-banner span{font-size:clamp(23px,5.4vw,37px)}body header.brand-header .brand-wrap{min-height:62px!important}}
+</style>
+<script id="tc-sports-header-insert">
+(function(){
+function setup(){
+const header=document.querySelector('header.brand-header')||document.querySelector('header');
+if(!header||document.getElementById('tc-five-sports-banner'))return;
+const wrap=header.querySelector('.brand-wrap')||header;
+const banner=document.createElement('div');banner.id='tc-five-sports-banner';banner.setAttribute('role','img');banner.setAttribute('aria-label','Football, basketball, tennis, tennis de table et rugby');
+for(const [emoji,title] of [['⚽','Football'],['🏀','Basketball'],['🎾','Tennis'],['🏓','Ping-pong'],['🏉','Rugby']]){const span=document.createElement('span');span.title=title;span.textContent=emoji;banner.appendChild(span);}
+wrap.prepend(banner);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
+</script>
+
 </body></html>
