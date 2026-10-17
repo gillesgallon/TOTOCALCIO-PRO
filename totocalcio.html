@@ -3694,7 +3694,31 @@ function initialize(){
  }
  primary.addEventListener('change',intercept,true);
  const beginner=document.getElementById('tc-beginner-select');
- if(beginner){const group=document.createElement('optgroup');group.label='30 systèmes';SYSTEMS.forEach(s=>group.add(new Option(s.name,s.id)));beginner.add(group);}
+ if(beginner){
+  function fillBeginner(){
+   const previous=beginner.value;
+   beginner.querySelectorAll('option[value^="tc30-"],optgroup[data-tc30]').forEach(el=>el.remove());
+   const group=document.createElement('optgroup');group.label='Les 30 systèmes de jeu';group.dataset.tc30='yes';
+   SYSTEMS.forEach(s=>group.appendChild(new Option(s.name,s.id)));
+   beginner.appendChild(group);
+   if(previous && Array.from(beginner.options).some(o=>o.value===previous))beginner.value=previous;
+  }
+  fillBeginner();
+  // Prior scripts rebuild the beginner selector: restore the 30 options after their update.
+  const beginnerObserver=new MutationObserver(()=>{
+   if(beginner.querySelectorAll('option[value^="tc30-"]').length!==30)fillBeginner();
+  });
+  beginnerObserver.observe(beginner,{childList:true,subtree:true});
+  const open=document.getElementById('tc-beginner-open');
+  if(open)open.addEventListener('click',e=>{
+   if(!/^tc30-\d+$/.test(beginner.value))return;
+   e.stopImmediatePropagation();e.preventDefault();
+   show(beginner.value);
+   const st=document.getElementById('tc-beginner-status');
+   if(st)st.textContent='Système ouvert : les combinaisons sont affichées.';
+   view.scrollIntoView({block:'start',behavior:'smooth'});
+  },true);
+ }
  document.getElementById('tc30-copy').addEventListener('click',()=>{
   if(!active)return;
   const txt=compute(active).data.map((x,i)=>(i+1)+'. '+[...x].join(' - ')).join('\n');
