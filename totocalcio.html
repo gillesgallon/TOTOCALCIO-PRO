@@ -2963,11 +2963,9 @@ function init(){
  const label=document.createElement('label');label.htmlFor='tc-systems-select';label.textContent='▦ Systèmes de jeu';
  const select=document.createElement('select');select.id='tc-systems-select';
  const placeholder=new Option('Choisir un système…','');select.add(placeholder);
- for(const button of original){
-  button.classList.add('tc-system-original');
-  const option=new Option(button.textContent.trim(),button.dataset.view);
-  select.add(option);
- }
+ for(const button of original)button.classList.add('tc-system-original');
+ const names=['2 verts + 1 bleu + 1 rouge','3 verts + 1 bleu','2 verts + 2 bleus','1 vert + 2 bleus + 1 rouge','2 verts + 2 rouges','3 verts + 1 rouge','1 vert + 1 bleu + 2 rouges','4 verts + 1 bleu','2 verts + 3 bleus','1 vert + 3 bleus + 1 rouge'];
+ for(let i=1;i<=30;i++){const type=i<=10?'Intégral':i<=20?'Conditionné':'Réduit 5/6';select.add(new Option('S'+String(i).padStart(2,'0')+' · '+type+' · '+names[(i-1)%10],'tc30-'+i));}
  wrap.append(label,select);
  // Le sélecteur prend la place des anciens boutons; ceux-ci restent actifs en arrière-plan.
  original[0].before(wrap);
@@ -3219,11 +3217,13 @@ function sync(){
 const existing=document.getElementById('tc-systems-select');
 if(!existing)return;
 const selected=select.value;select.innerHTML='<option value="">Sélectionner un système…</option>';
-for(const option of existing.options){if(!option.value||['quatre-triples','cinq-triples'].includes(option.value))continue;const o=new Option(option.textContent,option.value);select.add(o)}
-// Ensure all 30 systems are available directly in this selector.
 const catalog=window.TOTOCALCIO_30_SYSTEMES?.systems;
-if(catalog){for(const s of catalog){if(!Array.from(select.options).some(o=>o.value===s.id))select.add(new Option(s.name,s.id));}}
-if([...select.options].some(o=>o.value===selected))select.value=selected;
+if(catalog&&catalog.length===30){
+ for(const s of catalog)select.add(new Option(s.name,s.id));
+}else{
+ const names=['2 verts + 1 bleu + 1 rouge','3 verts + 1 bleu','2 verts + 2 bleus','1 vert + 2 bleus + 1 rouge','2 verts + 2 rouges','3 verts + 1 rouge','1 vert + 1 bleu + 2 rouges','4 verts + 1 bleu','2 verts + 3 bleus','1 vert + 3 bleus + 1 rouge'];
+ for(let i=1;i<=30;i++){const type=i<=10?'Intégral':i<=20?'Conditionné':'Réduit 5/6';select.add(new Option('S'+String(i).padStart(2,'0')+' · '+type+' · '+names[(i-1)%10],'tc30-'+i));}
+}
 }
 box.querySelector('#tc-beginner-open').addEventListener('click',()=>{
 const id=select.value;if(!id){status.textContent='Choisis d’abord un système.';select.focus();return}
@@ -3674,7 +3674,7 @@ function initialize(){
  view.innerHTML='<section class="tc30-panel"><h2 id="tc30-title">Systèmes de jeu</h2><p id="tc30-descr"></p><p class="tc30-stats" id="tc30-stats"></p><div class="tc30-controls"><button type="button" id="tc30-copy">Copier les combinaisons</button><button type="button" id="tc30-print">Imprimer les grilles</button></div><p class="tc30-help">Chaque combinaison indique un groupe choisi dans chaque ligne : ABC · DEF · GHI · JK · LM · NO. Les couleurs sont celles du système de groupes. La réduction 5/6 est une couverture combinatoire, pas une garantie de gains.</p><div class="tc30-items" id="tc30-items"></div></section>';
  main.append(view);
  const optgroup=document.createElement('optgroup');optgroup.label='30 systèmes — intégral / conditions / réduction';
- SYSTEMS.forEach(s=>optgroup.add(new Option(s.name,s.id)));primary.add(optgroup);
+ if(!Array.from(primary.options).some(o=>o.value==='tc30-1')){SYSTEMS.forEach(s=>optgroup.add(new Option(s.name,s.id)));primary.add(optgroup);}
  // The beginner selector is synchronized by its own mutation observer.
  let active=null;
  function show(id){
