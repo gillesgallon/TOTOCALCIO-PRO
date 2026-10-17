@@ -3029,4 +3029,67 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 @media(min-width:1050px){#groups .groups-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(min-width:1450px){#groups .groups-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 </style>
+<style id="tc-coupon-page-20261017">
+/* Page de travail Mes groupes, inspirée de l'écran de sélection Extra 1X2 */
+#view-groups.active{min-height:calc(100vh - 130px)}
+#view-groups .groups-section{max-width:1500px;margin:0 auto!important;border:0!important;background:transparent!important;box-shadow:none!important;padding:0!important}
+#view-groups .tc-coupon-banner{background:#ba2225;color:white;font-size:20px;font-weight:800;border-radius:8px;padding:10px 16px;margin-bottom:12px;max-width:max-content}
+#view-groups .tc-coupon-layout{display:grid;grid-template-columns:176px minmax(0,1fr) 235px;gap:12px;align-items:start}
+#view-groups .tc-coupon-sidebar,#view-groups .tc-coupon-guide{background:#f4f4f4;border:1px solid #dbc09a;border-radius:11px;padding:12px;color:#292929;position:sticky;top:75px}
+#view-groups .tc-coupon-sidebar h3,#view-groups .tc-coupon-guide h3{font-size:15px;margin:0 0 10px;color:#a91b1d!important}
+#view-groups .tc-coupon-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+#view-groups .tc-coupon-links button{min-height:39px;font-size:15px;background:white!important;color:#ae2223!important;border:1px solid #d7bd96!important}
+#view-groups .tc-coupon-links button[aria-pressed="true"]{background:#bf2024!important;color:#fff!important;border-color:#971719!important}
+#view-groups .tc-coupon-core{background:#f7f7f7;border:1px solid #d9b47c;border-radius:10px;padding:14px;min-width:0}
+#view-groups .tc-coupon-core .groups-grid{display:grid!important;grid-template-columns:minmax(0,1fr)!important;max-width:none!important}
+#view-groups .tc-coupon-core #groups>.group{display:none!important}
+#view-groups .tc-coupon-core #groups>.group.tc-coupon-selected{display:block!important}
+#view-groups .tc-coupon-core .group{padding:13px!important}
+#view-groups .tc-coupon-core .fixture{grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr)!important}
+#view-groups .tc-coupon-core .fixture select.sport-ball-select{width:44px!important;min-width:44px!important;max-width:44px!important}
+#view-groups .tc-coupon-core .fixture input{font-size:15px!important;min-height:39px!important}
+#view-groups .tc-coupon-guide p{font-size:12px;line-height:1.5;color:#333!important}
+#view-groups .tc-coupon-guide button{width:100%;margin:0 0 7px;text-align:left}
+#view-groups .tc-coupon-core>.toolbar{flex-wrap:wrap}
+#view-groups .bc-bulletin{max-width:100%}
+@media(max-width:1050px){#view-groups .tc-coupon-layout{grid-template-columns:145px minmax(0,1fr)}#view-groups .tc-coupon-guide{grid-column:1/-1;position:static!important}}
+@media(max-width:650px){#view-groups .tc-coupon-layout{grid-template-columns:1fr}#view-groups .tc-coupon-sidebar{position:static!important}#view-groups .tc-coupon-links{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media print{#view-groups .tc-coupon-sidebar,#view-groups .tc-coupon-guide,#view-groups .tc-coupon-banner{display:none!important}#view-groups .tc-coupon-layout{display:block}}
+</style>
+<script id="tc-coupon-page-script-20261017">
+(function(){
+function init(){
+const view=document.getElementById('view-groups'),section=view&&view.querySelector('.groups-section'),holder=document.getElementById('groups');
+if(!section||!holder||section.querySelector('.tc-coupon-layout'))return;
+const banner=document.createElement('div');banner.className='tc-coupon-banner';banner.textContent='Sélectionner un groupe à remplir';
+section.prepend(banner);
+const layout=document.createElement('div');layout.className='tc-coupon-layout';
+const sidebar=document.createElement('aside');sidebar.className='tc-coupon-sidebar';sidebar.innerHTML='<h3>🎟 Mes groupes A à O</h3><div class="tc-coupon-links" role="group" aria-label="Choix du groupe"></div>';
+const core=document.createElement('div');core.className='tc-coupon-core';
+const guide=document.createElement('aside');guide.className='tc-coupon-guide';
+guide.innerHTML='<h3>Remplir le coupon</h3><p>Sélectionne un groupe à gauche puis saisis les deux rencontres. Le nom des équipes occupe toute la largeur disponible.</p><p>Les équipes se recopient automatiquement entre les groupes d’une même ligne. Tes pronostics restent indépendants.</p>';
+const buttons=guide;
+function quick(t,fn){let b=document.createElement('button');b.type='button';b.textContent=t;b.addEventListener('click',fn);buttons.appendChild(b)}
+quick('✏️ Modifier mon groupe',()=>holder.querySelector('.tc-coupon-selected input')?.focus());
+quick('💾 Sauvegarder mes pronos',()=>document.querySelector('.nav [data-view="savepronos"]')?.click());
+quick('🧠 Analyse & conseils IA',()=>document.querySelector('.nav [data-view="ia"]')?.click());
+quick('🔄 Remise à zéro',()=>document.getElementById('clear')?.click());
+const start=section.querySelector('.toolbar'); 
+// Les outils de saisie restent dans le panneau principal, sans changer leurs identifiants.
+while(banner.nextSibling){core.appendChild(banner.nextSibling)}
+layout.append(sidebar,core,guide);section.appendChild(layout);
+const menu=sidebar.querySelector('.tc-coupon-links');let selected='A';
+const names='ABCDEFGHIJKLMNO'.split('');
+for(const name of names){let b=document.createElement('button');b.type='button';b.textContent=name;b.setAttribute('aria-label','Afficher groupe '+name);b.addEventListener('click',()=>{selected=name;refresh()});menu.appendChild(b)}
+function refresh(){
+menu.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(names[i]===selected)));
+const boxes=holder.querySelectorAll(':scope > .group');boxes.forEach(b=>{const title=b.querySelector('.group-title')?.textContent||'';b.classList.toggle('tc-coupon-selected',new RegExp('Groupe\\s+'+selected+'(?:\\s|$)').test(title))});
+}
+const observer=new MutationObserver(()=>refresh());
+observer.observe(holder,{childList:true});refresh();
+const nav=document.querySelector('.nav [data-view="groups"]');nav?.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});refresh()});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
 </body></html>
