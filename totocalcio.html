@@ -3770,4 +3770,44 @@ document.addEventListener('tc30-ready',clean);
 })();
 </script>
 
+
+<style id="tc30-standalone-css">
+#tc30-direct{background:#fff;border:2px solid #2e769b;border-radius:10px;padding:14px;margin:12px 0;color:#162d3e}
+#tc30-direct h3{color:#163b55!important;margin:0 0 9px}
+#tc30-direct select{display:block!important;width:100%!important;min-height:42px!important;background:#fff!important;color:#142a3c!important;border:1px solid #4585a4!important;border-radius:7px!important;font-size:14px!important;opacity:1!important}
+#tc30-direct button{background:#1b4b6d!important;color:white!important;padding:10px 16px!important;border-radius:7px!important;margin:8px 0}
+#tc30-direct small{display:block;color:#35566a}
+</style>
+<script id="tc30-standalone-script">
+(function(){
+'use strict';
+const names=['2 verts + 1 bleu + 1 rouge','3 verts + 1 bleu','2 verts + 2 bleus','1 vert + 2 bleus + 1 rouge','2 verts + 2 rouges','3 verts + 1 rouge','1 vert + 1 bleu + 2 rouges','4 verts + 1 bleu','2 verts + 3 bleus','1 vert + 3 bleus + 1 rouge'];
+function start(){
+ if(document.getElementById('tc30-direct'))return;
+ const wizard=document.getElementById('tc-wizard'),old=document.getElementById('tc-beginner-system');
+ const host=old||wizard||document.querySelector('main');
+ if(!host)return;
+ // Replace old beginner selector with a standalone list of only the 30 systems.
+ if(old)old.style.display='none';
+ const panel=document.createElement('section');panel.id='tc30-direct';
+ panel.innerHTML='<h3>Choisir mon système de jeu — 30 systèmes</h3><label for="tc30-direct-select">Sélectionner un système (S01 à S30)</label><select id="tc30-direct-select"></select><button type="button" id="tc30-direct-open">Afficher les grilles du système choisi</button><small id="tc30-direct-status" role="status">30 systèmes : 10 intégraux, 10 conditionnés, 10 réduits 5/6.</small>';
+ const sel=panel.querySelector('select');sel.add(new Option('Choisir parmi les 30 systèmes…',''));
+ for(let i=1;i<=30;i++){
+  const mode=i<=10?'Intégral':i<=20?'Conditionné':'Réduit 5/6';
+  sel.add(new Option('S'+String(i).padStart(2,'0')+' — '+mode+' — '+names[(i-1)%10],'tc30-'+i));
+ }
+ panel.querySelector('button').addEventListener('click',()=>{
+  const api=window.TOTOCALCIO_30_SYSTEMES;
+  if(!sel.value){panel.querySelector('small').textContent='Sélectionne d’abord un des 30 systèmes.';sel.focus();return;}
+  if(!api){panel.querySelector('small').textContent='Le moteur des systèmes ne s’est pas chargé.';return;}
+  api.show(sel.value);
+  panel.querySelector('small').textContent=sel.options[sel.selectedIndex].text+' : grilles affichées.';
+  document.getElementById('view-thirty-systems')?.scrollIntoView({block:'start',behavior:'smooth'});
+ });
+ if(old)old.before(panel);else host.append(panel);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+</script>
+
 </body></html>
