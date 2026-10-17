@@ -3094,4 +3094,63 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 <style id="tc-hide-mix-panel-20261017">#mix-panel{display:none!important}</style>
 <script id="tc-remove-4-5-triples-tabs-20261017">(function(){function hide(){for(const id of ['quatre-triples','cinq-triples']){document.querySelectorAll('.nav button[data-view="'+id+'"]').forEach(b=>b.remove());document.querySelectorAll('#tc-systems-select option[value="'+id+'"]').forEach(o=>o.remove())}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{hide();setTimeout(hide,0)});else{hide();setTimeout(hide,0)}})();</script>
+<style id="tc-dual-mode-v1">
+.tc-mode-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid #e8c59a;border-radius:10px;padding:9px 12px;margin:0 0 9px;color:#242424}
+.tc-mode-bar strong{font-size:14px;color:#a91d22}
+.tc-mode-switch{display:inline-flex;border:1px solid #c9b29b;border-radius:8px;overflow:hidden}
+.tc-mode-switch button{border-radius:0!important;background:#fff!important;color:#832323!important;border:0!important;border-right:1px solid #dfc6a9!important}
+.tc-mode-switch button:last-child{border-right:0!important}
+.tc-mode-switch button[aria-pressed="true"]{background:#b92227!important;color:#fff!important}
+.tc-mode-bar .tc-mode-description{font-size:12px;color:#555;flex:1;min-width:180px}
+.tc-wizard{background:#fff!important;border:1px solid #e5b477;border-radius:9px;padding:12px;margin:0 0 10px;color:#262626}
+.tc-wizard h2{margin:0 0 7px!important;color:#a92126!important}
+.tc-wizard p{font-size:12px;margin:0 0 10px;color:#444}
+.tc-wizard-steps{display:flex;gap:7px;flex-wrap:wrap}
+.tc-wizard-steps button{background:#fff!important;color:#a91d22!important;border:1px solid #d9ad84!important}
+.tc-wizard-steps button[aria-current="step"]{background:#b92227!important;color:#fff!important}
+body.tc-beginner #view-groups #group-help{font-size:12px!important}
+body.tc-beginner #view-groups .tc-all-odds{display:none!important}
+body.tc-beginner #view-groups .bc-mode-toolbar{display:none!important}
+body.tc-beginner #view-groups .tc-coupon-core>.hint:not(#group-help){display:none!important}
+body.tc-beginner #view-groups .tc-coupon-core>.toolbar:has(#clear-all-teams){display:none!important}
+body.tc-beginner #view-groups .tc-coupon-core .tc-coupon-guide{display:block}
+body.tc-beginner #view-groups .group .tc-match-advice{font-size:12px!important}
+.tc-mode-note{color:#66503d;font-size:11px}
+@media(max-width:650px){.tc-mode-bar{gap:6px}.tc-mode-description{flex-basis:100%!important}}
+@media print{.tc-mode-bar,.tc-wizard{display:none!important}}
+</style>
+<script id="tc-dual-mode-script-v1">
+(function(){
+'use strict';
+function init(){
+const main=document.querySelector('main'),nav=document.querySelector('nav.nav');
+if(!main||!nav||document.getElementById('tc-mode-bar'))return;
+const bar=document.createElement('div');bar.className='tc-mode-bar no-print';bar.id='tc-mode-bar';
+const title=document.createElement('strong');title.textContent='Mode d’utilisation';bar.append(title);
+const toggle=document.createElement('div');toggle.className='tc-mode-switch';toggle.setAttribute('role','group');toggle.setAttribute('aria-label','Choisir le niveau d’utilisation');
+const help=document.createElement('span');help.className='tc-mode-description';bar.append(toggle,help);
+const wizard=document.createElement('section');wizard.className='tc-wizard no-print';wizard.id='tc-wizard';wizard.innerHTML='<h2>Bienvenue dans TOTOCALCIO PRO</h2><p>Trois étapes suffisent pour préparer ton bulletin. Les outils avancés restent disponibles en mode Expert.</p><div class="tc-wizard-steps" role="group" aria-label="Étapes de création"></div>';
+const steps=wizard.querySelector('.tc-wizard-steps');
+function go(view){const b=nav.querySelector('[data-view="'+view+'"]');if(b)b.click();else{const v=document.getElementById('view-'+view);if(v){nav.querySelector('[data-view="groups"]')?.click();v.scrollIntoView({behavior:'smooth'})}}}
+const actions=[
+{label:'1 · Choisir mes rencontres',fn:()=>go('groups'),view:'groups'},
+{label:'2 · Choisir mon système',fn:()=>{const sel=document.getElementById('tc-systems-select');if(sel){sel.focus();sel.scrollIntoView({block:'center',behavior:'smooth'})}else go('grids')},view:'systems'},
+{label:'3 · Voir mes bulletins',fn:()=>{const b=document.getElementById('mb-open-from-system');if(b&&b.offsetParent!==null)b.click();else{const sel=document.getElementById('tc-systems-select');if(sel){sel.focus();sel.scrollIntoView({block:'center',behavior:'smooth'})}else go('grids')}},view:'bulletins'}
+];
+for(const step of actions){const b=document.createElement('button');b.type='button';b.textContent=step.label;b.addEventListener('click',step.fn);steps.append(b)}
+let mode;try{mode=localStorage.getItem('tc_user_mode_v1')==='expert'?'expert':'beginner'}catch(e){mode='beginner'}
+function apply(value){
+mode=value;document.body.classList.toggle('tc-beginner',value==='beginner');document.body.classList.toggle('tc-expert',value==='expert');wizard.hidden=value==='expert';
+toggle.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===value)));
+help.textContent=value==='beginner'?'Débutant : saisie guidée, options techniques masquées. Passe en Expert à tout moment.':'Expert : tous les réglages, systèmes et outils de saisie sont accessibles.';
+try{localStorage.setItem('tc_user_mode_v1',value)}catch(e){}
+}
+for(const [id,label] of [['beginner','Débutant'],['expert','Expert']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.mode=id;b.addEventListener('click',()=>apply(id));toggle.append(b)}
+nav.parentNode.insertBefore(bar,nav);bar.after(wizard);
+const note=document.createElement('div');note.className='tc-mode-note';note.textContent='Le changement de mode ne supprime aucune rencontre, sélection ou sauvegarde.';wizard.append(note);
+apply(mode);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
 </body></html>
