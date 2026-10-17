@@ -3604,4 +3604,107 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean);else clean();
 })();
 </script>
+
+<style id="tc-thirty-style">
+#view-thirty-systems{color:#213549}#view-thirty-systems .tc30-panel{background:#f5f8fc;border:1px solid #b6cbd9;border-radius:12px;padding:15px}
+#view-thirty-systems h2{color:#163c55!important;margin:0 0 8px}
+#view-thirty-systems .tc30-controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+#view-thirty-systems button{background:#173c58;color:white;border:0;border-radius:7px;padding:9px 13px;cursor:pointer}
+#view-thirty-systems .tc30-stats{font-weight:bold;padding:9px 0}
+#view-thirty-systems .tc30-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:7px;max-height:540px;overflow:auto}
+#view-thirty-systems .tc30-item{padding:8px 10px;border:1px solid #b6cadb;background:white;border-radius:7px;font-weight:600;font-size:12px}
+#view-thirty-systems .tc30-help{font-size:12px;color:#506477}
+#tc-systems-select option,#tc-beginner-select option{background:#fff;color:#182939}
+</style>
+<script id="tc-thirty-systems-20261017">
+(function(){
+'use strict';
+const LINES=['ABC','DEF','GHI','JK','LM','NO'];
+const COLORS={A:'V',B:'B',C:'R',D:'V',E:'B',F:'R',G:'V',H:'B',I:'R',J:'V',K:'B',L:'V',M:'B',N:'V',O:'B'};
+const kinds=[
+ ['Intégral', 'integral'],['Conditionné','condition'],['Réduit 5/6','reduit']
+];
+const constraints=[
+ {v:2,b:1,r:1,desc:'au moins 2 verts, 1 bleu, 1 rouge'},
+ {v:3,b:1,r:0,desc:'au moins 3 verts et 1 bleu'},
+ {v:2,b:2,r:0,desc:'au moins 2 verts et 2 bleus'},
+ {v:1,b:2,r:1,desc:'au moins 1 vert, 2 bleus, 1 rouge'},
+ {v:2,b:0,r:2,desc:'au moins 2 verts et 2 rouges'},
+ {v:3,b:0,r:1,desc:'au moins 3 verts et 1 rouge'},
+ {v:1,b:1,r:2,desc:'au moins 1 vert, 1 bleu et 2 rouges'},
+ {v:4,b:1,r:0,desc:'au moins 4 verts et 1 bleu'},
+ {v:2,b:3,r:0,desc:'au moins 2 verts et 3 bleus'},
+ {v:1,b:3,r:1,desc:'au moins 1 vert, 3 bleus, 1 rouge'}
+];
+const SYSTEMS=kinds.flatMap(([name,mode],j)=>constraints.map((c,i)=>({
+ id:'tc30-'+(j*10+i+1),num:j*10+i+1,name:'S'+String(j*10+i+1).padStart(2,'0')+' · '+name+' · '+c.desc,mode,...c
+})));
+let all=[''];for(const l of LINES)all=all.flatMap(a=>[...l].map(x=>a+x));
+function matches(s,c){let v=0,b=0,r=0;for(const letter of s){if(COLORS[letter]==='V')v++;else if(COLORS[letter]==='B')b++;else r++}return v>=c.v&&b>=c.b&&r>=c.r}
+function reduce(candidates){
+ // Greedy set cover guaranteeing each admissible combination matches 5 or more of 6 groups.
+ const remaining=new Set(candidates.map((_,i)=>i)),selected=[];
+ const cover=(a,b)=>{let score=0;for(let k=0;k<6;k++)if(a[k]===b[k])score++;return score>=5};
+ const neighborhoods=candidates.map(a=>candidates.map((b,i)=>cover(a,b)?i:-1).filter(x=>x>=0));
+ while(remaining.size){
+  let winner=-1,score=-1;
+  neighborhoods.forEach((n,i)=>{let count=0;for(const idx of n)if(remaining.has(idx))count++;if(count>score){winner=i;score=count}});
+  if(winner<0||score<1)break;
+  selected.push(winner);for(const i of neighborhoods[winner])remaining.delete(i);
+ }
+ // Verify coverage; remove redundant selections only if they maintain coverage.
+ for(let p=selected.length-1;p>=0;p--){const trial=selected.filter((_,i)=>i!==p);if(candidates.every((_,i)=>trial.some(x=>neighborhoods[x].includes(i))))selected.splice(p,1)}
+ return {data:selected.map(i=>candidates[i]),covered:candidates.every((_,i)=>selected.some(x=>neighborhoods[x].includes(i)))};
+}
+const cache=new Map();
+function compute(sys){
+ if(cache.has(sys.id))return cache.get(sys.id);
+ const candidates=all.filter(x=>matches(x,sys));
+ const result=sys.mode==='reduit'?reduce(candidates):{data:candidates,covered:true};
+ const value={candidates,...result};cache.set(sys.id,value);return value;
+}
+function initialize(){
+ const main=document.querySelector('main'),nav=document.querySelector('nav.nav'),primary=document.getElementById('tc-systems-select');
+ if(!main||!primary||document.getElementById('view-thirty-systems'))return;
+ const view=document.createElement('div');view.className='view';view.id='view-thirty-systems';
+ view.innerHTML='<section class="tc30-panel"><h2 id="tc30-title">Systèmes de jeu</h2><p id="tc30-descr"></p><p class="tc30-stats" id="tc30-stats"></p><div class="tc30-controls"><button type="button" id="tc30-copy">Copier les combinaisons</button><button type="button" id="tc30-print">Imprimer les grilles</button></div><p class="tc30-help">Chaque combinaison indique un groupe choisi dans chaque ligne : ABC · DEF · GHI · JK · LM · NO. Les couleurs sont celles du système de groupes. La réduction 5/6 est une couverture combinatoire, pas une garantie de gains.</p><div class="tc30-items" id="tc30-items"></div></section>';
+ main.append(view);
+ const optgroup=document.createElement('optgroup');optgroup.label='30 systèmes — intégral / conditions / réduction';
+ SYSTEMS.forEach(s=>optgroup.add(new Option(s.name,s.id)));primary.add(optgroup);
+ // The beginner selector is synchronized by its own mutation observer.
+ let active=null;
+ function show(id){
+  const sys=SYSTEMS.find(s=>s.id===id);if(!sys)return;
+  active=sys;
+  const result=compute(sys);
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===view));
+  if(nav)nav.querySelectorAll('button[data-view]').forEach(b=>b.classList.remove('active'));
+  view.style.display='block';
+  document.getElementById('tc30-title').textContent='Système '+sys.num+' — '+(sys.mode==='integral'?'Intégral':sys.mode==='condition'?'Conditionné':'Réduit 5/6');
+  document.getElementById('tc30-descr').textContent='Conditions : '+sys.desc+'.';
+  document.getElementById('tc30-stats').textContent=result.candidates.length+' combinaisons admissibles · '+result.data.length+' grilles affichées'+(sys.mode==='reduit'?' · couverture 5/6 '+(result.covered?'vérifiée':'non vérifiée'):'');
+  const box=document.getElementById('tc30-items');box.replaceChildren();
+  const fragment=document.createDocumentFragment();
+  result.data.forEach((s,i)=>{const el=document.createElement('div');el.className='tc30-item';el.textContent=(i+1)+'. '+[...s].join(' · ');fragment.appendChild(el)});
+  box.appendChild(fragment);
+  primary.value=id;
+ }
+ function intercept(e){
+  if(SYSTEMS.some(s=>s.id===e.target.value)){e.stopImmediatePropagation();show(e.target.value);}
+ }
+ primary.addEventListener('change',intercept,true);
+ const beginner=document.getElementById('tc-beginner-select');
+ if(beginner){const group=document.createElement('optgroup');group.label='30 systèmes';SYSTEMS.forEach(s=>group.add(new Option(s.name,s.id)));beginner.add(group);}
+ document.getElementById('tc30-copy').addEventListener('click',()=>{
+  if(!active)return;
+  const txt=compute(active).data.map((x,i)=>(i+1)+'. '+[...x].join(' - ')).join('\n');
+  if(navigator.clipboard)navigator.clipboard.writeText(txt).catch(()=>window.prompt('Copier',txt));else window.prompt('Copier',txt);
+ });
+ document.getElementById('tc30-print').addEventListener('click',()=>window.print());
+ window.TOTOCALCIO_30_SYSTEMES={systems:SYSTEMS,compute,show};
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize);else initialize();
+})();
+</script>
+
 </body></html>
