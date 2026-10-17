@@ -3453,4 +3453,117 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #tc-side-menu button:focus-visible,
 #tc-side-menu select:focus-visible{outline:2px solid #ffda74!important;outline-offset:2px!important}
 </style>
+
+<style id="tc-library30-css">
+#tc-library30-open{width:100%!important;height:40px!important;min-height:40px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;background:#18374b!important;color:#f3f8fc!important;border:1px solid #35546a!important;border-radius:7px!important;padding:0 12px!important;font-size:12px!important;font-weight:700!important;cursor:pointer}
+#tc-library30-modal{position:fixed;inset:0;z-index:2147483500;background:#081624ca;padding:12px;display:none;align-items:center;justify-content:center}
+#tc-library30-modal.tc-open{display:flex}
+#tc-library30-content{background:#f7f9fc;color:#14263b;width:min(900px,100%);max-height:94vh;overflow:auto;border-radius:12px;padding:20px;font:14px Arial,sans-serif}
+#tc-library30-content h2{margin:4px 0 12px}#tc-library30-content label{display:block;margin:10px 0 4px;color:#14263b}
+#tc-library30-content select,#tc-library30-content input{background:white;color:#14263b;border:1px solid #91a6ba;border-radius:6px;padding:8px;max-width:100%;box-sizing:border-box}
+#tc-library30-content button{padding:9px 13px;border-radius:6px;background:#125a7e;color:white;cursor:pointer}
+#tc-library30-content button:disabled{opacity:.5;cursor:not-allowed}
+#tc-library30-content .tc-l30-row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}
+#tc-library30-content .tc-l30-row>label{flex:1;min-width:120px}
+#tc-library30-content textarea{width:100%;min-height:230px;box-sizing:border-box;font:12px monospace;background:#fff;color:#14263b}
+#tc-library30-content .tc-l30-note{background:#fff1ce;color:#493500;border-left:4px solid #c78b18;padding:10px;margin:12px 0}
+@media(max-width:600px){#tc-library30-content{padding:12px}}
+</style>
+<div id="tc-library30-modal" role="dialog" aria-label="Bibliothèque de 30 systèmes" aria-modal="true">
+<div id="tc-library30-content">
+<button type="button" id="tc-library30-close" style="float:right">✕ Fermer</button><h2>▦ Bibliothèque de 30 systèmes</h2>
+<p>10 intégraux · 10 conditionnels · 10 modèles réduits à valider. Les systèmes existants du logiciel restent disponibles.</p>
+<label for="tc-library30-system">Choisir un système</label><select id="tc-library30-system" style="width:100%"></select>
+<p id="tc-library30-description"></p>
+<div id="tc-library30-integral">
+<div class="tc-l30-row">
+<label>Triples <input id="tc-l30-triples" type="number" min="0" max="9" value="3"></label>
+<label>Doubles <input id="tc-l30-doubles" type="number" min="0" max="10" value="0"></label>
+<label>Signes doubles <select id="tc-l30-sign"><option value="1X">1 / X</option><option value="12">1 / 2</option><option value="X2">X / 2</option></select></label>
+</div></div>
+<div id="tc-library30-groups" hidden>
+<p>Une sélection par ligne : ABC, DEF, GHI, JK, LM, NO. Les couleurs sont modifiables.</p>
+<div id="tc-library30-colors" class="tc-l30-row"></div>
+</div>
+<div id="tc-library30-reduced" class="tc-l30-note" hidden>Modèle réduit en cours de validation mathématique : aucune garantie annoncée et aucune grille réduite produite.</div>
+<p id="tc-library30-counter" style="font-weight:bold"></p>
+<div class="tc-l30-row"><button id="tc-library30-generate">Développer les grilles</button><button id="tc-library30-csv" disabled>Exporter en CSV</button></div>
+<p class="tc-l30-note">Maximum 100 000 grilles par génération. Les grilles produites ici sont indépendantes des pronostics déjà saisis dans le bulletin principal.</p>
+<textarea id="tc-library30-output" readonly placeholder="Les grilles s'affichent ici..."></textarea>
+</div></div>
+<script id="tc-library30-script">
+(function(){
+'use strict';
+const names=["3 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","3 à 10 doubles","2 triples + 4 doubles","4 triples + 3 doubles","4 triples · 2 à 4 verts","5 triples · 2 à 3 verts et 1 rouge min.","6 triples · 2 verts, 1 bleu, 1 rouge min.","6 triples · exactement 3 verts","7 triples · 2 à 4 verts et 1 bleu","8 triples · 3 verts et 2 rouges min.","9 triples · 3 à 5 verts","5 doubles · au moins 2 bleus","3 triples + 3 doubles · 2 rouges min.","Couverture des 3 couleurs","4 triples · couverture cible 3/4","5 triples · couverture cible 4/5","6 triples · couverture cible 5/6","7 triples · couverture cible 6/7","8 triples · couverture cible 7/8","9 triples · couverture cible 8/9","6 lignes · 2 verts, 1 bleu, 1 rouge min.","6 lignes · exactement 3 verts","6 lignes · 1 rouge sur ABC/DEF/GHI","6 lignes · budget maximal de grilles"];
+const setups=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
+const groups=[['A','B','C'],['D','E','F'],['G','H','I'],['J','K'],['L','M'],['N','O']];
+const $=x=>document.getElementById(x);
+let csv='',rows=[];
+function init(){
+ if($('tc-library30-open'))return;
+ const side=$('tc-side-menu');
+ if(!side){setTimeout(init,120);return}
+ const head=document.createElement('div');head.className='tc-menu-heading';head.textContent='BIBLIOTHÈQUE DE SYSTÈMES';
+ const block=document.createElement('div');block.className='tc-menu-actions';
+ const btn=document.createElement('button');btn.type='button';btn.id='tc-library30-open';btn.textContent='▦  30 systèmes par groupes';block.append(btn);
+ const anchor=side.querySelector('.tc-menu-heading');if(anchor){anchor.before(head,block)}else{side.append(head,block)}
+ btn.onclick=()=>{$('tc-library30-modal').classList.add('tc-open')};
+ $('tc-library30-close').onclick=()=>{$('tc-library30-modal').classList.remove('tc-open')};
+ $('tc-library30-modal').addEventListener('click',e=>{if(e.target===$('tc-library30-modal'))$('tc-library30-modal').classList.remove('tc-open')});
+ names.forEach((name,i)=>{const opt=new Option('TC-'+String(i+1).padStart(2,'0')+' · '+name,i);$('tc-library30-system').add(opt)});
+ let colors={A:'V',B:'B',C:'R',D:'V',E:'B',F:'R',G:'V',H:'B',I:'R',J:'V',K:'B',L:'V',M:'B',N:'V',O:'B'};
+ groups.forEach((line,i)=>{const wrap=document.createElement('label');wrap.textContent=['ABC','DEF','GHI','JK','LM','NO'][i]+' : ';line.forEach(g=>{const select=document.createElement('select');select.dataset.group=g;[['V','Vert'],['B','Bleu'],['R','Rouge']].forEach(x=>select.add(new Option(g+' · '+x[1],x[0])));select.value=colors[g];select.onchange=update;select.style.margin='3px';wrap.append(select)});$('tc-library30-colors').append(wrap)});
+ $('tc-library30-system').onchange=change;
+ ['tc-l30-triples','tc-l30-doubles','tc-l30-sign'].forEach(id=>$(id).addEventListener('change',update));
+ $('tc-library30-generate').onclick=generate;
+ $('tc-library30-csv').onclick=()=>{if(!csv)return;const a=document.createElement('a');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='totocalcio-systeme-'+(1+ +$('tc-library30-system').value)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)};
+ change();
+}
+function valid(x,i){
+ const v=x.filter(t=>t==='V').length,b=x.filter(t=>t==='B').length,r=x.filter(t=>t==='R').length;
+ switch(i){
+ case 10:return v>=2&&v<=4;case 11:return v>=2&&v<=3&&r>=1;
+ case 12:case 26:return v>=2&&b>=1&&r>=1;
+ case 13:case 27:return v===3;case 14:return v>=2&&v<=4&&b>=1;
+ case 15:return v>=3&&r>=2;case 16:return v>=3&&v<=5;
+ case 17:return b>=2;case 18:return r>=2;case 19:return v>=1&&b>=1&&r>=1;
+ case 28:return x.slice(0,3).includes('R');default:return true;
+ }
+}
+function grouped(){
+ const colors={};document.querySelectorAll('#tc-library30-colors select').forEach(s=>colors[s.dataset.group]=s.value);
+ let combos=[{letters:[],colors:[]}];
+ groups.forEach(line=>{combos=combos.flatMap(c=>line.map(g=>({letters:c.letters.concat(g),colors:c.colors.concat(colors[g])})))});
+ return combos.filter(c=>valid(c.colors,+$('tc-library30-system').value));
+}
+function change(){
+ const i=+$('tc-library30-system').value;
+ $('tc-l30-triples').value=setups[i][0];$('tc-l30-doubles').value=setups[i][1];
+ $('tc-library30-integral').hidden=i>=10;$('tc-library30-groups').hidden=i<10;$('tc-library30-reduced').hidden=i<20;
+ $('tc-library30-description').textContent=i<10?'Développement intégral des signes 1 / X / 2.':i<20?'Sélection conditionnelle de groupes parmi six lignes.':'Modèle proposé sans garantie de couverture vérifiée.';
+ update();
+}
+function update(){
+ const i=+$('tc-library30-system').value;
+ const n=i<10?3**(+$('tc-l30-triples').value)*2**(+$('tc-l30-doubles').value):grouped().length;
+ $('tc-library30-counter').textContent=(i<10?'Grilles intégrales : ':'Combinaisons de groupes admissibles : ')+n.toLocaleString('fr-FR');
+ $('tc-library30-generate').disabled=i>=20||n>100000||n<1;
+ csv='';$('tc-library30-csv').disabled=true;$('tc-library30-output').value='';
+}
+function generate(){
+ const i=+$('tc-library30-system').value; if(i>=20)return;
+ if(i>=10){rows=grouped().map(c=>c.letters);csv='Grille;ABC;DEF;GHI;JK;LM;NO\n'+rows.map((x,k)=>(k+1)+';'+x.join(';')).join('\n')}
+ else{
+ const t=+$('tc-l30-triples').value,d=+$('tc-l30-doubles').value;
+ if(!Number.isInteger(t)||!Number.isInteger(d)||t<0||t>9||d<0||d>10||3**t*2**d>100000)return;
+ const sign=$('tc-l30-sign').value.split('');let parts=[[]];
+ for(const s of Array.from({length:t},()=>['1','X','2']).concat(Array.from({length:d},()=>sign))){parts=parts.flatMap(p=>s.map(v=>p.concat(v)))}
+ csv='Grille;'+Array.from({length:t+d},(_,k)=>'Match '+(k+1)).join(';')+'\n'+parts.map((p,k)=>(k+1)+';'+p.join(';')).join('\n');
+ }
+ $('tc-library30-output').value=csv;
+ $('tc-library30-csv').disabled=false;
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
 </body></html>
