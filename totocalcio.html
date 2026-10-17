@@ -3364,4 +3364,48 @@ show();
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+
+<style id="tc-nav-professionnelle-20261017">
+/* Navigation principale structurée : accès rapides et outils secondaires */
+#tc-side-menu{background:linear-gradient(180deg,#102b3d 0%,#081824 100%)!important;border-right:1px solid #456176!important;padding:17px 11px 22px!important}
+#tc-side-menu .tc-menu-title{font-size:19px!important;letter-spacing:.2px!important;color:#f3cd70!important;border-bottom:1px solid #3b5366;padding:2px 5px 15px;margin:0 0 14px!important}
+#tc-side-menu .tc-menu-heading{font-size:10px!important;letter-spacing:1.15px!important;color:#9ebbd1!important;margin:17px 5px 8px!important;padding-bottom:7px!important;border-color:#334d60!important}
+#tc-side-menu .nav{gap:4px!important}
+#tc-side-menu .nav button{display:flex!important;align-items:center!important;justify-content:flex-start!important;padding:9px 12px!important;min-height:38px!important;margin:0!important;border-radius:8px!important;background:#18374b!important;color:#f3f8fc!important;border:1px solid #35546a!important;font-size:12px!important;font-weight:750!important;text-align:left!important;box-shadow:none!important;text-shadow:none!important;transform:none!important;letter-spacing:0!important}
+#tc-side-menu .nav button:hover{background:#244d66!important;border-color:#6b9ab6!important}
+#tc-side-menu .nav button.active{background:#204e67!important;color:#fff!important;border-color:#e6bc57!important;outline:none!important;box-shadow:inset 3px 0 0 #f1c861!important}
+#tc-side-menu .nav button[data-view="groups"],#tc-side-menu .nav button[data-view="groups"].active{background:#f0b949!important;color:#242119!important;border-color:#ffe0a0!important;text-shadow:none!important;box-shadow:none!important}
+#tc-side-menu .tc-menu-actions button:not(.tc-menu-close){min-height:35px!important;padding:8px 11px!important;margin:2px 0!important;font-size:12px!important;border-radius:8px!important}
+#tc-side-menu .tc-nav-secondary button{background:#183246!important;color:#e3f0f8!important;border:1px solid #37556b!important}
+#tc-side-menu .tc-nav-secondary button:hover{background:#28506a!important}
+#tc-side-menu .tc-nav-secondary{margin-bottom:6px}
+#tc-side-menu button:focus-visible{outline:2px solid #ffd66c!important;outline-offset:2px}
+@media(max-width:850px){#tc-side-menu{width:min(290px,85vw)!important}}
+</style>
+<script id="tc-nav-professionnelle-20261017-script">
+(function(){
+function tidy(){
+ const side=document.getElementById('tc-side-menu'),nav=side?.querySelector('nav.nav');
+ if(!side||!nav||side.dataset.tcNavProfessional)return;
+ side.dataset.tcNavProfessional='1';
+ const headings=[...side.querySelectorAll('.tc-menu-heading')];
+ if(headings.length)headings[0].textContent='ACCÈS PRINCIPAUX';
+ const allowed=new Set(['groups','savepronos','ia','mes-bulletins']);
+ const extra=document.createElement('div');extra.className='tc-menu-actions tc-nav-secondary';
+ const h=document.createElement('div');h.className='tc-menu-heading';h.textContent='AUTRES OUTILS';
+ const targets=[...nav.querySelectorAll('button[data-view]')].filter(b=>!allowed.has(b.dataset.view));
+ // Les pages restent accessibles : on déplace les boutons secondaires, sans retirer leurs fonctions.
+ targets.forEach(b=>extra.append(b));
+ const targetHeading=headings.find(x=>/Outils et résultats/i.test(x.textContent||''));
+ if(targetHeading){targetHeading.after(h,extra)}else{side.append(h,extra)}
+ const preferred=['groups','savepronos','ia','mes-bulletins'];
+ preferred.forEach(k=>{const b=nav.querySelector('button[data-view="'+k+'"]');if(b)nav.append(b)});
+ const primary=nav.querySelector('button[data-view="groups"]');if(primary)primary.textContent='▦  Mes groupes';
+ const save=nav.querySelector('button[data-view="savepronos"]');if(save)save.textContent='💾  Sauvegarder';
+ const ia=nav.querySelector('button[data-view="ia"]');if(ia)ia.textContent='✦  Analyse IA';
+ const tickets=nav.querySelector('button[data-view="mes-bulletins"]');if(tickets)tickets.textContent='🎟  Mes bulletins';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(tidy,0));else setTimeout(tidy,0);
+})();
+</script>
 </body></html>
