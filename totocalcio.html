@@ -3153,4 +3153,43 @@ apply(mode);
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+<style id="tc-beginner-step2">
+.tc-beginner-system{background:#fff;border:1px solid #dfb17a;border-radius:10px;padding:12px;margin:0 0 10px;color:#252525}
+.tc-beginner-system h3{color:#aa2225!important;margin:0 0 7px;font-size:15px}
+.tc-beginner-system p{color:#444;font-size:12px;margin:0 0 9px}
+.tc-beginner-system label{display:block;color:#333}
+.tc-beginner-system select{width:100%;max-width:520px;background:white!important;color:#222!important}
+.tc-beginner-system .tc-beginner-actions{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:8px}
+.tc-beginner-system .tc-beginner-actions button{padding:9px 14px!important}
+body.tc-expert .tc-beginner-system{display:none!important}
+body.tc-beginner #tc-systems-select{max-width:360px}
+.tc-beginner-status{font-size:12px;color:#555;display:inline-block}
+</style>
+<script id="tc-beginner-step2-script">
+(function(){
+function ready(){
+const wizard=document.getElementById('tc-wizard'),nav=document.querySelector('nav.nav');
+if(!wizard||!nav||document.getElementById('tc-beginner-system'))return;
+const box=document.createElement('div');box.id='tc-beginner-system';box.className='tc-beginner-system no-print';
+box.innerHTML='<h3>Choisir mon système de jeu</h3><p>Un système génère automatiquement plusieurs grilles à partir de tes pronostics. Choisis un système pour afficher les bulletins correspondants.</p><label for="tc-beginner-select">Système</label><select id="tc-beginner-select"><option value="">Sélectionner un système…</option></select><div class="tc-beginner-actions"><button type="button" id="tc-beginner-open">Voir le système choisi →</button><span class="tc-beginner-status" id="tc-beginner-status" role="status"></span></div>';
+wizard.append(box);
+const select=box.querySelector('select'),status=box.querySelector('#tc-beginner-status');
+function sync(){
+const existing=document.getElementById('tc-systems-select');
+if(!existing)return;
+const selected=select.value;select.innerHTML='<option value="">Sélectionner un système…</option>';
+for(const option of existing.options){if(!option.value||['quatre-triples','cinq-triples'].includes(option.value))continue;const o=new Option(option.textContent,option.value);select.add(o)}
+if([...select.options].some(o=>o.value===selected))select.value=selected;
+}
+box.querySelector('#tc-beginner-open').addEventListener('click',()=>{
+const id=select.value;if(!id){status.textContent='Choisis d’abord un système.';select.focus();return}
+const source=document.getElementById('tc-systems-select');
+if(source&&[...source.options].some(o=>o.value===id)){source.value=id;source.dispatchEvent(new Event('change',{bubbles:true}));status.textContent='Système ouvert. Consulte les grilles plus bas.';document.querySelector('#view-'+CSS.escape(id))?.scrollIntoView({block:'start',behavior:'smooth'})}
+else{const b=nav.querySelector('button[data-view="'+id+'"]');if(b){b.click();status.textContent='Système ouvert.'}else status.textContent='Ce système n’est pas disponible.'}
+});
+const observer=new MutationObserver(sync);observer.observe(nav,{childList:true,subtree:true});sync();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready();
+})();
+</script>
 </body></html>
