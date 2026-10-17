@@ -3833,7 +3833,7 @@ const header=document.querySelector('header.brand-header')||document.querySelect
 if(!header||document.getElementById('tc-five-sports-banner'))return;
 const wrap=header.querySelector('.brand-wrap')||header;
 const banner=document.createElement('div');banner.id='tc-five-sports-banner';banner.setAttribute('role','img');banner.setAttribute('aria-label','Football, basketball, tennis, tennis de table et rugby');
-const img=document.createElement('img');img.src='./bandeau-sports-totocalcio.webp';img.alt='Illustration sportive : football, basketball, tennis, ping-pong et rugby';img.style.cssText='display:block;width:100%;height:auto;max-height:150px;object-fit:contain';banner.appendChild(img);
+banner.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 112" role="img" aria-label="Football, basketball, tennis, ping-pong et rugby" style="display:block;width:100%;height:auto;max-height:112px"><defs><linearGradient id="sportsGlow" x1="0" x2="1"><stop stop-color="#174c91"/><stop offset=".5" stop-color="#2a73bd"/><stop offset="1" stop-color="#174c91"/></linearGradient></defs><rect width="900" height="112" rx="14" fill="url(#sportsGlow)"/><g fill="none" stroke="#b9e5ff" stroke-opacity=".35" stroke-width="2"><path d="M180 10V102M360 10V102M540 10V102M720 10V102"/></g><g font-size="61" text-anchor="middle" dominant-baseline="central"><text x="90" y="57">⚽</text><text x="270" y="57">🏀</text><text x="450" y="57">🎾</text><text x="630" y="57">🏓</text><text x="810" y="57">🏉</text></g></svg>`;
 wrap.prepend(banner);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
