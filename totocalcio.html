@@ -3736,4 +3736,38 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 
+
+<style id="tc-only-thirty-style">
+nav.nav button[data-view]:not([data-view="groups"]):not([data-view="calendar"]):not([data-view="savepronos"]):not([data-view="ia"]):not([data-view="mes-bulletins"]){display:none!important}
+</style>
+<script id="tc-only-thirty-script">
+(function(){
+'use strict';
+function clean(){
+ const catalog=window.TOTOCALCIO_30_SYSTEMES?.systems;
+ if(!catalog||catalog.length!==30)return;
+ const options=[{value:'',label:'Sélectionner parmi les 30 systèmes…'},...catalog.map(s=>({value:s.id,label:s.name}))];
+ for(const id of ['tc-systems-select','tc-beginner-select']){
+  const select=document.getElementById(id);
+  if(!select)continue;
+  const previous=select.value;
+  // Remove all former systems. Both menus contain exactly the thirty retained systems.
+  select.replaceChildren();
+  const frag=document.createDocumentFragment();
+  options.forEach(o=>frag.appendChild(new Option(o.label,o.value)));
+  select.appendChild(frag);
+  if(catalog.some(s=>s.id===previous))select.value=previous;
+ }
+ const nav=document.querySelector('nav.nav');
+ if(nav)nav.querySelectorAll('button[data-view]').forEach(button=>{
+  const keep=['groups','calendar','savepronos','ia','mes-bulletins'].includes(button.dataset.view);
+  if(!keep){button.hidden=true;button.classList.add('tc-system-original')}
+ });
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean);
+else clean();
+document.addEventListener('tc30-ready',clean);
+})();
+</script>
+
 </body></html>
