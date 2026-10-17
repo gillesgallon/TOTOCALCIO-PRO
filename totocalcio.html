@@ -115,7 +115,7 @@ body.print72 .no-print{display:none!important}
 .sport-select-label{display:block!important;font-size:13px!important;font-weight:800!important;color:#d9efff!important}
 #sport-select{display:block!important;width:100%!important;min-height:42px!important;padding:8px 10px!important;border-radius:8px!important;background:#fff!important;color:#101c2a!important;font-size:14px!important;font-weight:700!important;border:2px solid #6ab7f1!important;cursor:pointer}
 .sport-picker-compact .sport-hint{font-size:11px!important;line-height:1.4!important}
-</style><style>@media(max-width:600px){input,select{font-size:16px!important}button{min-height:44px}main{padding:10px!important}.toolbar{flex-wrap:wrap}section{padding:12px!important}body{overflow-x:hidden}}</style><style id="totocalcio-3d-groupes">
+#clear-selections,#clear-all-teams{display:none!important}#clear{background:#f4c94c!important;color:#102235!important;font-weight:800!important;border-radius:8px!important}#tc-side-menu #clear{display:block!important;width:100%!important}</style><style>@media(max-width:600px){input,select{font-size:16px!important}button{min-height:44px}main{padding:10px!important}.toolbar{flex-wrap:wrap}section{padding:12px!important}body{overflow-x:hidden}}</style><style id="totocalcio-3d-groupes">
 /* TOTOCALCIO — groupes vifs et relief 3D (version ordinateur + mobile). */
 #groups .group {
   border: 1px solid #3a536b;
@@ -543,7 +543,7 @@ main .nav{background:rgba(5,18,30,.94)!important;box-shadow:0 6px 15px #0004}
 <button class="tc-show-all-groups" type="button">📋 Afficher aussi les 15 groupes dans le bulletin</button>
 </details>
 <div aria-label="Bulletin de saisie simplifié des groupes" class="bc-bulletin no-print" id="bulletin-groups"></div>
-<div class="groups-grid" id="groups"><p class="warning-note">Chargement des 15 groupes…</p></div><div class="toolbar" style="margin-top:16px"><button id="clear">Effacer toutes les données</button><button id="export">Exporter mes données</button><label style="margin:0">Importer mes données <input accept=".json,application/json" id="import" type="file"/></label></div></section></div>
+<div class="groups-grid" id="groups"><p class="warning-note">Chargement des 15 groupes…</p></div><div class="toolbar" style="margin-top:16px"><button id="clear">🔄 Remise à zéro</button><button id="export">Exporter mes données</button><label style="margin:0">Importer mes données <input accept=".json,application/json" id="import" type="file"/></label></div></section></div>
 <div class="view" id="view-grids"><section><h2>3. Développement automatique — 29 grilles</h2><p class="hint">Chaque grille contient 6 groupes (12 matchs). Les modifications de la saisie apparaissent sans cliquer sur un bouton.</p><div class="toolbar no-print"><button id="print">Imprimer / enregistrer en PDF</button><button id="copy">Copier les 29 grilles</button></div><p class="stats" id="summary"></p><div class="developed" id="developed"></div></section></div>
 <div class="view" id="view-64"><section><h2>4. Système « 64 grilles » — 6 doubles sans conditions</h2>
 <p class="hint">Sélectionne exactement deux groupes par ligne. Pour les trois premières lignes, choisis librement une paire parmi les trois groupes ; les trois dernières lignes comportent déjà deux groupes. Aucune condition de couleur n'est appliquée.</p>
@@ -1171,9 +1171,12 @@ function clearSelections(){
 }
 $('clear-selections').onclick=clearSelections;
 $('clear').onclick=()=>{
- if(sport==='mixte'){
-   if(confirm('Réinitialiser seulement le choix des sports des 12 matchs ? Tes rencontres et pronostics seront conservés.')){mixSports=MIX_DEFAULT.map(row=>row.slice());persistMix();makeGroups()}
- }else if(confirm('Effacer les équipes et pronostics de '+SPORT_NAMES[sport]+' uniquement ?')){data={};sportDatas[sport]=data;save();makeGroups()}
+ if(!confirm('Remise à zéro complète : effacer les équipes, joueurs, pronostics et choix de sports de toutes les disciplines ? Les bulletins enregistrés restent conservés.'))return;
+ undoSelections=stateSnapshot();$('undo-selections').disabled=false;
+ for(const s of SPORT_KEYS){sportDatas[s]={};persistSport(s)}
+ mixSports=GROUPS.map(()=>['football','football']);persistMix();
+ selectSport('football');makeGroups();
+ toolsNotice('Remise à zéro effectuée. Tu peux annuler depuis « Annuler l’effacement ».');
 };
 $('export').onclick=()=>{
  const payload=sport==='mixte'?{version:4,mode:'mixte',mixSports,sportsData:sportDatas}:{version:3,sport,data};
@@ -2649,7 +2652,7 @@ function setup(){
  heading('Navigation et systèmes');let n=zone();let nav=document.querySelector('nav.nav');if(nav)n.append(nav);
  heading('🏆 Disciplines sportives');n=zone();let picker=document.querySelector('.sport-picker');if(picker)n.append(picker);
  heading('Saisie des groupes');n=zone();
- for(const id of ['bc-simple-toggle','bc-detail-toggle','clear-selections','clear-all-teams','undo-selections','clear']){const x=document.getElementById(id);if(x)n.append(x)}
+ for(const id of ['bc-simple-toggle','bc-detail-toggle','clear','undo-selections']){const x=document.getElementById(id);if(x)n.append(x)}
  heading('Outils et résultats');n=zone();
  for(const id of ['check-picks','open-results','export']){const x=document.getElementById(id);if(x)n.append(x)}
  const importer=document.querySelector('label:has(> #import)');if(importer){importer.classList.add('tc-import');n.append(importer)}
