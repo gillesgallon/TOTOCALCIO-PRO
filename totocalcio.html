@@ -3581,4 +3581,18 @@ function generate(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+<script id="tc-hide-legacy-system-options">
+(function(){
+ const legacy=new Set(['19','29','64','72']);
+ function clean(){
+  for(const select of document.querySelectorAll('#pari-system,#budget-system,#smart-check-system')){
+   const previous=select.value;
+   for(const opt of [...select.options])if(legacy.has(opt.value))opt.remove();
+   if(legacy.has(previous)){const preferred=[...select.options].find(o=>o.value==='conditions'||o.value==='144'||o.value==='custom');if(preferred){select.value=preferred.value;select.dispatchEvent(new Event('change',{bubbles:true}))}}
+  }
+  for(const b of document.querySelectorAll('button[data-view]'))if(['grids','19','64','72'].includes(b.dataset.view))b.hidden=true;
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean);else clean();
+})();
+</script>
 </body></html>
