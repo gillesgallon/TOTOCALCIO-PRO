@@ -2888,4 +2888,54 @@ main>section,.groups-section{padding:9px!important;margin:5px 0!important}
 </script>
 <script src="mise-a-jour.js"></script>
  
+
+<!-- TOTOCALCIO : sélecteur centralisé des systèmes -->
+<style id="tc-systems-dropdown-style">
+.tc-system-selector{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;max-width:100%}
+.tc-system-selector label{margin:0;font-size:13px;font-weight:700;color:inherit}
+#tc-systems-select{max-width:100%;width:min(310px,75vw);padding:7px 10px;background:#101b29;color:#fff;border:1px solid #4baee7;border-radius:7px;cursor:pointer;font-size:13px}
+nav.nav>button.tc-system-original{display:none!important}
+@media(max-width:600px){.tc-system-selector{width:100%}#tc-systems-select{flex:1;width:100%}}
+</style>
+<script id="tc-systems-dropdown-script">
+(function(){
+'use strict';
+function init(){
+ const nav=document.querySelector('nav.nav');
+ if(!nav||document.getElementById('tc-systems-select'))return;
+ const excluded=new Set(['calendar','groups','savepronos','ia']);
+ const original=Array.from(nav.querySelectorAll('button[data-view]'))
+   .filter(b=>!excluded.has(b.dataset.view));
+ if(!original.length)return;
+ const wrap=document.createElement('div');wrap.className='tc-system-selector';
+ const label=document.createElement('label');label.htmlFor='tc-systems-select';label.textContent='▦ Systèmes de jeu';
+ const select=document.createElement('select');select.id='tc-systems-select';
+ const placeholder=new Option('Choisir un système…','');select.add(placeholder);
+ for(const button of original){
+  button.classList.add('tc-system-original');
+  const option=new Option(button.textContent.trim(),button.dataset.view);
+  select.add(option);
+ }
+ wrap.append(label,select);
+ // Le sélecteur prend la place des anciens boutons; ceux-ci restent actifs en arrière-plan.
+ original[0].before(wrap);
+ function sync(){
+  const active=original.find(b=>b.classList.contains('active'));
+  if(active)select.value=active.dataset.view;
+  else select.value='';
+ }
+ select.addEventListener('change',()=>{
+  const selected=original.find(b=>b.dataset.view===select.value);
+  if(selected)selected.click();
+ });
+ nav.addEventListener('click',()=>queueMicrotask(sync));
+ sync();
+ const title=document.querySelector('#tc-side-menu .tc-menu-heading');
+ if(title && title.textContent.trim()==='Navigation et systèmes') title.textContent='Navigation et systèmes de jeu';
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);
+else init();
+})();
+</script>
+
 </body></html>
