@@ -3018,4 +3018,15 @@ const first=main.querySelector('.toolbar');main.insertBefore(bar,first||main.fir
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+<style id="tc-wide-teams-20261017">
+/* Équipe 1 et Équipe 2 prennent toute la place disponible dans chaque groupe. */
+#groups .fixture{display:grid!important;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr)!important;column-gap:4px!important;row-gap:4px!important;width:100%!important}
+#groups .fixture>.team-entry,#groups .fixture>input[data-key],#groups .fixture>.rugby-team{min-width:0!important;width:100%!important;max-width:none!important}
+#groups .fixture .team-entry input,#groups .fixture input[data-key],#groups .fixture .team-entry select,#groups .fixture .rugby-team input{width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box!important}
+#groups .fixture select.sport-ball-select{grid-column:2!important;width:40px!important;min-width:40px!important;max-width:40px!important;padding:3px 0!important}
+#groups .fixture select.prono{grid-column:1/-1!important;width:100%!important;max-width:none!important;min-width:0!important}
+#groups .group{min-width:0!important}
+@media(min-width:1050px){#groups .groups-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(min-width:1450px){#groups .groups-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+</style>
 </body></html>
