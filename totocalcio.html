@@ -3220,15 +3220,19 @@ const existing=document.getElementById('tc-systems-select');
 if(!existing)return;
 const selected=select.value;select.innerHTML='<option value="">Sélectionner un système…</option>';
 for(const option of existing.options){if(!option.value||['quatre-triples','cinq-triples'].includes(option.value))continue;const o=new Option(option.textContent,option.value);select.add(o)}
+// Ensure all 30 systems are available directly in this selector.
+const catalog=window.TOTOCALCIO_30_SYSTEMES?.systems;
+if(catalog){for(const s of catalog){if(!Array.from(select.options).some(o=>o.value===s.id))select.add(new Option(s.name,s.id));}}
 if([...select.options].some(o=>o.value===selected))select.value=selected;
 }
 box.querySelector('#tc-beginner-open').addEventListener('click',()=>{
 const id=select.value;if(!id){status.textContent='Choisis d’abord un système.';select.focus();return}
+if(/^tc30-\d+$/.test(id)&&window.TOTOCALCIO_30_SYSTEMES){window.TOTOCALCIO_30_SYSTEMES.show(id);status.textContent='Système '+id.slice(5)+' ouvert : consulte les combinaisons.';document.getElementById('view-thirty-systems')?.scrollIntoView({block:'start',behavior:'smooth'});return;}
 const source=document.getElementById('tc-systems-select');
 if(source&&[...source.options].some(o=>o.value===id)){source.value=id;source.dispatchEvent(new Event('change',{bubbles:true}));status.textContent='Système ouvert. Consulte les grilles plus bas.';document.querySelector('#view-'+CSS.escape(id))?.scrollIntoView({block:'start',behavior:'smooth'})}
 else{const b=nav.querySelector('button[data-view="'+id+'"]');if(b){b.click();status.textContent='Système ouvert.'}else status.textContent='Ce système n’est pas disponible.'}
 });
-const observer=new MutationObserver(sync);observer.observe(nav,{childList:true,subtree:true});sync();
+const observer=new MutationObserver(sync);observer.observe(nav,{childList:true,subtree:true});document.addEventListener('tc30-ready',sync);sync();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready();
 })();
@@ -3726,6 +3730,7 @@ function initialize(){
  });
  document.getElementById('tc30-print').addEventListener('click',()=>window.print());
  window.TOTOCALCIO_30_SYSTEMES={systems:SYSTEMS,compute,show};
+ document.dispatchEvent(new Event('tc30-ready'));
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize);else initialize();
 })();
