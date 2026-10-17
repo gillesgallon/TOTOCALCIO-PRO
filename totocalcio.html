@@ -3472,7 +3472,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div id="tc-library30-modal" role="dialog" aria-label="Bibliothèque de 30 systèmes" aria-modal="true">
 <div id="tc-library30-content">
 <button type="button" id="tc-library30-close" style="float:right">✕ Fermer</button><h2>▦ Bibliothèque de 30 systèmes</h2>
-<p>10 intégraux · 10 conditionnels · 10 modèles réduits à valider. Les systèmes existants du logiciel restent disponibles.</p>
+<p>10 systèmes intégraux · 10 systèmes conditionnels · 10 systèmes réduits avec couverture calculée.</p>
 <label for="tc-library30-system">Choisir un système</label><select id="tc-library30-system" style="width:100%"></select>
 <p id="tc-library30-description"></p>
 <div id="tc-library30-integral">
@@ -3540,19 +3540,34 @@ function change(){
  const i=+$('tc-library30-system').value;
  $('tc-l30-triples').value=setups[i][0];$('tc-l30-doubles').value=setups[i][1];
  $('tc-library30-integral').hidden=i>=10;$('tc-library30-groups').hidden=i<10;$('tc-library30-reduced').hidden=i<20;
- $('tc-library30-description').textContent=i<10?'Développement intégral des signes 1 / X / 2.':i<20?'Sélection conditionnelle de groupes parmi six lignes.':'Modèle proposé sans garantie de couverture vérifiée.';
+ $('tc-library30-description').textContent=i<10?'Développement intégral des signes 1 / X / 2.':i<20?'Sélection conditionnelle de groupes parmi six lignes.':'Sélection réduite par couverture calculée des groupes ; aucune garantie de résultat.';
  update();
+}
+function reduced(){
+ const i=+$('tc-library30-system').value,universe=grouped().map(x=>x.letters.join(''));
+ const thresholds=[3,4,5,4,5,4,4,5,4,5],budgets=[9,14,20,16,24,28,18,24,14,30];
+ const need=thresholds[i-20],limit=budgets[i-20],covered=new Set(),chosen=[];
+ const covers=s=>universe.filter(u=>[...u].reduce((n,ch,k)=>n+(ch===s[k]),0)>=need);
+ const options=universe.map(x=>({x,cover:covers(x)}));
+ for(let k=0;k<limit;k++){
+   let best=null,score=0;
+   for(const o of options){if(chosen.includes(o.x))continue;let n=0;for(const v of o.cover)if(!covered.has(v))n++;if(n>score){score=n;best=o}}
+   if(!best||!score)break;chosen.push(best.x);best.cover.forEach(x=>covered.add(x));
+ }
+ return {chosen,covered:covered.size,total:universe.length,threshold:need};
 }
 function update(){
  const i=+$('tc-library30-system').value;
  const n=i<10?3**(+$('tc-l30-triples').value)*2**(+$('tc-l30-doubles').value):grouped().length;
- $('tc-library30-counter').textContent=(i<10?'Grilles intégrales : ':'Combinaisons de groupes admissibles : ')+n.toLocaleString('fr-FR');
- $('tc-library30-generate').disabled=i>=20||n>100000||n<1;
+ const red=i>=20?reduced():null;
+ $('tc-library30-counter').textContent=red?red.chosen.length+' grilles réduites · couverture '+red.covered+'/'+red.total+' scénarios avec au moins '+red.threshold+' groupes concordants':(i<10?'Grilles intégrales : ':'Combinaisons de groupes admissibles : ')+n.toLocaleString('fr-FR');
+ $('tc-library30-generate').disabled=n>100000||n<1;
+ $('tc-library30-reduced').textContent=red?'Couverture calculée sur les scénarios de groupes. Il ne s’agit ni d’une garantie de gain ni d’une prédiction de résultats.':'';
  csv='';$('tc-library30-csv').disabled=true;$('tc-library30-output').value='';
 }
 function generate(){
- const i=+$('tc-library30-system').value; if(i>=20)return;
- if(i>=10){rows=grouped().map(c=>c.letters);csv='Grille;ABC;DEF;GHI;JK;LM;NO\n'+rows.map((x,k)=>(k+1)+';'+x.join(';')).join('\n')}
+ const i=+$('tc-library30-system').value;
+ if(i>=10){rows=i>=20?reduced().chosen.map(x=>x.split('')):grouped().map(c=>c.letters);csv='Grille;ABC;DEF;GHI;JK;LM;NO\n'+rows.map((x,k)=>(k+1)+';'+x.join(';')).join('\n')}
  else{
  const t=+$('tc-l30-triples').value,d=+$('tc-l30-doubles').value;
  if(!Number.isInteger(t)||!Number.isInteger(d)||t<0||t>9||d<0||d>10||3**t*2**d>100000)return;
