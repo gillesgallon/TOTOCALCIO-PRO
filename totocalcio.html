@@ -3278,4 +3278,51 @@ background:#183956!important;color:#fff!important;border:1px solid #315b7b!impor
 #view-groups #bulletin-groups input:focus,
 #view-groups #bulletin-groups select:focus{outline:2px solid #77acd6!important;outline-offset:1px!important}
 </style>
+<style id="tc-6groups-reduced-style">
+#view-six-condition .tc-six-wrap{background:#eef4ee;border:1px solid #bfd0c1;border-radius:12px;padding:16px;color:#243328}
+#view-six-condition h2,#view-six-condition h3{color:#193c36!important}
+#view-six-condition .tc-six-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px;margin-top:14px}
+#view-six-condition .tc-six-ticket{background:#fff;border:1px solid #a9c4b2;border-radius:8px;padding:10px}
+#view-six-condition .tc-six-ticket strong{color:#123d40}
+#view-six-condition .tc-six-ticket small{display:block;margin-top:5px;line-height:1.5}
+#view-six-condition .tc-six-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#view-six-condition .tc-six-status{font-size:13px;font-weight:700;color:#1f4a35}
+@media print{#view-six-condition .tc-six-actions{display:none!important}}
+</style>
+<script id="tc-6groups-reduced-script">
+(function(){
+'use strict';
+function init(){
+const nav=document.querySelector('nav.nav'),main=document.querySelector('main');
+if(!nav||!main||document.getElementById('view-six-condition'))return;
+const lines=[['A','B','C'],['D','E','F'],['G','H','I'],['J','K'],['L','M'],['N','O']];
+const colors={A:'V',B:'B',C:'R',D:'V',E:'B',F:'R',G:'V',H:'B',I:'R',J:'V',K:'B',L:'V',M:'B',N:'V',O:'B'};
+let combos=[''];
+for(const line of lines)combos=combos.flatMap(prefix=>line.map(c=>prefix+c));
+const valid=combos.filter(x=>{let v=0,b=0,r=0;for(const c of x){if(colors[c]==='V')v++;else if(colors[c]==='B')b++;else r++}return v>=2&&b>=1&&r>=1});
+const covers=(x,y)=>{let eq=0;for(let i=0;i<6;i++)if(x[i]===y[i])eq++;return eq>=5};
+let uncovered=new Set(valid.map((_,i)=>i)),chosen=[];
+while(uncovered.size){let best=-1,bestSet=[];
+for(let i=0;i<valid.length;i++){const hits=[];for(const j of uncovered)if(covers(valid[i],valid[j]))hits.push(j);if(hits.length>bestSet.length){best=i;bestSet=hits}}
+if(best<0)break;chosen.push(best);bestSet.forEach(j=>uncovered.delete(j));
+}
+// Élimination des grilles superflues sans perdre la couverture à 5/6.
+for(let k=chosen.length-1;k>=0;k--){const trial=chosen.filter((_,i)=>i!==k);if(valid.every(v=>trial.some(j=>covers(v,valid[j]))))chosen.splice(k,1)}
+const verified=valid.every(v=>chosen.some(j=>covers(v,valid[j])));
+const view=document.createElement('div');view.className='view';view.id='view-six-condition';
+view.innerHTML='<section class="tc-six-wrap"><h2>🎯 6 groupes — réduction conditionnée</h2><p>Une lettre dans chacune des six lignes : ABC, DEF, GHI, JK, LM et NO. Conditions : au moins 2 verts, 1 bleu et 1 rouge.</p><p><strong>Garantie combinatoire :</strong> chaque combinaison admissible diffère d’au plus un groupe d’une grille retenue (5 groupes sur 6 en commun). Cela ne garantit ni pronostic correct ni gain.</p><p class="tc-six-status" id="tc-six-stat"></p><div class="tc-six-actions"><button id="tc-six-copy" type="button">📋 Copier les grilles</button><button id="tc-six-print" type="button">🖨️ Imprimer / PDF</button><button id="tc-six-integral" type="button">Voir toutes les combinaisons admissibles</button></div><div class="tc-six-results" id="tc-six-results"></div></section>';
+main.append(view);
+const btn=document.createElement('button');btn.type='button';btn.dataset.view='six-condition';btn.textContent='6 groupes · 2 verts + 1 bleu + 1 rouge';nav.append(btn);
+const results=view.querySelector('#tc-six-results'),status=view.querySelector('#tc-six-stat');
+let full=false;
+function show(){const arr=full?valid:chosen.map(i=>valid[i]);status.textContent=valid.length+' combinaisons admissibles · '+chosen.length+' grilles réduites · couverture à 5/6 '+(verified?'vérifiée':'NON VÉRIFIÉE');results.replaceChildren();arr.forEach((x,i)=>{const card=document.createElement('div');card.className='tc-six-ticket';const heading=document.createElement('strong');heading.textContent='Grille '+(i+1)+' : '+x.split('').join(' · ');card.append(heading);const detail=document.createElement('small');detail.textContent='Verts : '+[...x].filter(c=>colors[c]==='V').length+' · Bleus : '+[...x].filter(c=>colors[c]==='B').length+' · Rouges : '+[...x].filter(c=>colors[c]==='R').length;card.append(detail);results.append(card)})}
+btn.addEventListener('click',()=>{if(typeof showView==='function')showView('six-condition');else{document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===view));nav.querySelectorAll('button[data-view]').forEach(b=>b.classList.toggle('active',b===btn))}show()});
+view.querySelector('#tc-six-integral').addEventListener('click',e=>{full=!full;e.currentTarget.textContent=full?'Revenir aux grilles réduites':'Voir toutes les combinaisons admissibles';show()});
+view.querySelector('#tc-six-copy').addEventListener('click',()=>{const str=(full?valid:chosen.map(i=>valid[i])).map((x,i)=>(i+1)+'. '+x.split('').join(' - ')).join('\n');if(navigator.clipboard)navigator.clipboard.writeText(str).catch(()=>window.prompt('Copier les grilles',str));else window.prompt('Copier les grilles',str)});
+view.querySelector('#tc-six-print').addEventListener('click',()=>window.print());
+show();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
 </body></html>
