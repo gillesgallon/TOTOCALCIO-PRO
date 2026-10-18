@@ -1439,8 +1439,8 @@ $('pari-print').onclick=()=>{document.body.classList.add('pari-print');window.pr
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><strong style="color:#000000;font-size:16px;background:#ffffff;padding:7px 10px;border-radius:5px">▦ Choisir mon système · 30 systèmes</strong>
 <select id="tc-30-direct-select" aria-label="Choisir parmi les trente systèmes" style="flex:1;min-width:210px;max-width:530px;background:white;color:#102030;font-size:14px;padding:9px;border-radius:6px"><option>Chargement des 30 systèmes…</option></select>
 <button type="button" id="tc-30-direct-open" style="background:#ffe087;color:#132b40;font-weight:800;padding:10px 15px;border-radius:7px">Ouvrir et développer</button></div></section>
-<div class="toolbar"><label style="display:none!important" aria-hidden="true">Système <select id="budget-system"><option value="19">19 grilles</option><option selected="" value="29">29 grilles</option><option value="64">64 grilles</option><option value="72">72 grilles avec filtre</option></select></label><label>Mise par grille (€) <input id="stake" min="0" step="0.1" type="number" value="1"/></label><strong id="budget-total"></strong></div>
-<p class="hint">La couverture décrit les combinaisons retenues, pas une probabilité de gain. Les résultats sont saisis manuellement ; les paris annulés et règles propres aux bookmakers ne sont pas évalués.</p>
+<div class="toolbar"><label style="display:none!important" aria-hidden="true">Système <select id="budget-system"><option value="19">19 grilles</option><option selected="" value="29">29 grilles</option><option value="64">64 grilles</option><option value="72">72 grilles avec filtre</option></select></label><label>Mise par grille (€) <input id="stake" min="0" step="0.1" type="number" value="1"/></label><strong id="budget-total" role="status" aria-live="polite" style="display:inline-block;padding:10px 16px;background:#e8f4ec;color:#123c28;border:2px solid #63a77b;border-radius:9px;font-size:16px">Coût du système : à calculer</strong></div>
+
 <div hidden="" id="results-panel"><h3>Résultats des 12 rencontres</h3><p>Saisis le score final : buts au football, points au basket, sets au tennis et au ping-pong. Au tennis, ajoute le total des jeux.</p><div id="result-entries"></div><h3>Réussites par grille du système choisi</h3><div id="result-totals"></div></div>
 </section>
 <script>
@@ -1470,7 +1470,7 @@ function verdict(p,a,b,total,threshold){
 function slotVerdict(c,i){const row=GROUPS.find(r=>r.includes(c)),base=row[0]+i,d=getSlotData(c,i);return verdict(d[c+i+'p'],d[base+'ra']??'',d[base+'rb']??'',d[base+'rt']??'',d[c+i+'j'])}
 function toolsRefresh(){
  const combos=selectedCombos(),stake=Number($('stake').value);
- $('budget-total').textContent=combos===null?'Répartition du système à corriger':!Number.isFinite(stake)||stake<0?'Mise invalide':`${combos.length} grilles · Total : ${(combos.length*stake).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})}`;
+ {const budget=$('budget-total');const count=Number(budget.dataset.grids);budget.textContent=!Number.isFinite(stake)||stake<0?'Mise invalide':!budget.dataset.grids?'Coût du système : à calculer':`Coût du système : ${(count*stake).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})} · ${count.toLocaleString('fr-FR')} grilles`;}
  for(const el of document.querySelectorAll('#groups select.prono')){const k=el.dataset.key;el.classList.toggle('missing-pick',!el.value||displayPick(k[0],Number(k[1]))==='Jeux : nombre à préciser')}
  if(!$('results-panel').hidden)renderResultTotals();applyMobileFilter();
 }
@@ -3740,6 +3740,7 @@ function update(){
  const n=i<10?3**(+$('tc-l30-triples').value)*2**(+$('tc-l30-doubles').value):grouped().length;
  const red=i>=20?reduced():null;
  $('tc-library30-counter').textContent=red?red.chosen.length+' grilles réduites · couverture '+red.covered+'/'+red.total+' scénarios avec au moins '+red.threshold+' groupes concordants':(i<10?'Grilles intégrales : ':'Combinaisons de groupes admissibles : ')+n.toLocaleString('fr-FR');
+ const priceBox=document.getElementById('budget-total');if(priceBox){priceBox.dataset.grids=String(red?red.chosen.length:n);if(typeof toolsRefresh==='function')toolsRefresh();}
  $('tc-library30-generate').disabled=n>100000||n<1;
  $('tc-library30-reduced').textContent=red?'Couverture calculée sur les scénarios de groupes. Il ne s’agit ni d’une garantie de gain ni d’une prédiction de résultats.':'';
  csv='';$('tc-library30-csv').disabled=true;$('tc-library30-output').value='';
