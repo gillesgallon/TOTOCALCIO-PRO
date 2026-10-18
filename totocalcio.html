@@ -3987,89 +3987,37 @@ body>header.brand-header .live-score-link{grid-column:4!important;grid-row:1!imp
 body>header.brand-header .brand-copy{display:none!important}
 @media(max-width:650px){body>header.brand-header{min-height:73px!important;padding:3px 4px 3px 0!important}body>header.brand-header>.brand-wrap{grid-template-columns:38px 64px minmax(0,1fr) 62px!important;gap:3px!important;min-height:65px!important}body>header.brand-header .sport-logo-wrapper,body>header.brand-header .sport-logo-button,body>header.brand-header img.brand-logo{width:36px!important;height:36px!important;max-width:36px!important;max-height:36px!important}body>header.brand-header #tc-group-art span:first-child{display:none!important}body>header.brand-header #tc-group-art b{width:12px!important;height:17px!important;font-size:10px!important}body>header.brand-header #tc-five-sports-banner{height:65px!important;min-height:65px!important}body>header.brand-header #tc-five-sports-banner>img{height:65px!important;max-height:65px!important}body>header.brand-header .live-score-link{font-size:8px!important;padding:3px!important}}
 </style>
-<style id="tc-dynamic-rows-style">
-#tc-dynamic-rows{background:#f5faf6;border:2px solid #76a989;border-radius:12px;padding:14px;margin:12px 0}
-#tc-dynamic-rows h3{margin:0 0 10px;color:#173b2b}
-.tc-dyn-line{margin:12px 0;padding:12px;background:white;border:1px solid #bad5c5;border-radius:10px}
-.tc-dyn-line h4{margin:0 0 10px;color:#193f34}
-.tc-dyn-fixtures{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
-.tc-dyn-fixtures label{display:block;font-weight:600}
-.tc-dyn-fixtures input{width:100%;margin-top:3px}
-.tc-dyn-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
-.tc-dyn-card{background:#e3f1e7;border:1px solid #9ac5a6;border-radius:9px;padding:8px;min-width:0}
-.tc-dyn-card strong{display:block;font-size:19px;margin-bottom:5px}
-.tc-dyn-card label{font-size:12px;margin-top:5px}
-.tc-dyn-card select{width:100%;padding:5px;color:#123;background:white}
-@media(max-width:640px){.tc-dyn-options{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.tc-dyn-card{padding:5px}.tc-dyn-card strong{font-size:15px}.tc-dyn-card select{font-size:12px;padding:4px}}
-</style>
-<script id="tc-dynamic-rows-fix-20261018">
+<script id="tc-unique-match-entry-20261018">
 (function(){
 'use strict';
-const titles=["3 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","3 doubles","2 triples + 4 doubles","4 triples + 3 doubles","4 triples","5 triples","6 triples","6 triples","7 triples","8 triples","9 triples","5 doubles","3 triples + 3 doubles","6 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","6 triples","6 triples","6 triples","6 triples"];
-const specs=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
-const abc=n=>{let s='';for(let k=n+1;k;k=Math.floor((k-1)/26))s=String.fromCharCode(65+(k-1)%26)+s;return s};
-const byId=id=>document.getElementById(id);
-function launch(event){
-const select=byId('tc-30-direct-select'),view=byId('view-groups');
-if(!select||!view||!byId('groups'))return;
-const index=Number(select.value);
-if(!Number.isInteger(index)||index<0||index>=specs.length)return;
-event.preventDefault();event.stopImmediatePropagation();
-const [triples,doubles]=specs[index],count=triples+doubles;
-let letterIndex=0;const rows=Array.from({length:count},(_,i)=>({letters:Array.from({length:i<triples?3:2},()=>abc(letterIndex++)),type:i<triples?'Triple':'Double'}));
-const old=byId('tc-dynamic-rows');if(old)old.remove();
-const root=document.createElement('section');root.id='tc-dynamic-rows';
-const header=document.createElement('h3');header.textContent='S'+String(index+1).padStart(2,'0')+' · '+titles[index]+' — '+count+' lignes de groupes';
-root.append(header);
-const expl=document.createElement('p');
-expl.textContent='Chaque triple affiche 3 lettres sur une ligne, chaque double en affiche 2. Les lettres se suivent par ordre alphabétique. Les 2 rencontres sont communes aux groupes d’une même ligne.';
-root.append(expl);
-const key='totocalcio_groupes_adaptatifs_v1';
-let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch(e){}
-const state=saved['s'+index]||{};
-function put(k,v){state[k]=v;saved['s'+index]=state;try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}}
-let counter=0;
-rows.forEach((r,i)=>{
- const line=document.createElement('div');line.className='tc-dyn-line';
- const heading=document.createElement('h4');heading.textContent='Ligne '+(i+1)+' — '+r.letters.join(' · ')+' ('+r.type+')';line.append(heading);
- const fixtures=document.createElement('div');fixtures.className='tc-dyn-fixtures';
- for(let m=1;m<=2;m++){
-  const label=document.createElement('label');label.textContent='Match '+m+' · Équipe 1 / Équipe 2';
-  const input=document.createElement('input');input.placeholder='Équipe 1 — Équipe 2';
-  const k='line'+i+'match'+m;input.value=state[k]||'';input.addEventListener('input',()=>put(k,input.value));label.append(input);fixtures.append(label);
- }line.append(fixtures);
- const options=document.createElement('div');options.className='tc-dyn-options';
- r.letters.forEach(letter=>{
-  const card=document.createElement('div');card.className='tc-dyn-card';
-  const b=document.createElement('strong');b.textContent=letter;card.append(b);
-  for(let m=1;m<=2;m++){
-   const lab=document.createElement('label');lab.textContent='Pronostic match '+m;
-   const s=document.createElement('select');s.add(new Option('À choisir',''));
-   ['1','X','2'].forEach(p=>s.add(new Option(p,p)));
-   const k='group'+letter+'match'+m;s.value=state[k]||'';
-   s.addEventListener('change',()=>put(k,s.value));lab.append(s);card.append(lab);
-  }
-  options.append(card);counter++;
- });line.append(options);root.append(line);
-});
-const note=document.createElement('p');note.style.fontWeight='bold';
-note.textContent=count+' lignes · '+counter+' groupes · '+(count*2)+' rencontres à saisir. Saisie enregistrée sur cet appareil.';
-root.append(note);
-const existing=byId('groups');
-existing.before(root);
-existing.style.display='none';
-const bulletin=byId('bulletin-groups');if(bulletin)bulletin.style.display='none';
-view.hidden=false;view.classList.add('active');
-document.querySelectorAll('.view').forEach(el=>{if(el!==view)el.classList.remove('active')});
-root.scrollIntoView({block:'start',behavior:'smooth'});
-const status=byId('tc-30-direct-status');if(status)status.textContent='Système S'+String(index+1).padStart(2,'0')+' : '+count+' lignes affichées.';
+function openExistingMatchEntry(event){
+ const selected=document.getElementById('tc-30-direct-select');
+ const view=document.getElementById('view-groups');
+ const groups=document.getElementById('groups');
+ if(!selected||!view||!groups)return;
+ event.preventDefault();
+ event.stopImmediatePropagation();
+ document.getElementById('tc-dynamic-rows')?.remove();
+ groups.style.display='';
+ const bulletin=document.getElementById('bulletin-groups');
+ if(bulletin)bulletin.style.display='';
+ document.querySelectorAll('.view').forEach(v=>{
+  const active=v===view;
+  v.hidden=!active;
+  v.classList.toggle('active',active);
+ });
+ const status=document.getElementById('tc-30-direct-status');
+ if(status)status.textContent='Système sélectionné : saisissez vos rencontres dans les formulaires détaillés ci-dessous (une seule saisie).';
+ view.scrollIntoView({block:'start',behavior:'smooth'});
 }
 function setup(){
-const btn=byId('tc-30-direct-open');
-if(!btn)return;
-btn.addEventListener('click',launch,true);
-document.querySelectorAll('.nav button[data-view="groups"]').forEach(b=>b.addEventListener('click',()=>{const root=byId('tc-dynamic-rows');if(root)root.remove();const g=byId('groups');if(g)g.style.display='';},true));
+ const button=document.getElementById('tc-30-direct-open');
+ if(button)button.addEventListener('click',openExistingMatchEntry,true);
+ document.getElementById('tc-dynamic-rows')?.remove();
+ const groups=document.getElementById('groups');
+ if(groups)groups.style.display='';
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);
+else setup();
 })();
 </script></body></html>
