@@ -4024,65 +4024,52 @@ body>header.brand-header .brand-copy{display:none!important}
 <script id="tc-unique-match-entry-20261018">
 (function(){
 'use strict';
-function openExistingMatchEntry(event){
- const selected=document.getElementById('tc-30-direct-select');
+const specs=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
+function openMatches(event){
+ event.preventDefault();event.stopImmediatePropagation();
+ const select=document.getElementById('tc-30-direct-select');
+ const n=Number(select?.value);
+ if(!Number.isInteger(n)||n<0||n>=specs.length){alert('Choisissez un système.');return;}
+ const [triples,doubles]=specs[n];
+ const rows=[];let code=65;
+ for(let i=0;i<triples+doubles;i++){
+   let letters='';
+   for(let j=0;j<(i<triples?3:2);j++)letters+=String.fromCharCode(code++);
+   rows.push(letters);
+ }
+ // Cette vue réutilise les vrais éditeurs de rencontres, sans formulaire en double.
+ GROUPS=rows;
  const view=document.getElementById('view-groups');
- const groups=document.getElementById('groups');
- if(!selected||!view||!groups)return;
- event.preventDefault();
- event.stopImmediatePropagation();
- document.getElementById('tc-dynamic-rows')?.remove();
- const specs=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
- const match=/^tc30-(\d+)$/.exec(selected.value);
- const n=match?Number(match[1])-1:Number(selected.value);
- if(!Number.isInteger(n)||n<0||n>=specs.length)return;
- const [tr,db]=specs[n];let cursor=0;
- GROUPS=Array.from({length:tr+db},(_,i)=>Array.from({length:i<tr?3:2},()=>String.fromCharCode(65+cursor++)).join(''));
- const names=GROUPS.map(row=>row.split('').map(x=>x==='['?'AA':x).join(' · '));
- // Construire les groupes à partir du système sélectionné puis ouvrir le mode de saisie.
+ const holder=document.getElementById('groups');
+ const simple=document.getElementById('bulletin-groups');
+ if(!view||!holder)return;
+ document.querySelectorAll('.view').forEach(v=>{v.classList.toggle('active',v===view);v.hidden=v!==view;});
+ document.querySelectorAll('.nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view==='groups'));
  if(typeof bcSetMode==='function')bcSetMode('detail');
  else if(typeof makeGroups==='function')makeGroups();
  document.body.classList.remove('bc-simple');
- const detail=document.getElementById('bc-detail-toggle');
- if(detail)detail.setAttribute('aria-pressed','true');
- const simpleToggle=document.getElementById('bc-simple-toggle');
- if(simpleToggle)simpleToggle.setAttribute('aria-pressed','false');
- groups.querySelectorAll('.group-title').forEach((el,i)=>{const line=Math.floor(i/3);const row=GROUPS.findIndex((r)=>r.includes(el.textContent.match(/Groupe (.)/)?.[1]||''));if(row>=0){const letter=GROUPS[row][i-GROUPS.slice(0,row).reduce((v,x)=>v+x.length,0)];if(letter==='[')el.textContent=el.textContent.replace('Groupe [','Groupe AA');}});
- let headline=document.getElementById('tc-active-system-heading');
- if(!headline){headline=document.createElement('div');headline.id='tc-active-system-heading';groups.before(headline);}
- headline.textContent='S'+String(n+1).padStart(2,'0')+' · '+tr+' triples · '+db+' doubles — '+(tr+db)+' lignes : '+names.map((x,i)=>'L'+(i+1)+' '+x).join(' | ');
- headline.style.cssText='padding:12px;background:#e7f3ea;color:#123a25;border:2px solid #5b9b72;border-radius:9px;font-weight:bold;margin-bottom:12px;';
- // Le panneau coupon masque tous les groupes non sélectionnés via CSS.
- // Sélectionner le premier groupe permet d'afficher immédiatement matchs et pronostics.
- if(typeof window.tcSetCouponGroups==='function'){
-   window.tcSetCouponGroups(GROUPS.join('').split(''),'S'+String(n+1).padStart(2,'0')+' · '+tr+' triples · '+db+' doubles');
- }
- const first=groups.querySelector('.group');
- if(first&&!groups.querySelector('.group.tc-coupon-selected'))first.classList.add('tc-coupon-selected');
- groups.hidden=false;
- groups.style.setProperty('display','grid','important');
+ if(simple){simple.hidden=true;simple.style.display='none';}
+ holder.hidden=false;
+ holder.style.removeProperty('display');
  const section=view.querySelector('.groups-section');
  if(section){section.hidden=false;section.style.removeProperty('display');}
- groups.style.display='';
- const bulletin=document.getElementById('bulletin-groups');
- if(bulletin){bulletin.hidden=true;bulletin.style.display='none';}
- document.querySelectorAll('.view').forEach(v=>{
-  const active=v===view;
-  v.hidden=!active;
-  v.classList.toggle('active',active);
- });
+ const first=holder.querySelector('.group');
+ if(first)first.classList.add('tc-coupon-selected');
+ if(typeof window.tcSetCouponGroups==='function')
+   window.tcSetCouponGroups(rows.join('').split(''),'S'+String(n+1).padStart(2,'0')+' · '+triples+' triples · '+doubles+' doubles');
+ let title=document.getElementById('tc-active-system-heading');
+ if(!title){title=document.createElement('div');title.id='tc-active-system-heading';holder.before(title);}
+ title.textContent='S'+String(n+1).padStart(2,'0')+' · '+rows.length+' lignes : '+rows.map((r,i)=>(i+1)+' — '+r.split('').join(' · ')).join(' | ');
+ title.style.cssText='padding:12px;background:#e7f3ea;color:#123a25;border:2px solid #5b9b72;border-radius:9px;font-weight:bold;margin-bottom:12px';
  const status=document.getElementById('tc-30-direct-status');
- if(status)status.textContent='Système sélectionné : saisissez vos rencontres dans les formulaires détaillés ci-dessous (une seule saisie).';
- view.scrollIntoView({block:'start',behavior:'smooth'});
+ if(status)status.textContent='Saisie des matchs et pronostics ouverte.';
+ view.scrollIntoView({block:'start',behavior:'instant'});
 }
 function setup(){
- const button=document.getElementById('tc-30-direct-open');
- if(button)button.addEventListener('click',openExistingMatchEntry,true);
+ const b=document.getElementById('tc-30-direct-open');
+ if(b)b.addEventListener('click',openMatches,true);
  document.getElementById('tc-dynamic-rows')?.remove();
- const groups=document.getElementById('groups');
- if(groups)groups.style.display='';
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);
-else setup();
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
 </script></body></html>
