@@ -4016,7 +4016,7 @@ const index=Number(select.value);
 if(!Number.isInteger(index)||index<0||index>=specs.length)return;
 event.preventDefault();event.stopImmediatePropagation();
 const [triples,doubles]=specs[index],count=triples+doubles;
-const rows=Array.from({length:count},(_,i)=>({letters:Array.from({length:i<triples?3:2},(_,j)=>abc(i*3+j)),type:i<triples?'Triple':'Double'}));
+let letterIndex=0;const rows=Array.from({length:count},(_,i)=>({letters:Array.from({length:i<triples?3:2},()=>abc(letterIndex++)),type:i<triples?'Triple':'Double'}));
 const old=byId('tc-dynamic-rows');if(old)old.remove();
 const root=document.createElement('section');root.id='tc-dynamic-rows';
 const header=document.createElement('h3');header.textContent='S'+String(index+1).padStart(2,'0')+' · '+titles[index]+' — '+count+' lignes de groupes';
