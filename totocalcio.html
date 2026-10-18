@@ -4039,15 +4039,33 @@ function openExistingMatchEntry(event){
  const [tr,db]=specs[n];let cursor=0;
  GROUPS=Array.from({length:tr+db},(_,i)=>Array.from({length:i<tr?3:2},()=>String.fromCharCode(65+cursor++)).join(''));
  const names=GROUPS.map(row=>row.split('').map(x=>x==='['?'AA':x).join(' · '));
- if(typeof makeGroups==='function')makeGroups();
+ // Construire les groupes à partir du système sélectionné puis ouvrir le mode de saisie.
+ if(typeof bcSetMode==='function')bcSetMode('detail');
+ else if(typeof makeGroups==='function')makeGroups();
+ document.body.classList.remove('bc-simple');
+ const detail=document.getElementById('bc-detail-toggle');
+ if(detail)detail.setAttribute('aria-pressed','true');
+ const simpleToggle=document.getElementById('bc-simple-toggle');
+ if(simpleToggle)simpleToggle.setAttribute('aria-pressed','false');
  groups.querySelectorAll('.group-title').forEach((el,i)=>{const line=Math.floor(i/3);const row=GROUPS.findIndex((r)=>r.includes(el.textContent.match(/Groupe (.)/)?.[1]||''));if(row>=0){const letter=GROUPS[row][i-GROUPS.slice(0,row).reduce((v,x)=>v+x.length,0)];if(letter==='[')el.textContent=el.textContent.replace('Groupe [','Groupe AA');}});
  let headline=document.getElementById('tc-active-system-heading');
  if(!headline){headline=document.createElement('div');headline.id='tc-active-system-heading';groups.before(headline);}
  headline.textContent='S'+String(n+1).padStart(2,'0')+' · '+tr+' triples · '+db+' doubles — '+(tr+db)+' lignes : '+names.map((x,i)=>'L'+(i+1)+' '+x).join(' | ');
  headline.style.cssText='padding:12px;background:#e7f3ea;color:#123a25;border:2px solid #5b9b72;border-radius:9px;font-weight:bold;margin-bottom:12px;';
+ // Le panneau coupon masque tous les groupes non sélectionnés via CSS.
+ // Sélectionner le premier groupe permet d'afficher immédiatement matchs et pronostics.
+ if(typeof window.tcSetCouponGroups==='function'){
+   window.tcSetCouponGroups(GROUPS.join('').split(''),'S'+String(n+1).padStart(2,'0')+' · '+tr+' triples · '+db+' doubles');
+ }
+ const first=groups.querySelector('.group');
+ if(first&&!groups.querySelector('.group.tc-coupon-selected'))first.classList.add('tc-coupon-selected');
+ groups.hidden=false;
+ groups.style.setProperty('display','grid','important');
+ const section=view.querySelector('.groups-section');
+ if(section){section.hidden=false;section.style.removeProperty('display');}
  groups.style.display='';
  const bulletin=document.getElementById('bulletin-groups');
- if(bulletin)bulletin.style.display='';
+ if(bulletin){bulletin.hidden=true;bulletin.style.display='none';}
  document.querySelectorAll('.view').forEach(v=>{
   const active=v===view;
   v.hidden=!active;
