@@ -4072,4 +4072,116 @@ function setup(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
+</script><style id="tc-compact-match-sheet-style">
+#view-groups.tc-sheet-mode .tc-coupon-core #groups{display:none!important}
+#view-groups .tc-compact-sheet{background:#f7f7f7;border:2px solid #99be57;border-radius:13px;overflow:hidden;margin:12px 0;max-width:100%}
+#view-groups .tc-compact-scroll{overflow-x:auto;max-height:70vh;overflow-y:auto}
+#view-groups .tc-compact-table{border-collapse:collapse;width:100%;font:600 12px Arial,sans-serif;color:#101010;background:#f5f5f5;min-width:520px}
+#view-groups .tc-compact-table th{font-weight:900;background:#eaeaea;text-align:center;padding:8px 4px;position:sticky;top:0;z-index:2;border-bottom:2px solid #555}
+#view-groups .tc-compact-table td{border-bottom:1px solid #999;padding:4px 3px;vertical-align:middle}
+#view-groups .tc-compact-table .tc-sheet-group td{background:#e7f0d9;color:#274018;font-weight:900;padding:6px 8px}
+#view-groups .tc-sheet-team{font:600 12px Arial,sans-serif;width:100%;min-width:105px;color:#101010;background:transparent;border:0;border-bottom:1px solid transparent;padding:4px 1px;text-transform:uppercase}
+#view-groups .tc-sheet-team:focus{outline:2px solid #e17827;background:white}
+#view-groups .tc-sheet-pick{width:17px;height:17px;border:1.5px solid #f33;background:white;border-radius:0;color:#e11;cursor:pointer;padding:0;font-size:13px;line-height:13px;font-weight:bold}
+#view-groups .tc-sheet-pick.active{background:#f33;color:white}
+#view-groups .tc-sheet-select{max-width:112px;width:100%;min-width:85px;font:600 11px Arial,sans-serif;color:#222;background:white;padding:3px;border:1px solid #999}
+#view-groups .tc-sheet-stats{background:linear-gradient(115deg,#e46a20,#eca12e);padding:16px 12px}
+#view-groups .tc-sheet-stats-inner{max-width:600px;margin:auto;background:#fcfcf4;border:1px solid #95b85a;border-radius:9px;padding:10px 14px}
+#view-groups .tc-sheet-stats-title{text-align:center;font-weight:900;color:#ed2222;font-size:16px;margin-bottom:8px}
+#view-groups .tc-sheet-stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;text-align:center;font-size:12px;color:#171717}
+#view-groups .tc-sheet-stats-grid b{display:block;font-size:17px;margin-bottom:4px}
+#view-groups .tc-sheet-tools{display:flex;justify-content:flex-end;gap:8px;padding:7px 10px;background:#ededed}
+#view-groups .tc-sheet-tools button{border-radius:6px;border:1px solid #7d7d7d;background:#fff;color:#222;padding:6px 10px;cursor:pointer}
+@media(max-width:650px){#view-groups .tc-compact-table{font-size:11px}#view-groups .tc-sheet-stats-grid{font-size:10px}#view-groups .tc-sheet-stats-grid b{font-size:14px}}
+</style>
+<script id="tc-compact-match-sheet-20261018">
+(function(){
+'use strict';
+let busy=false,detail=false;
+const byId=id=>document.getElementById(id);
+function changed(el,val){if(!el)return;el.value=val;el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));}
+function build(){
+ const holder=byId('groups'),view=byId('view-groups');
+ if(!holder||!view||busy)return;
+ const core=view.querySelector('.tc-coupon-core')||holder.parentElement;
+ let sheet=byId('tc-compact-match-sheet');
+ if(!sheet){sheet=document.createElement('div');sheet.id='tc-compact-match-sheet';sheet.className='tc-compact-sheet';holder.before(sheet);}
+ const boxes=[...holder.querySelectorAll(':scope > .group')];
+ if(!boxes.length)return;
+ busy=true;
+ sheet.innerHTML='';
+ const tools=document.createElement('div');tools.className='tc-sheet-tools';
+ const toggle=document.createElement('button');toggle.type='button';toggle.textContent=detail?'📋 Tableau compact':'✏️ Saisie détaillée';
+ toggle.onclick=()=>{detail=!detail;toggle.textContent=detail?'📋 Tableau compact':'✏️ Saisie détaillée';view.classList.toggle('tc-sheet-mode',!detail);};
+ tools.append(toggle);sheet.append(tools);
+ const scroll=document.createElement('div');scroll.className='tc-compact-scroll';
+ const table=document.createElement('table');table.className='tc-compact-table';
+ const thead=document.createElement('thead');thead.innerHTML='<tr><th>N°</th><th>Équipe 1</th><th>/</th><th>Équipe 2</th><th>1</th><th>X</th><th>2</th><th>Prono.</th></tr>';
+ table.append(thead);const body=document.createElement('tbody');table.append(body);scroll.append(table);sheet.append(scroll);
+ let count=0;
+ boxes.forEach((box,idx)=>{
+   const title=box.querySelector('.group-title')?.textContent||'Groupe';
+   const groupRow=document.createElement('tr');groupRow.className='tc-sheet-group';
+   const g=document.createElement('td');g.colSpan=8;g.textContent=title;groupRow.append(g);body.append(groupRow);
+   box.querySelectorAll('.match-editor').forEach((editor,i)=>{
+     count++;
+     const fixture=editor.querySelector('.fixture');
+     if(!fixture)return;
+     const pick=fixture.querySelector('select.prono');
+     const inputs=[...fixture.querySelectorAll('input[data-key]')];
+     const first=inputs.find(x=>x.dataset.key?.endsWith('a'));
+     const second=inputs.find(x=>x.dataset.key?.endsWith('b'));
+     const tr=document.createElement('tr');
+     const cell=(value)=>{const td=document.createElement('td');if(value!==undefined)td.textContent=value;tr.append(td);return td};
+     cell(count);
+     const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);return input};
+     const a=name(first);cell('/');const b=name(second);
+     const pickBtns=[];
+     ['1','X','2'].forEach(value=>{
+       const td=cell();const btn=document.createElement('button');btn.type='button';btn.className='tc-sheet-pick';btn.textContent='';btn.setAttribute('aria-label','Pronostic '+value);
+       btn.onclick=()=>{if(!pick)return;changed(pick,pick.value===value?'':value);update();};
+       td.append(btn);pickBtns.push([value,btn]);
+     });
+     const td=cell();const select=document.createElement('select');select.className='tc-sheet-select';select.setAttribute('aria-label','Choix du pronostic');
+     if(pick)select.innerHTML=pick.innerHTML;
+     select.value=pick?.value||'';
+     select.onchange=()=>{changed(pick,select.value);update()};
+     td.append(select);
+     const update=()=>{const val=pick?.value||'';select.value=val;pickBtns.forEach(([v,btn])=>{btn.classList.toggle('active',val===v);btn.textContent=val===v?'✓':''})};
+     if(pick)pick.addEventListener('change',update);
+     update();body.append(tr);
+   });
+ });
+ const bottom=document.createElement('div');bottom.className='tc-sheet-stats';
+ const inner=document.createElement('div');inner.className='tc-sheet-stats-inner';
+ inner.innerHTML='<div class="tc-sheet-stats-title">Infos pronostic</div><div class="tc-sheet-stats-grid"><div><b data-count="triples">0</b>Triples</div><div><b data-count="doubles">0</b>Doubles</div><div><b data-count="simples">0</b>Simples</div><div><b data-count="columns">1</b>Colonnes</div><div><b data-count="chance">1:1</b>Chance</div></div>';
+ bottom.append(inner);sheet.append(bottom);
+ // Comptage indicatif : une sélection par rencontre donne un simple.
+ const calculate=()=>{
+  let simple=0;
+  table.querySelectorAll('.tc-sheet-select').forEach(s=>{if(s.value)simple++});
+  inner.querySelector('[data-count="simples"]').textContent=String(simple);
+  inner.querySelector('[data-count="triples"]').textContent='0';
+  inner.querySelector('[data-count="doubles"]').textContent='0';
+  inner.querySelector('[data-count="columns"]').textContent='1';
+  inner.querySelector('[data-count="chance"]').textContent='1:1';
+ };
+ table.addEventListener('change',calculate);calculate();
+ view.classList.toggle('tc-sheet-mode',!detail);
+ busy=false;
+}
+function setup(){
+ const holder=byId('groups');
+ if(!holder)return;
+ let scheduled=false;
+ new MutationObserver(records=>{
+  if(!records.some(r=>r.type==='childList'))return;
+  if(!scheduled){scheduled=true;queueMicrotask(()=>{scheduled=false;build();});}
+ }).observe(holder,{childList:true});
+ build();
+ const button=byId('tc-30-direct-open');
+ if(button)button.addEventListener('click',()=>queueMicrotask(build));
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
 </script></body></html>
