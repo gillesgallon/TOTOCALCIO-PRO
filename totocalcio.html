@@ -3202,7 +3202,7 @@ let systemLabel='Mes groupes';
 function lettersFromGroups(){
  const list=[];
  holder.querySelectorAll(':scope > .group .group-title').forEach(t=>{
-  const match=/Groupe\\s+([A-Z]+)/.exec(t.textContent||'');
+  const match=/Groupe\s+([A-Z]+)/.exec(t.textContent||'');
   if(match&&!list.includes(match[1]))list.push(match[1]);
  });
  return list;
