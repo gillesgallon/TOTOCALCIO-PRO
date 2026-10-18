@@ -679,7 +679,7 @@ body header.brand-header img.brand-logo{display:block!important;visibility:visib
 <div aria-label="Choisir le sport du match" class="match-sport-menu no-print" hidden="" id="match-sport-menu"><strong>Sport pour ce match</strong><button data-match-sport="football" type="button">⚽ Football</button><button data-match-sport="basket" type="button">🏀 Basketball</button><button data-match-sport="tennis" type="button">🎾 Tennis</button><button data-match-sport="pingpong" type="button">🏓 Ping-pong</button><button data-match-sport="rugby" type="button">🏉 Rugby</button></div>
 <script>
 'use strict';
-const GROUPS=["ABC", "DEF", "GHI", "JK", "LM", "NO"], GRIDS=["ADIJLO", "ADIJMO", "ADIKLN", "ADIKMN", "AEIJMN", "AFGJLO", "AFGJMO", "AFGKLN", "AFGKMN", "AFHJMN", "AFIJLO", "AFIKLN", "BDIJLN", "BDIJLO", "BDIKLN", "BFGJLO", "BFGKLN", "CDGJLO", "CDGJMO", "CDGKLN", "CDGKMN", "CDHJMN", "CDIJLO", "CDIKLN", "CEGJLN", "CEGJLO", "CEGKLN", "CFGJLO", "CFGKLN"], STORE='football_29_liees_v2';
+let GROUPS=["ABC", "DEF", "GHI", "JK", "LM", "NO"], GRIDS=["ADIJLO", "ADIJMO", "ADIKLN", "ADIKMN", "AEIJMN", "AFGJLO", "AFGJMO", "AFGKLN", "AFGKMN", "AFHJMN", "AFIJLO", "AFIKLN", "BDIJLN", "BDIJLO", "BDIKLN", "BFGJLO", "BFGKLN", "CDGJLO", "CDGJMO", "CDGKLN", "CDGKMN", "CDHJMN", "CDIJLO", "CDIKLN", "CEGJLN", "CEGJLO", "CEGKLN", "CFGJLO", "CFGKLN"], STORE='football_29_liees_v2';
 const COLORS=['green','blue','red'];
 // Chaque sport possède ses propres rencontres et pronostics, sans effacer ceux du football.
 const SPORT_NAMES={mixte:'Grille multisports',football:'Football',basket:'Basketball',tennis:'Tennis',pingpong:'Ping-pong',rugby:'Rugby'};
@@ -811,7 +811,7 @@ function loadMixSports(){try{const x=JSON.parse(localStorage.getItem(MIX_STORE)|
 let mixSports=loadMixSports();
 function persistSport(s){try{localStorage.setItem(sportStoreFor(s),JSON.stringify(sportDatas[s]))}catch(e){}}
 function persistMix(){try{localStorage.setItem(MIX_STORE,JSON.stringify(mixSports))}catch(e){}}
-function getSlotSport(c,i){return sport==='mixte'?mixSports[GROUPS.findIndex(row=>row.includes(c))][i]:sport}
+function getSlotSport(c,i){return sport==='mixte'?(mixSports[GROUPS.findIndex(row=>row.includes(c))]?.[i]||'football'):sport}
 function getSlotData(c,i){return sportDatas[getSlotSport(c,i)]}
 function slotEmoji(c,i){return SPORT_ICONS[getSlotSport(c,i)]}
 function participantPlaceholder(s,n){return s==='football'||s==='basket'||s==='rugby'?'Équipe '+n:'Joueur '+n}
@@ -858,7 +858,7 @@ function refreshAll(){renderTickets();render64();render72();render19();progress(
 function save(){if(sport!=='mixte')persistSport(sport);refreshAll()}
 // Un même match par ligne et par sport : équipes et date communes, pronostics indépendants.
 function setVal(k,v){
- const m=/^([A-O])([01])(a|b|date)$/.exec(k);
+ const m=/^([A-Z\u005b])([01])(a|b|date)$/.exec(k);
  const c=k[0],i=Number(k[1]),source=getSlotData(c,i),s=getSlotSport(c,i);
  if(m){
    const row=GROUPS.find(x=>x.includes(m[1]));
@@ -4003,6 +4003,18 @@ function openExistingMatchEntry(event){
  event.preventDefault();
  event.stopImmediatePropagation();
  document.getElementById('tc-dynamic-rows')?.remove();
+ const specs=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
+ const n=Number(selected.value);
+ if(!Number.isInteger(n)||n<0||n>=specs.length)return;
+ const [tr,db]=specs[n];let cursor=0;
+ GROUPS=Array.from({length:tr+db},(_,i)=>Array.from({length:i<tr?3:2},()=>String.fromCharCode(65+cursor++)).join(''));
+ const names=GROUPS.map(row=>row.split('').map(x=>x==='['?'AA':x).join(' · '));
+ if(typeof makeGroups==='function')makeGroups();
+ groups.querySelectorAll('.group-title').forEach((el,i)=>{const line=Math.floor(i/3);const row=GROUPS.findIndex((r)=>r.includes(el.textContent.match(/Groupe (.)/)?.[1]||''));if(row>=0){const letter=GROUPS[row][i-GROUPS.slice(0,row).reduce((v,x)=>v+x.length,0)];if(letter==='[')el.textContent=el.textContent.replace('Groupe [','Groupe AA');}});
+ let headline=document.getElementById('tc-active-system-heading');
+ if(!headline){headline=document.createElement('div');headline.id='tc-active-system-heading';groups.before(headline);}
+ headline.textContent='S'+String(n+1).padStart(2,'0')+' · '+tr+' triples · '+db+' doubles — '+(tr+db)+' lignes : '+names.map((x,i)=>'L'+(i+1)+' '+x).join(' | ');
+ headline.style.cssText='padding:12px;background:#e7f3ea;color:#123a25;border:2px solid #5b9b72;border-radius:9px;font-weight:bold;margin-bottom:12px;';
  groups.style.display='';
  const bulletin=document.getElementById('bulletin-groups');
  if(bulletin)bulletin.style.display='';
