@@ -3195,8 +3195,20 @@ layout.append(sidebar,core,guide);section.appendChild(layout);
 const menu=sidebar.querySelector('.tc-coupon-links');let selected='A';
 const names='ABCDEFGHIJKLMNO'.split('');
 for(const name of names){let b=document.createElement('button');b.type='button';b.textContent=name;b.setAttribute('aria-label','Afficher groupe '+name);b.addEventListener('click',()=>{selected=name;refresh()});menu.appendChild(b)}
+let allowed=new Set(names);
+window.tcSetCouponGroups=function(letters,systemLabel){
+ const next=new Set((letters||[]).filter(g=>names.includes(g)));
+ allowed=next.size?next:new Set(names);
+ if(!allowed.has(selected))selected=names.find(g=>allowed.has(g))||'A';
+ sidebar.querySelector('h3').textContent='🎟 '+(systemLabel||'Mes groupes')+' · '+allowed.size+' groupe(s)';
+ refresh();
+};
 function refresh(){
-menu.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(names[i]===selected)));
+menu.querySelectorAll('button').forEach((b,i)=>{
+ b.hidden=!allowed.has(names[i]);
+ b.style.display=allowed.has(names[i])?'':'none';
+ b.setAttribute('aria-pressed',String(names[i]===selected));
+});
 const boxes=holder.querySelectorAll(':scope > .group');boxes.forEach(b=>{const title=b.querySelector('.group-title')?.textContent||'';b.classList.toggle('tc-coupon-selected',new RegExp('Groupe\\s+'+selected+'(?:\\s|$)').test(title))});
 }
 const observer=new MutationObserver(()=>refresh());
@@ -3621,6 +3633,17 @@ function init(){
    // Une condition sans résultat ne doit jamais laisser la page de saisie vide.
    if(!active.size)groups.flat().forEach(g=>active.add(g));
    const all=groups.flat();
+   // Les systèmes intégraux utilisent autant de groupes distincts que de triples/doubles.
+   // Pour les systèmes conditionnels, on utilise les groupes réellement possibles.
+   if(chosen<10){
+     const triples=Number($('tc-l30-triples').value)||0;
+     const doubles=Number($('tc-l30-doubles').value)||0;
+     const count=Math.min(all.length,Math.max(1,triples+doubles));
+     active=new Set(all.slice(0,count));
+   }
+   if(typeof window.tcSetCouponGroups==='function'){
+     window.tcSetCouponGroups(all.filter(g=>active.has(g)),'S'+String(chosen+1).padStart(2,'0')+' · '+names[chosen]);
+   }
    entry.querySelectorAll('.group').forEach((node,index)=>{
      node.style.setProperty('display',active.has(all[index])?'':'none');
    });
