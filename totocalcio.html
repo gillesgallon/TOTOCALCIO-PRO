@@ -4089,6 +4089,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #view-groups .tc-compact-table td{border-bottom:1px solid #999;padding:4px 3px;vertical-align:middle}
 #view-groups .tc-compact-table .tc-sheet-group td{background:#e7f0d9;color:#274018;font-weight:900;padding:6px 8px}
 #view-groups .tc-sheet-team{font:600 12px Arial,sans-serif;width:100%;min-width:105px;color:#101010;background:transparent;border:0;border-bottom:1px solid transparent;padding:4px 1px;text-transform:uppercase}
+#view-groups .tc-sheet-sport{width:100%;min-width:96px;max-width:125px;background:#fff;color:#16263a;border:1px solid #6c8a95;border-radius:7px;padding:6px 2px;font:700 11px Arial,sans-serif;cursor:pointer}
 #view-groups .tc-sheet-team:focus{outline:2px solid #e17827;background:white}
 #view-groups .tc-sheet-pick{width:17px;height:17px;border:1.5px solid #f33;background:white;border-radius:0;color:#e11;cursor:pointer;padding:0;font-size:13px;line-height:13px;font-weight:bold}
 #view-groups .tc-sheet-pick.active{background:#f33;color:white}
@@ -4124,7 +4125,7 @@ function build(){
  tools.append(toggle);sheet.append(tools);
  const scroll=document.createElement('div');scroll.className='tc-compact-scroll';
  const table=document.createElement('table');table.className='tc-compact-table';
- const thead=document.createElement('thead');thead.innerHTML='<tr><th>N°</th><th>Équipe 1</th><th>/</th><th>Équipe 2</th><th>1</th><th>X</th><th>2</th><th>Prono.</th></tr>';
+ const thead=document.createElement('thead');thead.innerHTML='<tr><th>N°</th><th>Équipe 1</th><th>⚽ Sport ▼</th><th>Équipe 2</th><th>1</th><th>X</th><th>2</th><th>Prono.</th></tr>';
  table.append(thead);const body=document.createElement('tbody');table.append(body);scroll.append(table);sheet.append(scroll);
  let count=0;
  boxes.forEach((box,idx)=>{
@@ -4143,7 +4144,20 @@ function build(){
      const cell=(value)=>{const td=document.createElement('td');if(value!==undefined)td.textContent=value;tr.append(td);return td};
      cell(count);
      const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);return input};
-     const a=name(first);cell('/');const b=name(second);
+     const a=name(first);
+     const sportCell=cell();
+     const originalSport=fixture.querySelector('select.sport-ball-select');
+     if(originalSport){
+       const sportMenu=document.createElement('select');
+       sportMenu.className='tc-sheet-sport';
+       sportMenu.setAttribute('aria-label','Choisir la discipline sportive du match '+(i+1)+' du groupe '+(title||''));
+       sportMenu.title='Changer de sport';
+       sportMenu.innerHTML=originalSport.innerHTML;
+       sportMenu.value=originalSport.value;
+       sportMenu.addEventListener('change',()=>changed(originalSport,sportMenu.value));
+       sportCell.append(sportMenu);
+     }else{sportCell.textContent='⚽';}
+     const b=name(second);
      const pickBtns=[];
      ['1','X','2'].forEach(value=>{
        const td=cell();const btn=document.createElement('button');btn.type='button';btn.className='tc-sheet-pick';btn.textContent='';btn.setAttribute('aria-label','Pronostic '+value);
