@@ -3197,26 +3197,54 @@ const start=section.querySelector('.toolbar');
 // Les outils de saisie restent dans le panneau principal, sans changer leurs identifiants.
 while(banner.nextSibling){core.appendChild(banner.nextSibling)}
 layout.append(sidebar,core,guide);section.appendChild(layout);
-const menu=sidebar.querySelector('.tc-coupon-links');let selected='A';
-const names='ABCDEFGHIJKLMNO'.split('');
-for(const name of names){let b=document.createElement('button');b.type='button';b.textContent=name;b.setAttribute('aria-label','Afficher groupe '+name);b.addEventListener('click',()=>{selected=name;refresh()});menu.appendChild(b)}
-let allowed=new Set(names);
-window.tcSetCouponGroups=function(letters,systemLabel){
+const menu=sidebar.querySelector('.tc-coupon-links');let selected='A',names=[],allowed=new Set();
+let systemLabel='Mes groupes';
+function lettersFromGroups(){
+ const list=[];
+ holder.querySelectorAll(':scope > .group .group-title').forEach(t=>{
+  const match=/Groupe\\s+([A-Z]+)/.exec(t.textContent||'');
+  if(match&&!list.includes(match[1]))list.push(match[1]);
+ });
+ return list;
+}
+function rebuild(){
+ const latest=lettersFromGroups();
+ if(!latest.length)return;
+ if(latest.join('|')===names.join('|'))return;
+ names=latest;allowed=new Set(names);
+ menu.replaceChildren();
+ names.forEach(name=>{
+  const b=document.createElement('button');b.type='button';b.textContent=name;
+  b.setAttribute('aria-label','Afficher groupe '+name);
+  b.addEventListener('click',()=>{selected=name;refresh()});menu.append(b);
+ });
+ if(!allowed.has(selected))selected=names[0];
+}
+window.tcSetCouponGroups=function(letters,label){
+ systemLabel=label||systemLabel;
+ rebuild();
  const next=new Set((letters||[]).filter(g=>names.includes(g)));
  allowed=next.size?next:new Set(names);
- if(!allowed.has(selected))selected=names.find(g=>allowed.has(g))||'A';
- sidebar.querySelector('h3').textContent='🎟 '+(systemLabel||'Mes groupes')+' · '+allowed.size+' groupe(s)';
+ if(!allowed.has(selected))selected=names.find(g=>allowed.has(g))||names[0];
  refresh();
 };
 function refresh(){
-menu.querySelectorAll('button').forEach((b,i)=>{
- b.hidden=!allowed.has(names[i]);
- b.style.display=allowed.has(names[i])?'':'none';
- b.setAttribute('aria-pressed',String(names[i]===selected));
-});
-const boxes=holder.querySelectorAll(':scope > .group');boxes.forEach(b=>{const title=b.querySelector('.group-title')?.textContent||'';b.classList.toggle('tc-coupon-selected',new RegExp('Groupe\\s+'+selected+'(?:\\s|$)').test(title))});
+ rebuild();
+ sidebar.querySelector('h3').textContent='🎟 '+systemLabel+' · '+allowed.size+' groupe(s)';
+ menu.querySelectorAll('button').forEach(b=>{
+  const name=b.textContent;
+  b.hidden=!allowed.has(name);
+  b.style.display=allowed.has(name)?'':'none';
+  b.setAttribute('aria-pressed',String(name===selected));
+ });
+ holder.querySelectorAll(':scope > .group').forEach(b=>{
+  const title=b.querySelector('.group-title')?.textContent||'';
+  b.classList.toggle('tc-coupon-selected',new RegExp('Groupe\\\\s+'+selected+'(?:\\\\s|$)').test(title));
+ });
 }
-const observer=new MutationObserver(()=>refresh());
+const observer=new MutationObserver(records=>{
+ if(records.some(rec=>Array.from(rec.addedNodes).some(n=>n.nodeType===1&&n.classList?.contains('group'))||Array.from(rec.removedNodes).some(n=>n.nodeType===1&&n.classList?.contains('group'))))refresh();
+});
 observer.observe(holder,{childList:true});refresh();
 const nav=document.querySelector('.nav [data-view="groups"]');nav?.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});refresh()});
 }
