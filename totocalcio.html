@@ -3595,7 +3595,7 @@ function init(){
  names.forEach((name,i)=>{const opt=new Option('TC-'+String(i+1).padStart(2,'0')+' · '+name,i);$('tc-library30-system').add(opt)});
  const quick=$('tc-30-direct-select');
  if(quick){quick.innerHTML='';names.forEach((name,i)=>quick.add(new Option('S'+String(i+1).padStart(2,'0')+' · '+name,String(i))));
-  $('tc-30-direct-open').onclick=()=>{$('tc-library30-system').value=quick.value;change();$('tc-library30-modal').classList.add('tc-open')};
+  $('tc-30-direct-open').onclick=()=>{ $('tc-library30-system').value=quick.value;change(); if(typeof showView==='function')showView('groups');else document.getElementById('view-groups')?.classList.add('active'); const target=document.getElementById('view-groups'); if(target)target.scrollIntoView({behavior:'smooth',block:'start'}); };
   quick.onchange=()=>{$('tc-library30-system').value=quick.value;change()};
   $('tc-library30-system').addEventListener('change',()=>{quick.value=$('tc-library30-system').value});
  }
