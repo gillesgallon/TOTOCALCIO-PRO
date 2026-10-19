@@ -2564,9 +2564,9 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
    if(scheduled)return;scheduled=true;
    queueMicrotask(()=>{scheduled=false;apply()});
  };
- new MutationObserver(records=>{if(records.some(r=>!bar.contains(r.target)))schedule();}).observe(document.getElementById('view-groups'),{childList:true,subtree:true});
+ for(const root of rootNodes)new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
  apply();
- window.TOTOCALCIO_VERROUILLAGE={isLocked:()=>locked,lock:()=>{locked=true;try{localStorage.setItem(KEY,'true')}catch(e){}apply()},unlock:()=>{locked=false;try{localStorage.setItem(KEY,'false')}catch(e){}apply()}};
+ window.TOTOCALCIO_VERROUILLAGE={refresh:apply,isLocked:()=>locked,lock:()=>{locked=true;try{localStorage.setItem(KEY,'true')}catch(e){}apply()},unlock:()=>{locked=false;try{localStorage.setItem(KEY,'false')}catch(e){}apply()}};
 })();
 </script>
 <style id="totocalcio-voir-mes-bulletins-style">
@@ -4095,6 +4095,7 @@ function build(){
  table.addEventListener('change',calculate);calculate();
  if(typeof applyMobileFilter==='function')applyMobileFilter();
  view.classList.toggle('tc-sheet-mode',!detail);
+ window.TOTOCALCIO_VERROUILLAGE?.refresh();
  busy=false;
 }
 function setup(){
