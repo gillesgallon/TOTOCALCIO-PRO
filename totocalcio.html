@@ -2724,7 +2724,10 @@ function setup(){
  const side=document.createElement('aside');side.id='tc-side-menu';side.className='no-print';side.setAttribute('aria-label','Menu principal TotoCalcio');
  side.innerHTML='<button type="button" class="tc-menu-close" aria-label="Fermer le menu">✕</button><div class="tc-menu-title">⚽ TOTOCALCIO</div>';
  const toggle=document.createElement('button');toggle.id='tc-menu-toggle';toggle.type='button';toggle.textContent='☰ Menu';toggle.setAttribute('aria-controls','tc-side-menu');toggle.setAttribute('aria-expanded','false');
- document.body.prepend(toggle);document.body.prepend(side);
+ const mobileNav=document.createElement('nav');mobileNav.id='tc-mobile-navigation';mobileNav.className='no-print';mobileNav.setAttribute('aria-label','Accès au menu principal');mobileNav.append(toggle);
+ const banner=document.querySelector('header.brand-header')||document.querySelector('header');
+ if(banner)banner.after(mobileNav);else document.body.prepend(mobileNav);
+ document.body.prepend(side);
  function heading(label){let h=document.createElement('div');h.className='tc-menu-heading';h.textContent=label;side.append(h)}
  function zone(){const n=document.createElement('div');n.className='tc-menu-actions';side.append(n);return n}
  heading('Navigation et systèmes');let n=zone();let nav=document.querySelector('nav.nav');if(nav)n.append(nav);
@@ -4103,4 +4106,12 @@ window.addEventListener('afterprint',()=>document.body.classList.remove('tc-prin
 #view-groups .tc-coupon-links .tc-coupon-letter-row{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;width:100%}
 #view-groups .tc-coupon-links .tc-coupon-letter-row[hidden]{display:none!important}
 #view-groups .tc-coupon-letter-row button{width:100%;min-width:0;min-height:39px}
+</style><style id="tc-mobile-menu-below-banner">
+#tc-mobile-navigation{display:none}
+@media(max-width:850px){
+ body #tc-mobile-navigation{display:flex;align-items:center;justify-content:flex-start;position:sticky;top:0;z-index:7998;min-height:49px;padding:7px 12px;background:#f6f8fb;border-bottom:1px solid #cbd5e1;box-shadow:0 2px 5px #102c4612}
+ body #tc-mobile-navigation #tc-menu-toggle{display:inline-flex!important;align-items:center;justify-content:center;position:static!important;inset:auto!important;z-index:auto!important;margin:0!important;padding:8px 15px!important;min-height:35px!important;background:#123451!important;color:#e6f4ff!important;border:1px solid #294f70!important;border-radius:8px!important;font-size:13px!important;font-weight:750!important;line-height:1.2!important;box-shadow:none!important}
+ body #tc-mobile-navigation #tc-menu-toggle:focus-visible{outline:3px solid #f3a340!important;outline-offset:2px!important}
+}
+@media print{#tc-mobile-navigation{display:none!important}}
 </style></body></html>
