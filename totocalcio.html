@@ -2564,7 +2564,7 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
    if(scheduled)return;scheduled=true;
    queueMicrotask(()=>{scheduled=false;apply()});
  };
- new MutationObserver(schedule).observe(document.getElementById('view-groups'),{childList:true,subtree:true});
+ new MutationObserver(records=>{if(records.some(r=>!bar.contains(r.target)))schedule();}).observe(document.getElementById('view-groups'),{childList:true,subtree:true});
  apply();
  window.TOTOCALCIO_VERROUILLAGE={isLocked:()=>locked,lock:()=>{locked=true;try{localStorage.setItem(KEY,'true')}catch(e){}apply()},unlock:()=>{locked=false;try{localStorage.setItem(KEY,'false')}catch(e){}apply()}};
 })();
