@@ -1,0 +1,32 @@
+{
+  "id": "./totocalcio.html",
+  "name": "TOTOCALCIO PRO",
+  "short_name": "TOTOCALCIO",
+  "lang": "fr",
+  "description": "Mes rencontres, mes groupes et mes bulletins sportifs.",
+  "start_url": "./totocalcio.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#08275c",
+  "theme_color": "#1e5aa8",
+  "icons": [
+    {
+      "src": "./totocalcio-icons/totocalcio-pro-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./totocalcio-icons/totocalcio-pro-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./totocalcio-icons/totocalcio-pro-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
