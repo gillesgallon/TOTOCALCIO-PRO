@@ -1455,12 +1455,31 @@ $('pari-print').onclick=()=>{document.body.classList.add('pari-print');window.pr
 const BULLETINS_KEY='totocalcio_named_bulletins_v1';
 let bulletins=[];try{const v=JSON.parse(localStorage.getItem(BULLETINS_KEY)||'[]');if(Array.isArray(v))bulletins=v.filter(b=>b&&typeof b.name==='string'&&b.state)}catch(e){}
 let undoSelections=null;
-function toolsNotice(t){$('tools-message').textContent=t}
-function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144}))}
+function toolsNotice(t){for(const id of ['tools-message','savepronos-message']){const el=$(id);if(el)el.textContent=t;}}
+function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144,groups:GROUPS,system30:$('tc-30-direct-select')?.value,stake:$('stake')?.value,leaguePrefs:typeof leaguePrefs!=='undefined'?leaguePrefs:{},teamChampionships:localStorage.getItem('tc-team-championships-v1')}))}
 function restoreSnapshot(v){
+ if(!v||!v.sportsData)throw new Error('Ce bulletin ne contient pas de données valides.');
+ if(v.system30!==undefined&&$('tc-30-direct-select')){
+  $('tc-30-direct-select').value=String(v.system30);
+  $('tc-30-direct-select').dispatchEvent(new Event('change',{bubbles:true}));
+ }
+ if(Array.isArray(v.groups)&&v.groups.length&&v.groups.every(row=>typeof row==='string'&&/^[A-Z]+$/.test(row)))GROUPS=v.groups.slice();
+ if(v.leaguePrefs&&typeof leaguePrefs!=='undefined'){leaguePrefs=v.leaguePrefs;try{localStorage.setItem(LEAGUE_PREFS_STORE,JSON.stringify(leaguePrefs));}catch(e){}}
+ if(v.teamChampionships!==undefined){try{if(v.teamChampionships===null)localStorage.removeItem('tc-team-championships-v1');else localStorage.setItem('tc-team-championships-v1',v.teamChampionships);}catch(e){}}
  for(const k of SPORT_KEYS){sportDatas[k]=v.sportsData[k]||{};persistSport(k)}
  if(v.choices144){choices144=v.choices144.map(x=>({...x}));store144();buildChoices144()}
- mixSports=v.mixSports.map(r=>r.slice());persistMix();pairs64=v.pairs64.slice();choices72=v.choices72.map(x=>({...x}));storePairs64();store72();buildPairs64();buildChoices72();selectSport(v.sport);
+ if(Array.isArray(v.mixSports)){mixSports=v.mixSports.map(r=>r.slice());persistMix();}
+ if(Array.isArray(v.pairs64)){pairs64=v.pairs64.slice();storePairs64();buildPairs64();}
+ if(Array.isArray(v.choices72)){choices72=v.choices72.map(x=>({...x}));store72();buildChoices72();}
+ if(v.stake!==undefined&&$('stake'))$('stake').value=v.stake;
+ selectSport(v.sport);
+ if(v.system30!==undefined){
+  const label=$('tc-30-direct-select')?.selectedOptions[0]?.textContent||'Mon système';
+  window.tcSetCouponGroups?.(GROUPS.join('').split(''),label);
+  const heading=$('tc-active-system-heading');
+  if(heading)heading.textContent=label+' · '+GROUPS.length+' lignes : '+GROUPS.map(r=>r.split('').join(' · ')).join(' / ');
+  window.TOTOCALCIO_RENCONTRES_SYSTEME?.applyFilter();
+ }
 }
 function saveBulletins(){try{localStorage.setItem(BULLETINS_KEY,JSON.stringify(bulletins));return true}catch(e){toolsNotice('Enregistrement impossible : espace de stockage indisponible. Exporte tes données.');return false}}
 function listBulletins(){const v=$('saved-list').value;$('saved-list').innerHTML='<option value="">Choisir un bulletin…</option>'+bulletins.map((b,i)=>`<option value="${i}">${safe(b.name)}</option>`).join('');$('saved-list').value=v}
@@ -1509,7 +1528,21 @@ $('clear-all-teams').onclick=()=>{
 };
 $('clear-selections').onclick=()=>{undoSelections=stateSnapshot();$('undo-selections').disabled=false;clearSelections();toolsNotice('Sélections effacées : les 12 boutons sont revenus sur ⚽ Football. Tu peux annuler.')};
 $('undo-selections').onclick=()=>{if(!undoSelections)return;if(!confirm('Restaurer les sélections d’avant l’effacement ? Les modifications faites depuis seront remplacées.'))return;const v=undoSelections;undoSelections=null;$('undo-selections').disabled=true;restoreSnapshot(v);toolsNotice('Sélections restaurées.')};
-$('save-bulletin').onclick=()=>{const name=$('saved-name').value.trim();if(!name){toolsNotice('Donne un nom à ton bulletin.');return}const old=bulletins.findIndex(b=>b.name===name);if(old>=0&&!confirm('Remplacer le bulletin « '+name+' » ?'))return;const previous=bulletins.slice(),entry={name,state:stateSnapshot()};old>=0?bulletins[old]=entry:bulletins.push(entry);if(!saveBulletins()){bulletins=previous;return}listBulletins();toolsNotice('Bulletin enregistré : '+name)};
+$('save-bulletin').onclick=()=>{
+ try{
+  const input=$('saved-name');
+  const name=input.value.trim()||'Bulletin '+new Date().toLocaleString('fr-FR');
+  input.value=name;
+  const old=bulletins.findIndex(b=>b.name===name);
+  if(old>=0&&!confirm('Remplacer le bulletin « '+name+' » ?'))return;
+  const previous=bulletins.slice(),entry={name,state:stateSnapshot(),savedAt:new Date().toISOString()};
+  const index=old>=0?old:bulletins.length;
+  if(old>=0)bulletins[old]=entry;else bulletins.push(entry);
+  if(!saveBulletins()){bulletins=previous;return;}
+  listBulletins();$('saved-list').value=String(index);
+  toolsNotice('✓ Bulletin enregistré : '+name+' · équipes, pronostics et système conservés sur cet appareil.');
+ }catch(e){toolsNotice('Enregistrement impossible : '+e.message);}
+};
 $('load-bulletin').onclick=()=>{const idx=$('saved-list').value;if(idx==='')return;const b=bulletins[Number(idx)];if(!b||!confirm('Ouvrir « '+b.name+' » et remplacer la saisie actuelle ? Enregistre-la d’abord si nécessaire.'))return;restoreSnapshot(b.state);undoSelections=null;$('undo-selections').disabled=true;$('saved-name').value=b.name;toolsNotice('Bulletin ouvert : '+b.name)};
 $('delete-bulletin').onclick=()=>{const idx=$('saved-list').value;if(idx==='')return;const b=bulletins[Number(idx)];if(!b||!confirm('Supprimer le bulletin enregistré « '+b.name+' » ?'))return;const previous=bulletins.slice();bulletins.splice(Number(idx),1);if(!saveBulletins()){bulletins=previous;return}listBulletins();toolsNotice('Bulletin supprimé.')};
 $('check-picks').onclick=()=>{const combos=selectedCombos();if(combos===null){toolsNotice('Corrige la répartition du système 72.');return}const missing=new Set();for(const combo of combos)for(const c of combo)for(let i=0;i<2;i++){const d=getSlotData(c,i);if(!d[c+i+'a']||!d[c+i+'b']||!d[c+i+'p']||displayPick(c,i)==='Jeux : nombre à préciser')missing.add(c+(i+1))}toolsNotice(missing.size?'À compléter (groupe et match) : '+[...missing].join(', '):'Toutes les rencontres et sélections du système choisi sont renseignées.')};
@@ -4009,6 +4042,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 const storage='tc-team-championships-v1';
 let prefs={};try{prefs=JSON.parse(localStorage.getItem(storage)||'{}')||{};}catch(e){}
 window.tcTeamChampionshipMenu=function(original,input,host){
+ try{prefs=JSON.parse(localStorage.getItem(storage)||'{}')||{};}catch(e){}
  if(!original||typeof LEAGUE_TEAMS_2627==='undefined')return;
  const fixture=original.closest('.fixture');
  const sport=fixture?.querySelector('.sport-ball-select');
