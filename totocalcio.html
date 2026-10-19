@@ -4103,6 +4103,59 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #view-groups .tc-sheet-tools button{border-radius:6px;border:1px solid #7d7d7d;background:#fff;color:#222;padding:6px 10px;cursor:pointer}
 @media(max-width:650px){#view-groups .tc-compact-table{font-size:11px}#view-groups .tc-sheet-stats-grid{font-size:10px}#view-groups .tc-sheet-stats-grid b{font-size:14px}}
 </style>
+
+<script id="tc-team-championship-menus-20261019">
+(function(){
+'use strict';
+const storage='tc-team-championships-v1';
+let prefs={};try{prefs=JSON.parse(localStorage.getItem(storage)||'{}')||{};}catch(e){}
+window.tcTeamChampionshipMenu=function(original,input,host){
+ if(!original||typeof LEAGUE_TEAMS_2627==='undefined')return;
+ const fixture=original.closest('.fixture');
+ const sport=fixture?.querySelector('.sport-ball-select');
+ if(sport&&sport.value!=='football')return;
+ const key=original.dataset.key;
+ if(!key)return;
+ const league=document.createElement('select');
+ league.className='tc-team-championship';
+ league.setAttribute('aria-label','Championnat de '+(input.getAttribute('aria-label')||'cette équipe'));
+ league.add(new Option('▾ Championnat / Coupe…',''));
+ Object.entries(LEAGUE_TEAMS_2627).forEach(([country,data])=>{
+  const group=document.createElement('optgroup');group.label=data.name;
+  data.divisions.forEach((d,i)=>group.append(new Option(d.name,country+':'+i)));
+  league.append(group);
+ });
+ const clubs=document.createElement('select');
+ clubs.className='tc-team-championship';
+ clubs.setAttribute('aria-label','Choisir une équipe du championnat');
+ function fill(){
+  clubs.replaceChildren(new Option('▾ Choisir une équipe…',''));
+  const [country,division]=league.value.split(':');
+  const names=LEAGUE_TEAMS_2627[country]?.divisions[Number(division)]?.teams||[];
+  names.forEach(name=>clubs.add(new Option(name,name)));
+  clubs.hidden=!league.value;
+  clubs.value=names.includes(input.value)?input.value:'';
+ }
+ league.value=prefs[key]||'';
+ league.addEventListener('change',()=>{
+  prefs[key]=league.value;try{localStorage.setItem(storage,JSON.stringify(prefs));}catch(e){}
+  fill();
+ });
+ clubs.addEventListener('change',()=>{
+  if(!clubs.value)return;
+  input.value=clubs.value;
+  input.dispatchEvent(new Event('input',{bubbles:true}));
+ });
+ input.addEventListener('input',()=>{clubs.value=input.value;});
+ host.append(league,clubs);fill();
+};
+})();
+</script>
+<style id="tc-team-championship-style">
+#view-groups select.tc-team-championship{display:block!important;width:100%!important;max-width:100%;min-width:0;background:#fff!important;color:#142c48!important;border:1px solid #9aafb9;border-radius:5px;padding:5px 2px;font:600 11px Arial,sans-serif;margin:3px 0}
+#view-groups select.tc-team-championship[hidden]{display:none!important}
+@media print{select.tc-team-championship{display:none!important}}
+</style>
 <script id="tc-compact-match-sheet-20261018">
 (function(){
 'use strict';
@@ -4143,7 +4196,7 @@ function build(){
      const tr=document.createElement('tr');
      const cell=(value)=>{const td=document.createElement('td');if(value!==undefined)td.textContent=value;tr.append(td);return td};
      cell(count);
-     const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);return input};
+     const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);if(window.tcTeamChampionshipMenu)window.tcTeamChampionshipMenu(original,input,td);return input};
      const a=name(first);
      const sportCell=cell();
      const originalSport=fixture.querySelector('select.sport-ball-select');
