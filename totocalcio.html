@@ -2335,142 +2335,41 @@ bcSetMode(bcMode);
 @media print{#sys-fixture-filter,.sys-overview{display:none!important}}
 </style>
 <script id="totocalcio-rencontres-systeme-script">
-/* Vue ciblée sans modifier les pronostics ni les calculs des systèmes. */
 (function(){
- 'use strict';
- const keys=[
-  ['all','Toutes les rencontres (saisie générale)'],
-  ['19','19 grilles · 3 lignes / 6 matchs'],
-  ['29','29 grilles'],['64','64 grilles'],['72','72 grilles'],
-  ['144','2 triples + 4 doubles'],
-  ['conditions','S1 à S8 · système prêt actif'],
-  ['half','50 % · système et partie choisis']
- ];
- const store='totocalcio_rencontres_filtre_v1';
+'use strict';
+function setup(){
  const root=document.getElementById('view-groups');
+ if(!root)return;
  const panel=document.createElement('div');panel.id='sys-fixture-filter';panel.className='no-print';
- panel.innerHTML='<label for="sys-fixture-select">🎟 Rencontres de mon système</label><select id="sys-fixture-select" aria-label="Système pour filtrer les rencontres"></select><span id="sys-fixture-hint" class="sys-fixture-hint" role="status"></span>';
- const selector=panel.querySelector('select');
- for(const [value,label] of keys){const opt=document.createElement('option');opt.value=value;opt.textContent=label;selector.append(opt)}
- const before=document.getElementById('bulletin-groups');
- root.querySelector('.groups-section').insertBefore(panel,before);
- let selected='all';
- try{const v=localStorage.getItem(store);if(keys.some(([k])=>k===v))selected=v}catch(e){}
- selector.value=selected;
- function combosFor(id){
-  try{
-   if(id==='19')return combinations19();
-   if(id==='29')return GRIDS;
-   if(id==='64')return combinations64();
-   if(id==='72')return accepted72();
-   if(id==='144')return accepted144();
-   if(id==='conditions')return window.TOTOCALCIO_CONDITIONS?.getShown?.()||[];
-   if(id==='half'){
-    const h=window.TOTOCALCIO_HALF_TEST;
-    if(!h)return [];
-    const name=document.getElementById('half-system').value;
-    const part=document.getElementById('half-part').value;
-    const all=h.systems[name].get()||[];
-    return part==='A'?all.filter((_,i)=>i%2===0):part==='B'?all.filter((_,i)=>i%2===1):all;
-   }
-  }catch(e){return []}
-  return [];
+ const label=document.createElement('label');label.htmlFor='sys-fixture-select';label.textContent='🎟 Rencontres de mon système';
+ const selected=document.createElement('select');selected.id='sys-fixture-select';selected.disabled=true;selected.setAttribute('aria-label','Système actuellement ouvert');
+ const hint=document.createElement('span');hint.id='sys-fixture-hint';hint.className='sys-fixture-hint';hint.setAttribute('role','status');
+ panel.append(label,selected,hint);
+ const section=root.querySelector('.groups-section');if(!section)return;section.prepend(panel);
+ function sync(){
+  const master=document.getElementById('tc-30-direct-select');
+  if(!master)return;
+  selected.replaceChildren(...Array.from(master.options,o=>new Option(o.text,o.value)));
+  selected.value=master.value;
+  const rows=typeof GROUPS!=='undefined'?GROUPS:[];
+  hint.textContent=rows.length+' lignes · '+rows.length*2+' rencontres · Groupes : '+rows.map(row=>Array.from(row).join(' · ')).join(' / ');
  }
- function usedBySystem(id){
-  const groups=new Set();
-  if(id==='all'){for(const row of GROUPS)for(const g of row)groups.add(g);return groups}
-  for(const combo of combosFor(id)||[])for(const g of combo)if(typeof g==='string'&&/^[A-O]$/.test(g))groups.add(g);
-  return groups;
- }
- function setSystem(id){
-  selected=keys.some(([k])=>k===id)?id:'all';selector.value=selected;
-  try{localStorage.setItem(store,selected)}catch(e){}
-  applyFilter();
- }
- function applyFilter(){
-  const active=usedBySystem(selected);
-  const visibleRows=GROUPS.filter(row=>[...row].some(c=>active.has(c)));
-  const matchCount=visibleRows.length*2;
-  const hint=document.getElementById('sys-fixture-hint');
-  if(selected==='all')hint.textContent='Toutes les rencontres restent visibles. Choisis un système pour limiter la saisie à ses matchs.';
-  else if(!active.size)hint.textContent='Ce système ne contient aucune grille avec les conditions actuelles. Sélectionne un autre système ou ajuste ses conditions.';
-  else hint.textContent=matchCount+' rencontres concernées · '+active.size+' groupes utilisés. Les autres rencontres sont masquées, jamais effacées.';
-  const bulletin=document.getElementById('bulletin-groups');
-  if(bulletin){
-   bulletin.querySelectorAll('.bc-line').forEach((line,r)=>{
-    const row=GROUPS[r],allowed=[...row].filter(g=>active.has(g));
-    line.style.display=allowed.length?'':'none';
-    line.querySelectorAll('.bc-group').forEach((group,j)=>{group.style.display=active.has(row[j])?'':'none'});
-    line.querySelectorAll('.bc-line-head .bc-badge').forEach((badge,j)=>{badge.style.display=active.has(row[j])?'':'none'});
-   });
-  }
-  const detailed=document.getElementById('groups');
-  if(detailed){
-   let index=0;
-   detailed.querySelectorAll('.group').forEach(group=>{
-    // Indexation explicite par groupe, sans dépendre du nombre de groupes visibles.
-    const g=[...GROUPS.join('')][index++];
-    group.style.display=active.has(g)?'':'none';
-   });
-  }
- }
- selector.addEventListener('change',()=>setSystem(selector.value));
- // Conserve le filtrage après les reconstructions du bulletin et des groupes.
- const oldBulletin=renderBulletinGroups;
- renderBulletinGroups=function(...args){const value=oldBulletin(...args);applyFilter();return value};
- const oldGroups=makeGroups;
- makeGroups=function(...args){const value=oldGroups(...args);applyFilter();return value};
- const views={grids:'29','64':'64','72':'72','19':'19','144':'144',conditions:'conditions',half:'half'};
- const overviewByView={};
- for(const [view,id] of Object.entries(views)){
-  const host=document.getElementById('view-'+view)?.querySelector('section');if(!host)continue;
-  const box=document.createElement('div');box.className='sys-overview no-print';box.dataset.overview=id;
-  const h=host.querySelector('h2');h.insertAdjacentElement('afterend',box);overviewByView[view]=box;
- }
- function renderOverview(view){
-  const box=overviewByView[view];if(!box)return;
-  const id=views[view],used=usedBySystem(id);
-  if(!used.size){box.innerHTML='<h3>🎟 Rencontres concernées</h3><p>Aucune rencontre pour les grilles actuellement retenues.</p>';return}
-  const rows=GROUPS.map((row,r)=>({r,letters:[...row].filter(g=>used.has(g))})).filter(x=>x.letters.length);
-  let html='<h3>🎟 Uniquement les rencontres de ce système</h3><p>Chaque match est affiché une seule fois, même s’il apparaît dans plusieurs grilles. Les groupes non utilisés sont exclus.</p><div class="sys-overview-list">';
-  for(const {r,letters} of rows){
-   html+='<div class="sys-overview-line"><div class="sys-overview-head"><span>Ligne '+(r+1)+'</span><span class="sys-overview-groups">Groupes : '+letters.join(' · ')+'</span></div>';
-   for(let i=0;i<2;i++){
-    const g=letters[0],d=getSlotData(g,i),a=d[g+i+'a']||'Équipe 1 non saisie',b=d[g+i+'b']||'Équipe 2 non saisie';
-    html+='<div class="sys-overview-match"><small>Match '+(r*2+i+1)+' · '+safe(SPORT_NAMES[getSlotSport(g,i)])+'</small>'+safe(a)+' — '+safe(b)+'</div>';
-   }
-   html+='</div>';
-  }
-  html+='</div><button type="button" class="sys-overview-action" data-target-system="'+id+'">✏️ Saisir uniquement ces rencontres dans Mes groupes</button>';
-  box.innerHTML=html;
-  box.querySelector('button').addEventListener('click',()=>{
-   setSystem(id);
-   const nav=document.querySelector('.nav [data-view="groups"]');if(nav)nav.click();else showView('groups');
-   window.scrollTo({top:0,behavior:'smooth'});
-  });
- }
- document.addEventListener('click',e=>{
-  const nav=e.target.closest('.nav [data-view]');
-  if(nav&&views[nav.dataset.view]){
-   const view=nav.dataset.view;
-   // Attend les gestionnaires de navigation et les recalculs du système.
-   requestAnimationFrame(()=>renderOverview(view));
-  }
-  if(e.target.closest('#view-conditions button,#view-72 button,#view-144 button')){
-   requestAnimationFrame(()=>{for(const view of ['conditions','72','144'])if(document.getElementById('view-'+view)?.classList.contains('active'))renderOverview(view)});
-  }
- });
- document.addEventListener('change',e=>{
-  if(e.target.closest('#view-conditions,#view-half,#view-64,#view-72,#view-144')){
-   requestAnimationFrame(()=>{
-    const current=Object.keys(views).find(v=>document.getElementById('view-'+v)?.classList.contains('active'));
-    if(current)renderOverview(current);
-    if(selected!=='all')applyFilter();
-   });
-  }
- });
- applyFilter();
- window.TOTOCALCIO_RENCONTRES_SYSTEME={setSystem,usedBySystem,applyFilter,renderOverview};
+ const open=document.getElementById('tc-30-direct-open');
+ if(open)open.addEventListener('click',()=>queueMicrotask(sync),true);
+ // Les anciennes API restent compatibles et ne filtrent plus avec des systèmes retirés.
+ window.TOTOCALCIO_RENCONTRES_SYSTEME={
+  setSystem:sync,
+  usedBySystem:()=>new Set(typeof GROUPS!=='undefined'?GROUPS.flatMap(row=>Array.from(row)):[]),
+  applyFilter:sync,
+  renderOverview:sync
+ };
+ const holder=document.getElementById('groups');
+ if(holder)new MutationObserver(sync).observe(holder,{childList:true});
+ const master=document.getElementById('tc-30-direct-select');
+ if(master)new MutationObserver(sync).observe(master,{childList:true});
+ sync();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
 </script>
 <style id="totocalcio-verrouillage-v1">
