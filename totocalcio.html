@@ -3176,10 +3176,15 @@ function rebuild(){
  if(latest.join('|')===names.join('|'))return;
  names=latest;allowed=new Set(names);
  menu.replaceChildren();
- names.forEach(name=>{
-  const b=document.createElement('button');b.type='button';b.textContent=name;
-  b.setAttribute('aria-label','Afficher groupe '+name);
-  b.addEventListener('click',()=>{selected=name;refresh()});menu.append(b);
+ GROUPS.forEach((line,index)=>{
+  const row=document.createElement('div');row.className='tc-coupon-letter-row';
+  row.setAttribute('role','group');row.setAttribute('aria-label','Ligne '+(index+1)+' : '+Array.from(line).join(' · '));
+  Array.from(line).filter(name=>names.includes(name)).forEach(name=>{
+   const b=document.createElement('button');b.type='button';b.textContent=name;
+   b.setAttribute('aria-label','Afficher groupe '+name);
+   b.addEventListener('click',()=>{selected=name;refresh()});row.append(b);
+  });
+  menu.append(row);
  });
  if(!allowed.has(selected))selected=names[0];
 }
@@ -3194,6 +3199,7 @@ window.tcSetCouponGroups=function(letters,label){
 function refresh(){
  rebuild();
  sidebar.querySelector('h3').textContent='🎟 '+systemLabel+' · '+allowed.size+' groupe(s)';
+ menu.querySelectorAll('.tc-coupon-letter-row').forEach(row=>{row.hidden=!Array.from(row.querySelectorAll('button')).some(b=>allowed.has(b.textContent));});
  menu.querySelectorAll('button').forEach(b=>{
   const name=b.textContent;
   b.hidden=!allowed.has(name);
@@ -4092,4 +4098,9 @@ body.tc-print-current #view-audit-bulletins button{display:none!important}
 <script id="tc-print-current-page">
 window.addEventListener('beforeprint',()=>document.body.classList.add('tc-print-current'));
 window.addEventListener('afterprint',()=>document.body.classList.remove('tc-print-current'));
-</script></body></html>
+</script><style id="tc-coupon-alphabet-rows">
+#view-groups .tc-coupon-links{display:flex!important;flex-direction:column!important;gap:7px!important}
+#view-groups .tc-coupon-links .tc-coupon-letter-row{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;width:100%}
+#view-groups .tc-coupon-links .tc-coupon-letter-row[hidden]{display:none!important}
+#view-groups .tc-coupon-letter-row button{width:100%;min-width:0;min-height:39px}
+</style></body></html>
