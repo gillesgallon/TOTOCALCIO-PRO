@@ -4257,4 +4257,53 @@ function setup(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
 </script>
-</body></html>
+<style id="tc-compact-team-fields">
+body #view-groups input.tc-sheet-team,
+body #view-groups #groups .fixture input[data-key$="a"],
+body #view-groups #groups .fixture input[data-key$="b"],
+body #view-groups #bulletin-groups input[data-bc-team]{
+ height:30px!important;min-height:30px!important;max-height:30px!important;padding:3px 5px!important;line-height:1.2!important;font-size:14px!important;border-radius:5px!important;box-sizing:border-box!important;
+}
+body #view-groups select.tc-team-championship,
+body #view-groups #groups .team-entry select.team-list{
+ height:29px!important;min-height:29px!important;max-height:29px!important;padding:3px 4px!important;font-size:12px!important;line-height:1.2!important;
+}
+@media(max-width:850px){
+body #view-groups input.tc-sheet-team,
+body #view-groups #groups .fixture input[data-key$="a"],
+body #view-groups #groups .fixture input[data-key$="b"],
+body #view-groups #bulletin-groups input[data-bc-team]{height:32px!important;min-height:32px!important;max-height:32px!important}
+}
+</style>
+<script id="tc-team-name-fit">
+(function(){
+function setup(){
+ const root=document.getElementById('view-groups');if(!root)return;
+ const selector='input.tc-sheet-team,#groups .fixture input[data-key$="a"],#groups .fixture input[data-key$="b"],input[data-bc-team]';
+ const canvas=document.createElement('canvas'),context=canvas.getContext('2d');if(!context)return;
+ let pending=false;const tracked=new WeakSet();
+ const observer=typeof ResizeObserver==='function'?new ResizeObserver(schedule):null;
+ function fit(input){
+  if(!input.clientWidth)return;
+  const style=getComputedStyle(input),width=input.clientWidth-parseFloat(style.paddingLeft||0)-parseFloat(style.paddingRight||0)-3;
+  const text=style.textTransform==='uppercase'?input.value.toUpperCase():input.value;
+  context.font=(style.fontWeight||'600')+' 14px '+style.fontFamily;
+  const measured=context.measureText(text).width;
+  const size=!text||!measured?14:Math.max(11,Math.min(14,Math.floor(14*width/measured*10)/10));
+  input.style.setProperty('font-size',size+'px','important');
+  input.title=input.value;
+ }
+ function run(){
+  pending=false;root.querySelectorAll(selector).forEach(input=>{
+   fit(input);if(!tracked.has(input)){tracked.add(input);observer?.observe(input);}
+  });
+ }
+ function schedule(){if(pending)return;pending=true;requestAnimationFrame(run);}
+ root.addEventListener('input',e=>{if(e.target.matches(selector))fit(e.target);});
+ root.addEventListener('change',schedule);
+ new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+ window.addEventListener('resize',schedule,{passive:true});schedule();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
+</script></body></html>
