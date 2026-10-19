@@ -685,7 +685,7 @@ body header.brand-header img.brand-logo{display:block!important;visibility:visib
 <p aria-live="polite" class="stats" id="summary19"></p><div class="developed" id="developed19"></div>
 </section></div></main>
 <div aria-label="Choisir le sport du match" class="match-sport-menu no-print" hidden="" id="match-sport-menu"><strong>Sport pour ce match</strong><button data-match-sport="football" type="button">⚽ Football</button><button data-match-sport="basket" type="button">🏀 Basketball</button><button data-match-sport="tennis" type="button">🎾 Tennis</button><button data-match-sport="pingpong" type="button">🏓 Ping-pong</button><button data-match-sport="rugby" type="button">🏉 Rugby</button></div>
-<script id="tc-system-core-20261019">
+<script id="tc-system-core-20261019">window.TC_ACTIVE_SYSTEM={index:0};
 function tcParseKey(key){const m=/^([A-Z]+)([01])(.*)$/.exec(key);return m?{group:m[1],match:Number(m[2]),field:m[3]}:{group:'',match:0,field:''};}
 function tcGroupLetter(index){let n=index+1,label='';while(n){n--;label=String.fromCharCode(65+n%26)+label;n=Math.floor(n/26);}return label;}
 const TC_SYSTEM_NAMES=["3 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","3 à 10 doubles","2 triples + 4 doubles","4 triples + 3 doubles","4 triples · 2 à 4 verts","5 triples · 2 à 3 verts et 1 rouge min.","6 triples · 2 verts, 1 bleu, 1 rouge min.","6 triples · exactement 3 verts","7 triples · 2 à 4 verts et 1 bleu","8 triples · 3 verts et 2 rouges min.","9 triples · 3 à 5 verts","5 doubles · au moins 2 bleus","3 triples + 3 doubles · 2 rouges min.","Couverture des 3 couleurs","4 triples · couverture cible 3/4","5 triples · couverture cible 4/5","6 triples · couverture cible 5/6","7 triples · couverture cible 6/7","8 triples · couverture cible 7/8","9 triples · couverture cible 8/9","6 lignes · 2 verts, 1 bleu, 1 rouge min.","6 lignes · exactement 3 verts","6 lignes · 1 rouge sur ABC/DEF/GHI","6 lignes · budget maximal de grilles"];
@@ -901,7 +901,7 @@ function updateJeuxField(select){
   inp.placeholder=mode==='JEUX_EXACT'?'Ex. 21':'Ex. 22,5';
 }
 
-function refreshAll(){if(window.TC_ACTIVE_SYSTEM){progress();toolsRefresh();return;}renderTickets();render64();render72();render19();progress()}
+function refreshAll(){if(window.TC_ACTIVE_SYSTEM){progress();if(typeof toolsRefresh==='function')toolsRefresh();return;}renderTickets();render64();render72();render19();progress()}
 function save(){if(sport!=='mixte')persistSport(sport);refreshAll()}
 // Un même match par ligne et par sport : équipes et date communes, pronostics indépendants.
 function setVal(k,v){
@@ -3324,39 +3324,7 @@ body.tc-expert .tc-beginner-system{display:none!important}
 body.tc-beginner #tc-systems-select{max-width:360px}
 .tc-beginner-status{font-size:12px;color:#555;display:inline-block}
 </style>
-<script id="tc-beginner-step2-script">
-(function(){
-function ready(){
-const wizard=document.getElementById('tc-wizard'),nav=document.querySelector('nav.nav');
-if(!wizard||!nav||document.getElementById('tc-beginner-system'))return;
-const box=document.createElement('div');box.id='tc-beginner-system';box.className='tc-beginner-system no-print';
-box.innerHTML='<h3>Choisir mon système de jeu</h3><p>Un système génère automatiquement plusieurs grilles à partir de tes pronostics. Choisis un système pour afficher les bulletins correspondants.</p><label for="tc-beginner-select">Système</label><select id="tc-beginner-select"><option value="">Sélectionner un système…</option></select><div class="tc-beginner-actions"><button type="button" id="tc-beginner-open">Voir le système choisi →</button><span class="tc-beginner-status" id="tc-beginner-status" role="status"></span></div>';
-wizard.append(box);
-const select=box.querySelector('select'),status=box.querySelector('#tc-beginner-status');
-function sync(){
-const existing=document.getElementById('tc-systems-select');
-if(!existing)return;
-const selected=select.value;select.innerHTML='<option value="">Sélectionner un système…</option>';
-const catalog=window.TOTOCALCIO_30_SYSTEMES?.systems;
-if(catalog&&catalog.length===30){
- for(const s of catalog)select.add(new Option(s.name,s.id));
-}else{
- const names=['2 verts + 1 bleu + 1 rouge','3 verts + 1 bleu','2 verts + 2 bleus','1 vert + 2 bleus + 1 rouge','2 verts + 2 rouges','3 verts + 1 rouge','1 vert + 1 bleu + 2 rouges','4 verts + 1 bleu','2 verts + 3 bleus','1 vert + 3 bleus + 1 rouge'];
- for(let i=1;i<=30;i++){const type=i<=10?'Intégral':i<=20?'Conditionné':'Réduit 5/6';select.add(new Option('S'+String(i).padStart(2,'0')+' · '+type+' · '+names[(i-1)%10],'tc30-'+i));}
-}
-}
-box.querySelector('#tc-beginner-open').addEventListener('click',()=>{
-const id=select.value;if(!id){status.textContent='Choisis d’abord un système.';select.focus();return}
-if(/^tc30-\d+$/.test(id)&&window.TOTOCALCIO_30_SYSTEMES){window.TOTOCALCIO_30_SYSTEMES.show(id);status.textContent='Système '+id.slice(5)+' ouvert : consulte les combinaisons.';document.getElementById('view-thirty-systems')?.scrollIntoView({block:'start',behavior:'smooth'});return;}
-const source=document.getElementById('tc-systems-select');
-if(source&&[...source.options].some(o=>o.value===id)){source.value=id;source.dispatchEvent(new Event('change',{bubbles:true}));status.textContent='Système ouvert. Consulte les grilles plus bas.';document.querySelector('#view-'+CSS.escape(id))?.scrollIntoView({block:'start',behavior:'smooth'})}
-else{const b=nav.querySelector('button[data-view="'+id+'"]');if(b){b.click();status.textContent='Système ouvert.'}else status.textContent='Ce système n’est pas disponible.'}
-});
-const observer=new MutationObserver(sync);observer.observe(nav,{childList:true,subtree:true});document.addEventListener('tc30-ready',sync);sync();
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready);else ready();
-})();
-</script>
+
 <style id="tc-expert-buttons-fit-20261017">
 /* Boutons Expert : texte lisible, dimensions adaptées et alignement régulier */
 body.tc-expert .nav{display:flex!important;flex-wrap:wrap!important;align-items:stretch!important;gap:6px!important}
@@ -3767,26 +3735,13 @@ function setup(){
  byId('stake').addEventListener('input',update);
  window.addEventListener('load',normalize,{once:true});
  window.TC_SYSTEMS={open,select,update,tickets,restore,getRows:()=>calculate().rows};
- try{const saved=JSON.parse(localStorage.getItem('tc_system_layout_v2')||'null');if(saved&&TC_SYSTEM_SETUPS[saved.index]){select(saved.index);byId('tc-l30-triples').value=saved.triples;byId('tc-l30-doubles').value=saved.doubles;open(false);}}catch(e){notice('La disposition précédente n’a pas pu être rétablie : '+e.message);}
+ try{const saved=JSON.parse(localStorage.getItem('tc_system_layout_v2')||'null');if(saved&&TC_SYSTEM_SETUPS[saved.index]){select(saved.index);byId('tc-l30-triples').value=saved.triples;byId('tc-l30-doubles').value=saved.doubles;}open(false);}catch(e){notice('La disposition précédente n’a pas pu être rétablie : '+e.message);}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
 </script>
 
-<script id="tc-hide-legacy-system-options">
-(function(){
- const legacy=new Set(['19','29','64','72']);
- function clean(){
-  for(const select of document.querySelectorAll('#pari-system,#budget-system,#smart-check-system')){
-   const previous=select.value;
-   for(const opt of [...select.options])if(legacy.has(opt.value))opt.remove();
-   if(legacy.has(previous)){const preferred=[...select.options].find(o=>o.value==='conditions'||o.value==='144'||o.value==='custom');if(preferred){select.value=preferred.value;select.dispatchEvent(new Event('change',{bubbles:true}))}}
-  }
-  for(const b of document.querySelectorAll('button[data-view]'))if(['grids','19','64','72'].includes(b.dataset.view))b.hidden=true;
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',clean);else clean();
-})();
-</script>
+
 
 <style id="tc-thirty-style">
 #view-thirty-systems{color:#213549}#view-thirty-systems .tc30-panel{background:#f5f8fc;border:1px solid #b6cbd9;border-radius:12px;padding:15px}
@@ -3843,37 +3798,7 @@ document.addEventListener('tc30-ready',clean);
 #tc30-direct button{background:#1b4b6d!important;color:white!important;padding:10px 16px!important;border-radius:7px!important;margin:8px 0}
 #tc30-direct small{display:block;color:#35566a}
 </style>
-<script id="tc30-standalone-script">
-(function(){
-'use strict';
-const names=['2 verts + 1 bleu + 1 rouge','3 verts + 1 bleu','2 verts + 2 bleus','1 vert + 2 bleus + 1 rouge','2 verts + 2 rouges','3 verts + 1 rouge','1 vert + 1 bleu + 2 rouges','4 verts + 1 bleu','2 verts + 3 bleus','1 vert + 3 bleus + 1 rouge'];
-function start(){
- if(document.getElementById('tc30-direct'))return;
- const wizard=document.getElementById('tc-wizard'),old=document.getElementById('tc-beginner-system');
- const host=old||wizard||document.querySelector('main');
- if(!host)return;
- // Replace old beginner selector with a standalone list of only the 30 systems.
- if(old)old.style.display='none';
- const panel=document.createElement('section');panel.id='tc30-direct';
- panel.innerHTML='<h3>Choisir mon système de jeu — 30 systèmes</h3><label for="tc30-direct-select">Sélectionner un système (S01 à S30)</label><select id="tc30-direct-select"></select><button type="button" id="tc30-direct-open">Afficher les grilles du système choisi</button><small id="tc30-direct-status" role="status">30 systèmes : 10 intégraux, 10 conditionnés, 10 réduits 5/6.</small>';
- const sel=panel.querySelector('select');sel.add(new Option('Choisir parmi les 30 systèmes…',''));
- for(let i=1;i<=30;i++){
-  const mode=i<=10?'Intégral':i<=20?'Conditionné':'Réduit 5/6';
-  sel.add(new Option('S'+String(i).padStart(2,'0')+' — '+mode+' — '+names[(i-1)%10],'tc30-'+i));
- }
- panel.querySelector('button').addEventListener('click',()=>{
-  const api=window.TOTOCALCIO_30_SYSTEMES;
-  if(!sel.value){panel.querySelector('small').textContent='Sélectionne d’abord un des 30 systèmes.';sel.focus();return;}
-  if(!api){panel.querySelector('small').textContent='Le moteur des systèmes ne s’est pas chargé.';return;}
-  api.show(sel.value);
-  panel.querySelector('small').textContent=sel.options[sel.selectedIndex].text+' : grilles affichées.';
-  document.getElementById('view-thirty-systems')?.scrollIntoView({block:'start',behavior:'smooth'});
- });
- if(old)old.before(panel);else host.append(panel);
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
-})();
-</script>
+
 
 
 <style id="tc-naples-blue-header-final">
