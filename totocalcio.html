@@ -4259,4 +4259,67 @@ function setup(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
-</script></body></html>
+</script>
+<style id="tc-back-button-style">
+#tc-page-back{position:fixed!important;left:12px;bottom:18px;z-index:9000;display:flex!important;align-items:center;gap:7px;background:#102c46!important;color:#fff!important;border:2px solid #ffb347!important;border-radius:24px;padding:9px 15px!important;font:700 14px Arial,sans-serif;min-height:44px;box-shadow:0 3px 12px #0005;cursor:pointer}
+#tc-page-back span{font-size:27px;line-height:1}
+@media print{#tc-page-back{display:none!important}}
+</style>
+<script id="tc-page-back-navigation">
+(function(){
+'use strict';
+function setup(){
+ if(document.getElementById('tc-page-back'))return;
+ const active=()=>document.querySelector('.view.active');
+ let current=active()?.id||'';
+ const trail=[];
+ const positions=new Map();
+ const button=document.createElement('button');
+ button.id='tc-page-back';button.type='button';
+ button.innerHTML='<span aria-hidden="true">↶</span> Retour';
+ button.setAttribute('aria-label','Revenir à la page précédente du logiciel');
+ document.body.append(button);
+ function update(){button.title=trail.length?'Revenir à la page précédente':'Revenir au choix du système';}
+ function track(){
+  const next=active()?.id||'';
+  if(next&&next!==current){
+   if(current)trail.push({id:current,top:positions.get(current)||0});
+   current=next;update();
+  }
+ }
+ window.addEventListener('scroll',()=>{if(current)positions.set(current,window.scrollY);},{passive:true});
+ const observer=new MutationObserver(track);
+ document.querySelectorAll('.view').forEach(view=>observer.observe(view,{attributes:true,attributeFilter:['class']}));
+ button.addEventListener('click',()=>{
+  track();
+  let previous;
+  while(trail.length&&!previous){const p=trail.pop();if(document.getElementById(p.id))previous=p;}
+  if(previous){
+   current=previous.id;
+   const target=document.getElementById(current);
+   if(typeof showView==='function')showView(current.replace(/^view-/,''));
+   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===target));
+   target.hidden=false;
+   requestAnimationFrame(()=>window.scrollTo({top:previous.top,behavior:'smooth'}));
+  }else{
+   const selector=document.getElementById('tc-30-direct-select');
+   const target=selector?.closest('.view');
+   if(target){
+    current=target.id;
+    if(typeof showView==='function')showView(current.replace(/^view-/,''));
+    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===target));
+    target.hidden=false;
+   }
+   requestAnimationFrame(()=>{
+    if(selector){selector.scrollIntoView({block:'center',behavior:'smooth'});selector.focus({preventScroll:true});}
+    else window.scrollTo({top:0,behavior:'smooth'});
+   });
+  }
+  update();
+ });
+ update();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
+</script>
+</body></html>
