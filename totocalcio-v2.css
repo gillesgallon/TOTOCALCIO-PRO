@@ -8,3 +8,10 @@
 .letter-lines{display:grid;grid-template-columns:1fr;gap:4px;max-width:220px}.letter-row button{flex:1}.entry-toolbar{align-items:start}.analysis-card{display:block}.analysis-card label{margin-top:12px}.analysis-card textarea{display:block;width:100%;margin-top:6px}.sport-field select{width:100%}.recopy-controls input[type=checkbox]{width:auto;display:inline-block}.pager input{width:80px}.help-grid article{min-width:0}@media(max-width:520px){.letter-lines{grid-template-columns:1fr;max-width:220px}.sport-field select{font-size:10px;padding:2px;white-space:normal}.analysis-card h2{font-size:16px}}
 
 .letter-lines{max-height:144px;overflow-y:auto;min-width:110px;padding-right:5px}.letter-row .green{background:#e1f3e6;border-color:#acd5bb}.letter-row .blue{background:#e3effc;border-color:#b0cce5}.letter-row .red{background:#ffe6e5;border-color:#e9bcba}.letter-row button[aria-pressed=true]{background:#174e75;color:#fff}@media(max-width:520px){.letter-lines{max-height:148px;min-width:130px}}
+
+/* Coloration du groupe après validation des deux équipes. */
+.pick-cell.group-ready.group-green{background:#d9f2df;border-color:#74bb86}
+.pick-cell.group-ready.group-blue{background:#dcecff;border-color:#79a9dd}
+.pick-cell.group-ready.group-red{background:#ffe2e0;border-color:#db8984}
+.pick-cell.group-ready .pick-title{color:#1c3545;font-weight:800}
+.pick-cell.group-ready select{background:#fff;color:#182c3c}
