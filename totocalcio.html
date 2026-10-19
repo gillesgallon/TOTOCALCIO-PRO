@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO — Football, Basket, Tennis, Ping-pong et Mixte · 19, 29, 64, 72 grilles · Systèmes conditionnés prêts à jouer</title><style>
+<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO PRO — 30 systèmes par groupes</title><style>
 :root{font-family:Arial,sans-serif;color:#1c2731;background:#f4f6f8}*{box-sizing:border-box}body{margin:0}header{background:#172e43;color:white;padding:20px 5%}h1{font-size:24px;margin:0 0 8px}h2{font-size:20px}main{max-width:1100px;margin:auto;padding:18px}section{background:white;padding:18px;border-radius:12px;margin:16px 0;box-shadow:0 1px 6px #0001}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}input,select,button{font:inherit;padding:9px;border:1px solid #bfc8d1;border-radius:7px;min-width:0}button{background:#135c85;color:white;border:0;cursor:pointer}button:hover{background:#104965}button:disabled{opacity:.45;cursor:default}.hint{font-size:13px;color:#536272}.league{width:190px}.matchselect{flex:1;min-width:230px}.group{border:1px solid #d6dee4;border-radius:9px;margin:10px 0;padding:12px}.group-title{font-weight:800;padding:7px 12px;border-radius:6px;display:inline-block;margin-bottom:8px}.green{background:#d8f3dc;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.red{background:#fee2e2;color:#b91c1c}.fixture{display:grid;grid-template-columns:1fr 28px 1fr 170px;align-items:center;gap:8px;margin:8px 0}.ball{text-align:center}.prono{width:100%}.date{font-size:11px;color:#566472;margin:2px 0 8px}.groups-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px}.group{margin:0}.developed{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.ticket{border:1px solid #cbd5df;border-radius:9px;padding:12px;break-inside:avoid}.ticket h3{margin:0 0 8px;font-size:16px}.ticket-row{display:grid;grid-template-columns:27px 1fr auto;gap:7px;align-items:center;font-size:12px;padding:4px 0;border-bottom:1px solid #edf0f3}.letter{text-align:center;font-weight:800;border-radius:4px;padding:5px}.pick{font-weight:800;max-width:130px;text-align:right}.muted{color:#697682}#status{padding:9px;border-radius:7px;background:#f0f5fa;margin-top:10px}#matches{max-height:340px;overflow:auto;border:1px solid #e1e6eb;border-radius:8px;margin-top:12px}.event{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px;border-bottom:1px solid #e7ebef}.event small{color:#566472}.event button{font-size:12px;white-space:nowrap}.event-name{flex:1}.stats{font-size:13px;color:#516477}.print-only{display:none}@media(max-width:580px){main{padding:10px}section{padding:12px}.fixture{grid-template-columns:1fr 23px 1fr;gap:5px}.fixture select{grid-column:1/-1}.groups-grid{grid-template-columns:1fr}.league{width:100%}}@media print{header,.no-print,#calendar,.toolbar,#status{display:none!important}body{background:white}section{box-shadow:none;padding:0}.groups-section{display:none}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;page-break-inside:avoid}.print-only{display:block}}
 
 :root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#e7eef9;background:#091421}body{background:linear-gradient(155deg,#0c2031,#091421 45%,#111b2c);min-height:100vh}header{background:linear-gradient(110deg,#12364c,#0e2338 62%,#103f42);padding:28px max(22px,calc((100vw - 1260px)/2));border-bottom:1px solid #2d5262}header h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.7px}header .subtitle{color:#c0d6e3;font-size:14px}main{max-width:1300px;padding:20px 22px 60px}section{background:#142536;border:1px solid #2c4255;border-radius:17px;box-shadow:0 8px 30px #0002;padding:24px;margin:0 0 18px}h2{color:#f3f7fd;margin:0 0 13px;font-size:21px}h3{color:#f3f7fd}.hint,.stats{color:#a9bdcf}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;position:sticky;top:0;z-index:4;background:#091421eb;padding:12px 0;backdrop-filter:blur(12px)}.nav button{background:#152e40;color:#b7ccdd;border:1px solid #365066;padding:12px 19px;font-weight:750}.nav button.active{background:#1f8c8c;color:#fff;border-color:#3faaaa}.dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.metric{background:#142536;border:1px solid #2c4255;border-radius:15px;padding:16px}.metric strong{font-size:27px;color:#fff;display:block}.metric small{color:#9db4c7}.progressbar{height:7px;background:#2c4255;border-radius:20px;overflow:hidden;margin-top:9px}.progressbar div{height:100%;width:0;background:#3ed4ae;transition:width .2s}.view{display:none}.view.active{display:block}input,select{background:#0c1c2b;border:1px solid #3a546a;color:#eaf3ff}input::placeholder{color:#7f98aa}button{background:#178b8e;font-weight:700}button:hover{background:#137578}.group{background:#102030;border:1px solid #344c5d;padding:15px}.group-title{margin-bottom:13px}.fixture{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);margin:10px 0}.fixture select{grid-column:1/-1}.ball{font-size:19px}label{color:#b9c9d8}.date{color:#91b6c5}.ticket{background:#102030;border:1px solid #344c5d;border-radius:12px}.ticket-row{border-color:#263b4b;color:#e8eff6}.pick{color:#6de3c1}.muted{color:#93a8ba}#status{background:#102e3b;color:#d5f5f5;border:1px solid #2d626b}#matches{border-color:#344c5d}.event{border-color:#344c5d}.event small{color:#a9bdcf}.group-header{display:flex;align-items:center;justify-content:space-between;gap:10px}.group-header .counter{font-size:12px;color:#a9bdcf}.pill{display:inline-block;background:#143e43;color:#70d8bd;border:1px solid #2e6b65;border-radius:20px;padding:5px 10px;font-size:12px}.toolbar{align-items:center}.toolbar button{white-space:normal}.guide{border-left:3px solid #3ed4ae;padding-left:13px;color:#b9cfdf;font-size:13px;margin-bottom:15px}.league{width:220px}.groups-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.developed{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}.empty-note{font-size:12px;color:#96b3c2}@media(max-width:760px){.dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:12px}.nav button{flex:1;padding:11px 6px;font-size:12px}section{padding:14px}.developed{grid-template-columns:1fr}.groups-grid{grid-template-columns:1fr}.metric strong{font-size:22px}}@media print{body{background:#fff;color:#000}.dashboard,.nav{display:none!important}.view{display:none!important}#view-grids{display:block!important}section{background:#fff;color:#000;border:0;box-shadow:none}.ticket{background:#fff;color:#000;border:1px solid #777}.ticket h3,.ticket-row{color:#000}.pick{color:#000}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;break-inside:avoid}.no-print{display:none!important}}
@@ -685,6 +685,44 @@ body header.brand-header img.brand-logo{display:block!important;visibility:visib
 <p aria-live="polite" class="stats" id="summary19"></p><div class="developed" id="developed19"></div>
 </section></div></main>
 <div aria-label="Choisir le sport du match" class="match-sport-menu no-print" hidden="" id="match-sport-menu"><strong>Sport pour ce match</strong><button data-match-sport="football" type="button">⚽ Football</button><button data-match-sport="basket" type="button">🏀 Basketball</button><button data-match-sport="tennis" type="button">🎾 Tennis</button><button data-match-sport="pingpong" type="button">🏓 Ping-pong</button><button data-match-sport="rugby" type="button">🏉 Rugby</button></div>
+<script id="tc-system-core-20261019">
+function tcParseKey(key){const m=/^([A-Z]+)([01])(.*)$/.exec(key);return m?{group:m[1],match:Number(m[2]),field:m[3]}:{group:'',match:0,field:''};}
+function tcGroupLetter(index){let n=index+1,label='';while(n){n--;label=String.fromCharCode(65+n%26)+label;n=Math.floor(n/26);}return label;}
+const TC_SYSTEM_NAMES=["3 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","3 à 10 doubles","2 triples + 4 doubles","4 triples + 3 doubles","4 triples · 2 à 4 verts","5 triples · 2 à 3 verts et 1 rouge min.","6 triples · 2 verts, 1 bleu, 1 rouge min.","6 triples · exactement 3 verts","7 triples · 2 à 4 verts et 1 bleu","8 triples · 3 verts et 2 rouges min.","9 triples · 3 à 5 verts","5 doubles · au moins 2 bleus","3 triples + 3 doubles · 2 rouges min.","Couverture des 3 couleurs","4 triples · couverture cible 3/4","5 triples · couverture cible 4/5","6 triples · couverture cible 5/6","7 triples · couverture cible 6/7","8 triples · couverture cible 7/8","9 triples · couverture cible 8/9","6 lignes · 2 verts, 1 bleu, 1 rouge min.","6 lignes · exactement 3 verts","6 lignes · 1 rouge sur ABC/DEF/GHI","6 lignes · budget maximal de grilles"];
+const TC_SYSTEM_SETUPS=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
+function tcSystemRows(index,triples,doubles){
+ const setup=TC_SYSTEM_SETUPS[index];if(!setup)throw Error('Système inconnu');
+ const t=triples===undefined?setup[0]:Number(triples),d=doubles===undefined?setup[1]:Number(doubles);
+ if(!Number.isInteger(t)||!Number.isInteger(d)||t<0||t>9||d<0||d>10||!t&&!d||3**t*2**d>100000)throw Error('Répartition invalide ou supérieure à 100 000 grilles.');
+ let code=0;return Array.from({length:t+d},(_,i)=>Array.from({length:i<t?3:2},()=>tcGroupLetter(code++)));
+}
+function tcSystemValid(colors,index){
+ const v=colors.filter(c=>c===0).length,b=colors.filter(c=>c===1).length,r=colors.filter(c=>c===2).length;
+ switch(index){
+ case 10:return v>=2&&v<=4;case 11:return v>=2&&v<=3&&r>=1;
+ case 12:case 26:return v>=2&&b>=1&&r>=1;
+ case 13:case 27:return v===3;case 14:return v>=2&&v<=4&&b>=1;
+ case 15:return v>=3&&r>=2;case 16:return v>=3&&v<=5;
+ case 17:return b>=2;case 18:return r>=2;
+ case 19:return v>=1&&b>=1&&r>=1;
+ case 28:return colors.slice(0,3).includes(2);default:return true;
+ }
+}
+function tcSystemCompute(index,lines,budget=30){
+ let pool=[{letters:[],colors:[]}];
+ for(const line of lines)pool=pool.flatMap(p=>line.map((g,color)=>({letters:p.letters.concat(g),colors:p.colors.concat(color)})));
+ const candidates=pool.filter(p=>tcSystemValid(p.colors,index)).map(p=>p.letters);
+ if(index<20)return {rows:candidates,total:candidates.length,covered:candidates.length,threshold:lines.length};
+ const threshold=lines.length-1,limits=[9,14,20,16,24,28,18,24,14,Math.max(1,Math.floor(budget))];
+ const chosen=[],remaining=new Set(candidates.map((_,i)=>i));
+ while(remaining.size&&chosen.length<limits[index-20]){
+  const first=remaining.values().next().value,selection=candidates[first];
+  chosen.push(selection);
+  for(const k of remaining){let score=0;for(let j=0;j<selection.length;j++)if(selection[j]===candidates[k][j])score++;if(score>=threshold)remaining.delete(k);}
+ }
+ return {rows:chosen,total:candidates.length,covered:candidates.length-remaining.size,threshold};
+}
+</script>
 <script>
 'use strict';
 let GROUPS=["ABC", "DEF", "GHI", "JK", "LM", "NO"], GRIDS=["ADIJLO", "ADIJMO", "ADIKLN", "ADIKMN", "AEIJMN", "AFGJLO", "AFGJMO", "AFGKLN", "AFGKMN", "AFHJMN", "AFIJLO", "AFIKLN", "BDIJLN", "BDIJLO", "BDIKLN", "BFGJLO", "BFGKLN", "CDGJLO", "CDGJMO", "CDGKLN", "CDGKMN", "CDHJMN", "CDIJLO", "CDIKLN", "CEGJLN", "CEGJLO", "CEGKLN", "CFGJLO", "CFGKLN"], STORE='football_29_liees_v2';
@@ -768,7 +806,7 @@ function tcMarketHTML(s,current='',excludeMain=false,query=''){
 function tcCustomIsActive(s,value){return !!value&&!tcMarketIsKnown(s,value)}
 function tcMarketWidgets(key,s,current,kind){
  const custom=tcCustomIsActive(s,current),prefix=kind==='bc'?'bc-':'detail-';
- return `<div class="tc-market-tools" data-tc-market-tools="${key}"><button type="button" class="tc-market-search-button no-print" data-tc-market-toggle="${prefix+key}" aria-label="Rechercher un marché pour ${key}" title="Rechercher mi-temps, penalty, score, corners…">🔎</button><input type="search" class="tc-market-search no-print" data-tc-market-search="${prefix+key}" placeholder="Rechercher : mi-temps, penalty, corners…" aria-label="Rechercher un pari groupe ${key[0]} rencontre ${Number(key[1])+1}" hidden><input type="text" class="tc-market-custom" data-tc-market-custom="${prefix+key}" placeholder="Ex. Buteur : Mbappé / Penalty 1re MT : oui" maxlength="120" value="${custom?safe(current):''}" ${custom?'':'hidden'} aria-label="Détail du pari personnalisé groupe ${key[0]} rencontre ${Number(key[1])+1}"></div>`;
+ return `<div class="tc-market-tools" data-tc-market-tools="${key}"><button type="button" class="tc-market-search-button no-print" data-tc-market-toggle="${prefix+key}" aria-label="Rechercher un marché pour ${key}" title="Rechercher mi-temps, penalty, score, corners…">🔎</button><input type="search" class="tc-market-search no-print" data-tc-market-search="${prefix+key}" placeholder="Rechercher : mi-temps, penalty, corners…" aria-label="Rechercher un pari groupe ${tcParseKey(key).group} rencontre ${tcParseKey(key).match+1}" hidden><input type="text" class="tc-market-custom" data-tc-market-custom="${prefix+key}" placeholder="Ex. Buteur : Mbappé / Penalty 1re MT : oui" maxlength="120" value="${custom?safe(current):''}" ${custom?'':'hidden'} aria-label="Détail du pari personnalisé groupe ${tcParseKey(key).group} rencontre ${tcParseKey(key).match+1}"></div>`;
 }
 function tcBindMarketTools(root){
  root.querySelectorAll('[data-tc-market-toggle]').forEach(btn=>btn.addEventListener('click',()=>{
@@ -776,10 +814,10 @@ function tcBindMarketTools(root){
   input.hidden=!input.hidden;if(!input.hidden)input.focus();else{input.value='';input.dispatchEvent(new Event('input'))}
  }));
  root.querySelectorAll('[data-tc-market-search]').forEach(input=>input.addEventListener('input',()=>{
-  const id=input.dataset.tcMarketSearch,kind=id.startsWith('bc-')?'bc':'detail',key=id.slice(kind.length+1),s=getSlotSport(key[0],Number(key[1]));
+  const id=input.dataset.tcMarketSearch,kind=id.startsWith('bc-')?'bc':'detail',key=id.slice(kind.length+1),s=getSlotSport(tcParseKey(key).group,tcParseKey(key).match);
   const select=root.querySelector(kind==='bc'?'[data-bc-extra="'+key+'"], [data-bc-prono="'+key+'"]':'select.prono[data-key="'+key+'"]');
   if(!select)return;
-  const value=getSlotData(key[0],Number(key[1]))[key]||'';
+  const value=getSlotData(tcParseKey(key).group,tcParseKey(key).match)[key]||'';
   select.innerHTML=tcMarketHTML(s,value,kind==='bc'&&s==='football',input.value);
   if(tcCustomIsActive(s,value))select.value=TC_CUSTOM_MARKET;
  }));
@@ -791,11 +829,11 @@ function tcBindMarketTools(root){
  }));
 }
 function tcMarketChanged(key,selected,root){
- const s=getSlotSport(key[0],Number(key[1]));
+ const s=getSlotSport(tcParseKey(key).group,tcParseKey(key).match);
  const isCustom=selected===TC_CUSTOM_MARKET||selected.startsWith(TC_CUSTOM_MARKET);
  const input=root.querySelector('[data-tc-market-custom$="-'+key+'"]');
  if(isCustom){
-  if(input){input.hidden=false;const prefix=selected.slice(TC_CUSTOM_MARKET.length);if(prefix){input.value=prefix;setVal(key,prefix)}else if(!tcCustomIsActive(s,getSlotData(key[0],Number(key[1]))[key]||'')){input.value='';setVal(key,'')}input.focus()}
+  if(input){input.hidden=false;const prefix=selected.slice(TC_CUSTOM_MARKET.length);if(prefix){input.value=prefix;setVal(key,prefix)}else if(!tcCustomIsActive(s,getSlotData(tcParseKey(key).group,tcParseKey(key).match)[key]||'')){input.value='';setVal(key,'')}input.focus()}
   return true;
  }
  if(input){input.hidden=true;input.value=''}
@@ -825,7 +863,8 @@ function slotEmoji(c,i){return SPORT_ICONS[getSlotSport(c,i)]}
 function participantPlaceholder(s,n){return s==='football'||s==='basket'||s==='rugby'?'Équipe '+n:'Joueur '+n}
 function renderMixSelectors(){const panel=$('mix-panel');panel.hidden=sport!=='mixte';if(sport!=='mixte')return;
  const holder=$('mix-slots');holder.innerHTML='';
- for(let r=0;r<6;r++)for(let i=0;i<2;i++){
+ for(let r=0;r<GROUPS.length;r++)for(let i=0;i<2;i++){
+   if(!mixSports[r])mixSports[r]=['football','football'];
    const cell=document.createElement('div');cell.className='mix-slot';
    const label=document.createElement('label');label.textContent='Ligne '+(r+1)+' ('+GROUPS[r]+') — Match '+(i+1);
    const select=document.createElement('select');select.setAttribute('aria-label','Sport ligne '+(r+1)+' match '+(i+1));
@@ -862,12 +901,12 @@ function updateJeuxField(select){
   inp.placeholder=mode==='JEUX_EXACT'?'Ex. 21':'Ex. 22,5';
 }
 
-function refreshAll(){renderTickets();render64();render72();render19();progress()}
+function refreshAll(){if(window.TC_ACTIVE_SYSTEM){progress();toolsRefresh();return;}renderTickets();render64();render72();render19();progress()}
 function save(){if(sport!=='mixte')persistSport(sport);refreshAll()}
 // Un même match par ligne et par sport : équipes et date communes, pronostics indépendants.
 function setVal(k,v){
- const m=/^([A-Z\u005b])([01])(a|b|date)$/.exec(k);
- const c=k[0],i=Number(k[1]),source=getSlotData(c,i),s=getSlotSport(c,i);
+ const m=/^([A-Z]+)([01])(a|b|date)$/.exec(k);
+ const c=tcParseKey(k).group,i=tcParseKey(k).match,source=getSlotData(c,i),s=getSlotSport(c,i);
  if(m){
    const row=GROUPS.find(x=>x.includes(m[1]));
    for(const g of row){
@@ -901,9 +940,9 @@ function progress(){
    const c=row[0];for(let i=0;i<2;i++){const source=getSlotData(c,i);if(source[c+i+'a']&&source[c+i+'b'])matches++}
    for(const g of row)for(let i=0;i<2;i++)if(getSlotData(g,i)[g+i+'p'])picks++;
  }
- $('progress').textContent=matches+'/12 matchs saisis · '+picks+'/30 pronostics';
- $('match-count').textContent=matches+' / 12';$('pick-count').textContent=picks+' / 30';
- $('match-bar').style.width=(matches/12*100)+'%';$('pick-bar').style.width=(picks/30*100)+'%';
+ $('progress').textContent=matches+'/'+(GROUPS.length*2)+' matchs saisis · '+picks+'/'+(GROUPS.reduce((n,row)=>n+row.length,0)*2)+' pronostics';
+ $('match-count').textContent=matches+' / '+(GROUPS.length*2);$('pick-count').textContent=picks+' / '+(GROUPS.reduce((n,row)=>n+row.length,0)*2);
+ $('match-bar').style.width=(matches/(GROUPS.length*2)*100)+'%';$('pick-bar').style.width=(picks/(GROUPS.reduce((n,row)=>n+row.length,0)*2)*100)+'%';
 }
 
 // Catalogue des clubs 2026-2027, enregistré dans le fichier pour fonctionner sans Internet.
@@ -980,7 +1019,7 @@ function setupLeaguePickers(holder){
  }
  for(const el of holder.querySelectorAll('.team-list')){
   const k=el.dataset.teamKey;
-  el.addEventListener('change',()=>{if(el.value){setVal(k,el.value);syncTeamPicker(k[0],Number(k[1]),k[2])}});
+  el.addEventListener('change',()=>{if(el.value){setVal(k,el.value);syncTeamPicker(tcParseKey(k).group,tcParseKey(k).match,tcParseKey(k).field)}});
  }
  for(const bar of holder.querySelectorAll('.league-pick-bar'))refreshLeagueControls(bar.dataset.leagueGroup,Number(bar.dataset.leagueMatch));
 }
@@ -1006,7 +1045,7 @@ function tcOddsHTML(c,i){
  return `<div class="tc-bookmaker-field"><label for="tc-odd-${id}">💰 Cote bookmaker · Betclic</label><div class="tc-bookmaker-controls"><select id="tc-odd-${id}" data-tc-odds="${id}" aria-label="Cote Betclic groupe ${c} rencontre ${i+1}"><option value="" ${!v?'selected':''}>— Cote à choisir —</option>${options}<option value="custom" ${custom?'selected':''}>Autre cote…</option></select><input type="number" data-tc-odd-custom="${id}" min="1.01" max="1000" step="0.01" inputmode="decimal" placeholder="Ex. 1,73" aria-label="Saisir la cote exacte Betclic, groupe ${c} rencontre ${i+1}" value="${custom?safe(v):''}" ${custom?'':'hidden'}></div></div>`;
 }
 function tcOddsSync(id){
- const v=tcOddValue(id[0],Number(id[1])),custom=!!v&&!TC_BETCLIC_SET.has(v);
+ const v=tcOddValue(tcParseKey(id).group,tcParseKey(id).match),custom=!!v&&!TC_BETCLIC_SET.has(v);
  document.querySelectorAll('[data-tc-odds="'+id+'"]').forEach(el=>{
    el.value=custom?'custom':v;
    const inp=el.closest('.tc-bookmaker-field')?.querySelector('[data-tc-odd-custom]');
@@ -1017,7 +1056,7 @@ function tcBindOdds(root){
  root.querySelectorAll('[data-tc-odds]').forEach(el=>el.addEventListener('change',()=>{
    const id=el.dataset.tcOdds,inp=el.closest('.tc-bookmaker-field').querySelector('[data-tc-odd-custom]');
    if(el.value==='custom'){
-     inp.hidden=false;inp.value=TC_BETCLIC_SET.has(tcOddValue(id[0],Number(id[1])))?'':tcOddValue(id[0],Number(id[1]));
+     inp.hidden=false;inp.value=TC_BETCLIC_SET.has(tcOddValue(tcParseKey(id).group,tcParseKey(id).match))?'':tcOddValue(tcParseKey(id).group,tcParseKey(id).match);
      if(!window.TOTOCALCIO_VERROUILLAGE?.isLocked())inp.focus();
    }else{
      inp.hidden=true;inp.value='';setVal(id+'odd',el.value);tcOddsSync(id);
@@ -1059,8 +1098,8 @@ function makeGroups(){
    selector.addEventListener('change',()=>chooseMatchSport(c,i,selector.value));
  }
  for(const el of holder.querySelectorAll('[data-key]')){
-   const k=el.dataset.key;const saved=getSlotData(k[0],Number(k[1]))[k]||'';el.value=el.matches('select.prono')&&tcCustomIsActive(getSlotSport(k[0],Number(k[1])),saved)?TC_CUSTOM_MARKET:saved;
-   el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{if(el.matches('select.prono'))tcMarketChanged(k,el.value,holder);else setVal(k,el.value);if(el.tagName==='SELECT')updateJeuxField(el);if((k[2]==='a'||k[2]==='b')&&getSlotSport(k[0],Number(k[1]))==='football')syncTeamPicker(k[0],Number(k[1]),k[2])});
+   const k=el.dataset.key;const saved=getSlotData(tcParseKey(k).group,tcParseKey(k).match)[k]||'';el.value=el.matches('select.prono')&&tcCustomIsActive(getSlotSport(tcParseKey(k).group,tcParseKey(k).match),saved)?TC_CUSTOM_MARKET:saved;
+   el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{if(el.matches('select.prono'))tcMarketChanged(k,el.value,holder);else setVal(k,el.value);if(el.tagName==='SELECT')updateJeuxField(el);if((tcParseKey(k).field==='a'||tcParseKey(k).field==='b')&&getSlotSport(tcParseKey(k).group,tcParseKey(k).match)==='football')syncTeamPicker(tcParseKey(k).group,tcParseKey(k).match,tcParseKey(k).field)});
    if(el.tagName==='SELECT')updateJeuxField(el);
  }
  for(const choice of holder.querySelectorAll('.jeux-mode')){
@@ -1071,7 +1110,7 @@ function makeGroups(){
    });
  }
  for(const el of holder.querySelectorAll('[data-jeux-key]')){
-   const k=el.dataset.jeuxKey;el.value=getSlotData(k[0],Number(k[1]))[k]||'';
+   const k=el.dataset.jeuxKey;el.value=getSlotData(tcParseKey(k).group,tcParseKey(k).match)[k]||'';
    el.addEventListener('input',()=>setVal(k,el.value));
  }
  setupLeaguePickers(holder);
@@ -1097,7 +1136,7 @@ function copyMatch(c,i){
  const head=i===0?'GROUPE '+c+'\n':'';
  return head+`  Rencontre ${i+1} : ${slotEmoji(c,i)} ${SPORT_NAMES[s]} | ${d[c+i+'a']||'________'} — ${d[c+i+'b']||'________'} | ${displayPick(c,i)}${tcOddsText(c,i)}`;
 }
-function renderTickets(){
+function renderTickets(){if(window.TC_ACTIVE_SYSTEM)return;
  const el=$('developed');let html='';
  for(let n=0;n<GRIDS.length;n++){
    const s=GRIDS[n];html+=`<article class="ticket"><h3>Grille ${n+1} — ${s.split('').join(' · ')}</h3>`;
@@ -1119,7 +1158,7 @@ try{
   }
 }catch(e){}
 function storePairs64(){try{localStorage.setItem(STORE64,JSON.stringify(pairs64))}catch(e){}}
-function buildPairs64(){
+function buildPairs64(){if(window.TC_ACTIVE_SYSTEM)return;
   const holder=$('pairs64');holder.innerHTML='';
   for(let r=0;r<GROUPS.length;r++){
     const row=GROUPS[r];const card=document.createElement('div');card.className='pair-card';
@@ -1140,7 +1179,7 @@ function combinations64(){
   for(const pair of pairs64){results=results.flatMap(prefix=>[prefix+pair[0],prefix+pair[1]])}
   return results;
 }
-function render64(){
+function render64(){if(window.TC_ACTIVE_SYSTEM)return;
  const combos=combinations64(),holder=$('developed64');let html='';
  for(let n=0;n<combos.length;n++){
    const s=combos[n];html+=`<article class="ticket"><h3>Grille ${n+1} / 64 — ${s.split('').join(' · ')}</h3>`;
@@ -1172,11 +1211,11 @@ function choiceOptions72(row,mode){
   if(mode===1)return [...row];
   const result=[];for(let i=0;i<row.length;i++)for(let j=i+1;j<row.length;j++)result.push(row[i]+row[j]);return result;
 }
-function buildChoices72(){
+function buildChoices72(){if(window.TC_ACTIVE_SYSTEM)return;
   const holder=$('choices72');holder.innerHTML='';
   for(let r=0;r<6;r++){
     const card=document.createElement('div');card.className='pair-card';
-    const label=document.createElement('label');label.textContent='Ligne '+(r+1)+' — '+GROUPS[r].split('').join(' · ');card.append(label);
+    const label=document.createElement('label');label.textContent='Ligne '+(r+1)+' — '+Array.from(GROUPS[r]).join(' · ');card.append(label);
     const mode=document.createElement('select');mode.setAttribute('aria-label','Type de sélection ligne '+(r+1));
     for(const [n,txt] of [[1,'Fixe (1 groupe)'],[2,'Double (2 groupes)'],[3,'Triple (3 groupes)']]){
       if(n>GROUPS[r].length)continue;
@@ -1204,7 +1243,7 @@ function combinations72(){
   return combos;
 }
 function accepted72(){const all=combinations72();return all===null?null:all.filter(s=>[...s].filter(c=>BLUE72.has(c)).length>=3)}
-function render72(){
+function render72(){if(window.TC_ACTIVE_SYSTEM)return;
  const holder=$('developed72'),summary=$('summary72'),combos=accepted72();
  if(combos===null){holder.innerHTML='';summary.textContent='Répartition à corriger : il faut exactement 2 triples, 3 doubles et 1 fixe. Modifie les sélections des lignes.';return}
  let html='';
@@ -1234,7 +1273,7 @@ function combinations19(){
  }
  return result;
 }
-function render19(){
+function render19(){if(window.TC_ACTIVE_SYSTEM)return;
  const combos=combinations19(),holder=$('developed19');let html='';
  for(let n=0;n<combos.length;n++){
    const s=combos[n],verts=[...s].filter(c=>GREEN19.has(c)).length;
@@ -1262,7 +1301,7 @@ function destinations(){const d=$('destination');for(let r=0;r<GROUPS.length;r++
 function message(s){$('status').textContent=s}
 function formatDate(s){if(!s)return '';const d=new Date(s);return Number.isNaN(d.getTime())?s:d.toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
 async function loadFixtures(){message('Chargement du calendrier…');$('matches').innerHTML='';const league=$('league').value;
-try{const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),12000);let response;try{response=await fetch(`https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=${encodeURIComponent(league)}`,{signal:ctrl.signal,cache:'no-store'})}finally{clearTimeout(timeout)}if(!response.ok)throw Error('HTTP '+response.status);const payload=await response.json();const games=(payload.events||[]).filter(x=>x.strHomeTeam&&x.strAwayTeam);if(!games.length){message('Aucune rencontre à venir renvoyée pour ce championnat. Essaie un autre championnat ou saisis les matchs manuellement.');return}message(`${games.length} rencontre(s) disponibles. Clique sur « Ajouter » pour placer un match dans le groupe choisi.`);const holder=$('matches');for(const g of games){const div=document.createElement('div');div.className='event';const name=document.createElement('div');name.className='event-name';const strong=document.createElement('strong');strong.textContent=g.strHomeTeam+' ⚽ '+g.strAwayTeam;const small=document.createElement('small');small.textContent=' — '+formatDate(g.strTimestamp||(g.dateEvent+'T'+(g.strTime||'00:00:00')+'Z'));name.append(strong,small);const btn=document.createElement('button');btn.textContent='Ajouter';btn.onclick=()=>{const dest=$('destination').value,c=dest[0],i=dest[1];data[c+i+'a']=g.strHomeTeam;data[c+i+'b']=g.strAwayTeam;data[c+i+'date']=formatDate(g.strTimestamp||(g.dateEvent+'T'+(g.strTime||'00:00:00')+'Z'));for(const other of GROUPS.find(row=>row.includes(c))){for(const field of ['a','b','date'])data[other+i+field]=data[c+i+field]}save();makeGroups();message(`Match ajouté à toute la ligne du groupe ${c}, match ${Number(i)+1}. Les grilles sont actualisées.`)};div.append(name,btn);holder.appendChild(div)}}catch(e){message('Impossible de charger le calendrier public (connexion, accès navigateur ou service indisponible). La saisie manuelle reste disponible.');}}
+try{const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),12000);let response;try{response=await fetch(`https://www.thesportsdb.com/api/v1/json/3/eventsnextleague.php?id=${encodeURIComponent(league)}`,{signal:ctrl.signal,cache:'no-store'})}finally{clearTimeout(timeout)}if(!response.ok)throw Error('HTTP '+response.status);const payload=await response.json();const games=(payload.events||[]).filter(x=>x.strHomeTeam&&x.strAwayTeam);if(!games.length){message('Aucune rencontre à venir renvoyée pour ce championnat. Essaie un autre championnat ou saisis les matchs manuellement.');return}message(`${games.length} rencontre(s) disponibles. Clique sur « Ajouter » pour placer un match dans le groupe choisi.`);const holder=$('matches');for(const g of games){const div=document.createElement('div');div.className='event';const name=document.createElement('div');name.className='event-name';const strong=document.createElement('strong');strong.textContent=g.strHomeTeam+' ⚽ '+g.strAwayTeam;const small=document.createElement('small');small.textContent=' — '+formatDate(g.strTimestamp||(g.dateEvent+'T'+(g.strTime||'00:00:00')+'Z'));name.append(strong,small);const btn=document.createElement('button');btn.textContent='Ajouter';btn.onclick=()=>{const dest=$('destination').value,c=tcParseKey(dest).group,i=tcParseKey(dest).match;data[c+i+'a']=g.strHomeTeam;data[c+i+'b']=g.strAwayTeam;data[c+i+'date']=formatDate(g.strTimestamp||(g.dateEvent+'T'+(g.strTime||'00:00:00')+'Z'));for(const other of GROUPS.find(row=>row.includes(c))){for(const field of ['a','b','date'])data[other+i+field]=data[c+i+field]}save();makeGroups();message(`Match ajouté à toute la ligne du groupe ${c}, match ${Number(i)+1}. Les grilles sont actualisées.`)};div.append(name,btn);holder.appendChild(div)}}catch(e){message('Impossible de charger le calendrier public (connexion, accès navigateur ou service indisponible). La saisie manuelle reste disponible.');}}
 $('load').onclick=loadFixtures;$('league').onchange=()=>{$('matches').innerHTML='';message('Clique sur « Charger les prochains matchs ».')};$('print').onclick=()=>{document.body.classList.remove('print64','print72','print19');window.print()};
 $('print64').onclick=()=>{document.body.classList.remove('print72','print19');document.body.classList.add('print64');window.print()};
 $('copy64').onclick=copyText64;
@@ -1329,7 +1368,7 @@ $('copy').onclick=async()=>{
 };
 function showView(view){
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
-  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+view));
+  document.querySelectorAll('.view').forEach(v=>{const active=v.id==='view-'+view;v.classList.toggle('active',active);v.hidden=!active;if(active)v.style.removeProperty('display');});
   document.body.classList.toggle('print64',view==='64');
   document.body.classList.toggle('print72',view==='72');
    document.body.classList.toggle('print19',view==='19');
@@ -1463,9 +1502,10 @@ function restoreSnapshot(v){
   $('tc-30-direct-select').value=String(v.system30);
   $('tc-30-direct-select').dispatchEvent(new Event('change',{bubbles:true}));
  }
- if(Array.isArray(v.groups)&&v.groups.length&&v.groups.every(row=>typeof row==='string'&&/^[A-Z]+$/.test(row)))GROUPS=v.groups.slice();
+ if(Array.isArray(v.groups)&&v.groups.length&&v.groups.every(row=>(typeof row==='string'||Array.isArray(row))&&Array.from(row).every(g=>/^[A-Z]+$/.test(g))))GROUPS=v.groups.map(row=>Array.from(row));
  if(v.leaguePrefs&&typeof leaguePrefs!=='undefined'){leaguePrefs=v.leaguePrefs;try{localStorage.setItem(LEAGUE_PREFS_STORE,JSON.stringify(leaguePrefs));}catch(e){}}
  if(v.teamChampionships!==undefined){try{if(v.teamChampionships===null)localStorage.removeItem('tc-team-championships-v1');else localStorage.setItem('tc-team-championships-v1',v.teamChampionships);}catch(e){}}
+ if(v.system30!==undefined)window.TC_SYSTEMS?.restore(v);
  for(const k of SPORT_KEYS){sportDatas[k]=v.sportsData[k]||{};persistSport(k)}
  if(v.choices144){choices144=v.choices144.map(x=>({...x}));store144();buildChoices144()}
  if(Array.isArray(v.mixSports)){mixSports=v.mixSports.map(r=>r.slice());persistMix();}
@@ -1475,15 +1515,15 @@ function restoreSnapshot(v){
  selectSport(v.sport);
  if(v.system30!==undefined){
   const label=$('tc-30-direct-select')?.selectedOptions[0]?.textContent||'Mon système';
-  window.tcSetCouponGroups?.(GROUPS.join('').split(''),label);
+  window.tcSetCouponGroups?.(GROUPS.flatMap(row=>Array.from(row)),label);
   const heading=$('tc-active-system-heading');
-  if(heading)heading.textContent=label+' · '+GROUPS.length+' lignes : '+GROUPS.map(r=>r.split('').join(' · ')).join(' / ');
+  if(heading)heading.textContent=label+' · '+GROUPS.length+' lignes : '+GROUPS.map(r=>Array.from(r).join(' · ')).join(' / ');
   window.TOTOCALCIO_RENCONTRES_SYSTEME?.applyFilter();
  }
 }
 function saveBulletins(){try{localStorage.setItem(BULLETINS_KEY,JSON.stringify(bulletins));return true}catch(e){toolsNotice('Enregistrement impossible : espace de stockage indisponible. Exporte tes données.');return false}}
 function listBulletins(){const v=$('saved-list').value;$('saved-list').innerHTML='<option value="">Choisir un bulletin…</option>'+bulletins.map((b,i)=>`<option value="${i}">${safe(b.name)}</option>`).join('');$('saved-list').value=v}
-function selectedCombos(){const m=$('budget-system').value;return m==='144'?accepted144():m==='19'?combinations19():m==='64'?combinations64():m==='72'?accepted72():GRIDS}
+function selectedCombos(){if(window.TC_ACTIVE_SYSTEM&&window.TC_SYSTEMS)return window.TC_SYSTEMS.getRows();const m=$('budget-system').value;return m==='144'?accepted144():m==='19'?combinations19():m==='64'?combinations64():m==='72'?accepted72():GRIDS}
 function verdict(p,a,b,total,threshold){
  if(!p||a===''||b==='')return null;
  a=Number(a);b=Number(b);if(!Number.isInteger(a)||!Number.isInteger(b)||a<0||b<0)return null;
@@ -1498,7 +1538,7 @@ function slotVerdict(c,i){const row=GROUPS.find(r=>r.includes(c)),base=row[0]+i,
 function toolsRefresh(){
  const combos=selectedCombos(),stake=Number($('stake').value);
  {const budget=$('budget-total');const count=Number(budget.dataset.grids);budget.textContent=!Number.isFinite(stake)||stake<0?'Mise invalide':!budget.dataset.grids?'Coût du système : à calculer':`Coût du système : ${(count*stake).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})} · ${count.toLocaleString('fr-FR')} grilles`;}
- for(const el of document.querySelectorAll('#groups select.prono')){const k=el.dataset.key;el.classList.toggle('missing-pick',!el.value||displayPick(k[0],Number(k[1]))==='Jeux : nombre à préciser')}
+ for(const el of document.querySelectorAll('#groups select.prono')){const k=el.dataset.key;el.classList.toggle('missing-pick',!el.value||displayPick(tcParseKey(k).group,tcParseKey(k).match)==='Jeux : nombre à préciser')}
  if(!$('results-panel').hidden)renderResultTotals();applyMobileFilter();
 }
 function renderResultEntries(){
@@ -1518,7 +1558,7 @@ $('clear-all-teams').onclick=()=>{
  for(const s of SPORT_KEYS){
   const d=sportDatas[s];
   for(const key of Object.keys(d)){
-   if(/^[A-O][01][ab]$/.test(key)){if(d[key])removed++;delete d[key]}
+   if(/^[A-Z]+[01][ab]$/.test(key)){if(d[key])removed++;delete d[key]}
   }
   persistSport(s);
  }
@@ -1547,7 +1587,7 @@ $('load-bulletin').onclick=()=>{const idx=$('saved-list').value;if(idx==='')retu
 $('delete-bulletin').onclick=()=>{const idx=$('saved-list').value;if(idx==='')return;const b=bulletins[Number(idx)];if(!b||!confirm('Supprimer le bulletin enregistré « '+b.name+' » ?'))return;const previous=bulletins.slice();bulletins.splice(Number(idx),1);if(!saveBulletins()){bulletins=previous;return}listBulletins();toolsNotice('Bulletin supprimé.')};
 $('check-picks').onclick=()=>{const combos=selectedCombos();if(combos===null){toolsNotice('Corrige la répartition du système 72.');return}const missing=new Set();for(const combo of combos)for(const c of combo)for(let i=0;i<2;i++){const d=getSlotData(c,i);if(!d[c+i+'a']||!d[c+i+'b']||!d[c+i+'p']||displayPick(c,i)==='Jeux : nombre à préciser')missing.add(c+(i+1))}toolsNotice(missing.size?'À compléter (groupe et match) : '+[...missing].join(', '):'Toutes les rencontres et sélections du système choisi sont renseignées.')};
 $('open-results').onclick=()=>{$('results-panel').hidden=!$('results-panel').hidden;if(!$('results-panel').hidden){renderResultEntries();renderResultTotals()}};
-$('result-entries').addEventListener('input',e=>{const k=e.target.dataset.result;if(!k)return;getSlotData(k[0],Number(k[1]))[k]=e.target.value;persistSport(getSlotSport(k[0],Number(k[1])));renderResultTotals()});
+$('result-entries').addEventListener('input',e=>{const k=e.target.dataset.result;if(!k)return;getSlotData(tcParseKey(k).group,tcParseKey(k).match)[k]=e.target.value;persistSport(getSlotSport(tcParseKey(k).group,tcParseKey(k).match));renderResultTotals()});
 $('budget-system').onchange=toolsRefresh;$('stake').oninput=toolsRefresh;
 const filter=document.createElement('div');filter.className='mobile-filter toolbar no-print';filter.innerHTML='<label>Afficher <select id="mobile-line"><option value="all">Toutes les lignes</option>'+GROUPS.map((r,i)=>`<option value="${i}">Ligne ${i+1} — ${r}</option>`).join('')+'</select></label>';$('groups').before(filter);
 function applyMobileFilter(){
@@ -1584,7 +1624,7 @@ let choices144=DEFAULT144.map(x=>({...x}));
 function valid144(v){return Array.isArray(v)&&v.length===6&&v.every((x,r)=>x&&[2,3].includes(x.mode)&&x.mode<=GROUPS[r].length&&choiceOptions72(GROUPS[r],x.mode).includes(x.choice))}
 try{const v=JSON.parse(localStorage.getItem(STORE144)||'null');if(valid144(v))choices144=v}catch(e){}
 function store144(){try{localStorage.setItem(STORE144,JSON.stringify(choices144))}catch(e){}}
-function buildChoices144(){
+function buildChoices144(){if(window.TC_ACTIVE_SYSTEM)return;
  const holder=$('choices144');holder.innerHTML='';
  choices144.forEach((x,r)=>{const card=document.createElement('div');card.className='pair-card';card.innerHTML=`<label>Ligne ${r+1} — ${GROUPS[r]}</label>`;
  const mode=document.createElement('select');mode.setAttribute('aria-label','Type de sélection ligne '+(r+1)+' du système 2 triples 4 doubles');mode.innerHTML='<option value="2">Double (2 groupes)</option>'+(GROUPS[r].length===3?'<option value="3">Triple (3 groupes)</option>':'');mode.value=String(x.mode);mode.onchange=()=>{const n=Number(mode.value);choices144[r]={mode:n,choice:choiceOptions72(GROUPS[r],n)[0]};store144();buildChoices144();render144();toolsRefresh()};card.append(mode);
@@ -1592,7 +1632,7 @@ function buildChoices144(){
 }
 function combinations144(){if(!valid144(choices144)||choices144.filter(x=>x.mode===3).length!==2||choices144.filter(x=>x.mode===2).length!==4)return null;let combos=[''];for(const x of choices144)combos=combos.flatMap(p=>[...x.choice].map(c=>p+c));return combos}
 function accepted144(){const all=combinations144();return all===null?null:all.filter(combo=>[...combo].filter((c,r)=>c===GROUPS[r][0]).length>=2)}
-function render144(){const combos=accepted144(),holder=$('developed144');if(combos===null){holder.innerHTML='';$('summary144').textContent='Répartition à corriger : exactement 2 triples et 4 doubles sont nécessaires.';return}holder.innerHTML=combos.map((combo,n)=>`<article class="ticket"><h3>Grille ${n+1} / ${combos.length} — ${[...combo].join(' · ')} — ${[...combo].filter((c,r)=>c===GROUPS[r][0]).length} verts</h3>${[...combo].flatMap((c,r)=>[0,1].map(i=>ticketMatch(c,i,COLORS[GROUPS[r].indexOf(c)]))).join('')}</article>`).join('');$('summary144').textContent=`${combos.length} grilles retenues sur 144 combinaisons avant filtre · 12 matchs par grille · toutes les combinaisons de tes groupes choisis avec au moins 2 verts sont conservées. Aucun gain garanti.`;$('print144').disabled=$('copy144').disabled=!combos.length}
+function render144(){if(window.TC_ACTIVE_SYSTEM)return;const combos=accepted144(),holder=$('developed144');if(combos===null){holder.innerHTML='';$('summary144').textContent='Répartition à corriger : exactement 2 triples et 4 doubles sont nécessaires.';return}holder.innerHTML=combos.map((combo,n)=>`<article class="ticket"><h3>Grille ${n+1} / ${combos.length} — ${[...combo].join(' · ')} — ${[...combo].filter((c,r)=>c===GROUPS[r][0]).length} verts</h3>${[...combo].flatMap((c,r)=>[0,1].map(i=>ticketMatch(c,i,COLORS[GROUPS[r].indexOf(c)]))).join('')}</article>`).join('');$('summary144').textContent=`${combos.length} grilles retenues sur 144 combinaisons avant filtre · 12 matchs par grille · toutes les combinaisons de tes groupes choisis avec au moins 2 verts sont conservées. Aucun gain garanti.`;$('print144').disabled=$('copy144').disabled=!combos.length}
 $('view-groups').parentNode.append($('view-144'));
 
 for(const id of ['budget-system','pari-system']){const opt=document.createElement('option');opt.value='144';opt.textContent='2 triples + 4 doubles · 2 verts min.';$(id).append(opt)}
@@ -1830,7 +1870,7 @@ buildChoices144();render144();$('budget-system').value='144';toolsRefresh();show
   const warnings=[],seen=new Set(),required=new Set();
   grids.forEach((g,i)=>{if(typeof g!=='string'||g.length!==choices.length||[...g].some((c,r)=>!GROUPS[r].includes(c)))warnings.push('Grille '+(i+1)+' invalide');else for(const c of g)for(let j=0;j<2;j++)required.add(c+j)});
   let missingTeams=0,missingPicks=0,invalidJeux=0,sameTeams=0;
-  for(const slot of required){const c=slot[0],i=Number(slot[1]),d=getSlotData(c,i);if(!String(d[slot+'a']||'').trim()||!String(d[slot+'b']||'').trim())missingTeams++;
+  for(const slot of required){const c=tcParseKey(slot).group,i=tcParseKey(slot).match,d=getSlotData(c,i);if(!String(d[slot+'a']||'').trim()||!String(d[slot+'b']||'').trim())missingTeams++;
    if(!d[slot+'p'])missingPicks++;if(displayPick(c,i)==='Jeux : nombre à préciser')invalidJeux++;
    if(d[slot+'a']&&d[slot+'b']&&String(d[slot+'a']).trim().toLowerCase()===String(d[slot+'b']).trim().toLowerCase())sameTeams++;
   }
@@ -2326,7 +2366,7 @@ function bcMatchHTML(r,i,c){
  const list=s==='football'?` list="bc-team-list-${r}-${i}"`:'';
  return `<div class="bc-match"><div class="bc-match-label"><b>${String(r*2+i+1).padStart(2,'0')}</b><span>Match ${i+1}</span></div><div class="bc-match-edit"><div class="bc-match-top">${sportSelect}${league}</div><div class="bc-teams"><input type="text" autocomplete="off" data-bc-team="${c+i+'a'}" ${list} value="${safe(d[c+i+'a']||'')}" placeholder="${safe(participantPlaceholder(s,1))}" aria-label="Domicile ou joueur 1, ligne ${r+1} match ${i+1}"><span class="bc-versus">VS</span><input type="text" autocomplete="off" data-bc-team="${c+i+'b'}" ${list} value="${safe(d[c+i+'b']||'')}" placeholder="${safe(participantPlaceholder(s,2))}" aria-label="Extérieur ou joueur 2, ligne ${r+1} match ${i+1}"></div>${s==='football'?bcTeamList(r,i,c):''}<button type="button" class="tc-match-advice" data-advice-group="${c}" data-advice-index="${i}">🧠 Conseil IA du match</button>${d[c+i+'date']?`<div class="bc-date">📅 ${safe(d[c+i+'date'])}</div>`:''}</div></div>`;
 }
-function bcWritePick(k,v){setVal(k,v);const detailed=document.querySelector('#groups [data-key="'+k+'"]');if(detailed){detailed.value=tcCustomIsActive(getSlotSport(k[0],Number(k[1])),v)?TC_CUSTOM_MARKET:v;updateJeuxField(detailed)}}
+function bcWritePick(k,v){setVal(k,v);const detailed=document.querySelector('#groups [data-key="'+k+'"]');if(detailed){detailed.value=tcCustomIsActive(getSlotSport(tcParseKey(k).group,tcParseKey(k).match),v)?TC_CUSTOM_MARKET:v;updateJeuxField(detailed)}}
 function renderBulletinGroups(){
  const holder=document.getElementById('bulletin-groups');if(!holder)return;
  let chosen=0;
@@ -2345,7 +2385,7 @@ function renderBulletinGroups(){
  holder.querySelectorAll('[data-bc-sport]').forEach(el=>el.addEventListener('change',()=>{const [r,i]=el.dataset.bcSport.split('-').map(Number);chooseMatchSport(GROUPS[r][0],i,el.value)}));
  holder.querySelectorAll('[data-bc-country]').forEach(el=>el.addEventListener('change',()=>{const [r,i]=el.dataset.bcCountry.split('-').map(Number);saveLeaguePref(GROUPS[r][0],i,el.value,0);refreshLeagueControls(GROUPS[r][0],i);renderBulletinGroups()}));
  holder.querySelectorAll('[data-bc-division]').forEach(el=>el.addEventListener('change',()=>{const [r,i]=el.dataset.bcDivision.split('-').map(Number);const p=getLeaguePref(GROUPS[r][0],i);saveLeaguePref(GROUPS[r][0],i,p.country,Number(el.value));refreshLeagueControls(GROUPS[r][0],i);renderBulletinGroups()}));
- holder.querySelectorAll('[data-bc-pick]').forEach(el=>el.addEventListener('click',()=>{const k=el.dataset.bcPick;const current=getSlotData(k[0],Number(k[1]))[k]||'';bcWritePick(k,current===el.dataset.bcValue?'':el.dataset.bcValue);renderBulletinGroups()}));
+ holder.querySelectorAll('[data-bc-pick]').forEach(el=>el.addEventListener('click',()=>{const k=el.dataset.bcPick;const current=getSlotData(tcParseKey(k).group,tcParseKey(k).match)[k]||'';bcWritePick(k,current===el.dataset.bcValue?'':el.dataset.bcValue);renderBulletinGroups()}));
  holder.querySelectorAll('[data-bc-extra]').forEach(el=>el.addEventListener('change',()=>{if(!tcMarketChanged(el.dataset.bcExtra,el.value,holder))renderBulletinGroups()}));
  holder.querySelectorAll('[data-bc-prono]').forEach(el=>el.addEventListener('change',()=>{if(!tcMarketChanged(el.dataset.bcProno,el.value,holder))renderBulletinGroups()}));
  holder.querySelectorAll('[data-bc-jeux]').forEach(el=>el.addEventListener('input',()=>{setVal(el.dataset.bcJeux,el.value);const detailed=document.querySelector('#groups [data-jeux-key=\"'+el.dataset.bcJeux+'\"]');if(detailed)detailed.value=el.value}));
@@ -2441,7 +2481,7 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
 (function(){
  'use strict';
  const KEY='totocalcio_saisies_verrouillees_v1';
- const roots=['#groups','#bulletin-groups','#tc-all-odds','#mix-slots','#result-entries'];
+ const roots=['#tc-compact-match-sheet','#groups','#bulletin-groups','#tc-all-odds','#mix-slots','#result-entries'];
  const rootNodes=roots.map(s=>document.querySelector(s)).filter(Boolean);
  const toolbar=document.querySelector('#view-groups .bc-mode-toolbar');
  if(!toolbar)return;
@@ -2449,18 +2489,19 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
  bar.innerHTML='<button type="button" class="tc-lockbutton" id="tc-lock-toggle" aria-pressed="true">🔒 Saisies verrouillées</button><span class="tc-lockhint" id="tc-lock-hint" role="status">Protection active : aucune modification involontaire des équipes et pronostics. Clique sur « Déverrouiller » pour saisir.</span>';
  toolbar.insertAdjacentElement('afterend',bar);
  const btn=bar.querySelector('#tc-lock-toggle'),hint=bar.querySelector('#tc-lock-hint');
- let locked=true;
- try{const saved=localStorage.getItem(KEY);locked=saved!=='false'}catch(e){}
+ let locked=false;
+ try{const saved=localStorage.getItem(KEY);locked=saved==='true'}catch(e){}
  const original=new WeakMap();
  function isEditableArea(el){return !!(el instanceof Element&&roots.some(s=>el.closest(s)));}
  function protectedControl(el){
    if(!el.matches('input,select,textarea,button'))return false;
+   if(el.closest('.tc-sheet-tools'))return false;
    if(el.closest('#bulletin-groups')&&el.matches('.bc-go-systems'))return false;
     if(el.closest('#tc-all-odds')&&el.matches('.tc-show-all-groups'))return false;
    return true;
  }
  function allControls(){
-   const nodes=rootNodes.flatMap(root=>[...root.querySelectorAll('input,select,textarea,button')].filter(protectedControl));
+   const nodes=roots.map(s=>document.querySelector(s)).filter(Boolean).flatMap(root=>[...root.querySelectorAll('input,select,textarea,button')].filter(protectedControl));
    for(const id of ['clear-all-teams','clear','import']){const el=document.getElementById(id);if(el)nodes.push(el)}
    return nodes;
  }
@@ -2523,7 +2564,7 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
    if(scheduled)return;scheduled=true;
    queueMicrotask(()=>{scheduled=false;apply()});
  };
- for(const root of rootNodes)new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+ new MutationObserver(schedule).observe(document.getElementById('view-groups'),{childList:true,subtree:true});
  apply();
  window.TOTOCALCIO_VERROUILLAGE={isLocked:()=>locked,lock:()=>{locked=true;try{localStorage.setItem(KEY,'true')}catch(e){}apply()},unlock:()=>{locked=false;try{localStorage.setItem(KEY,'false')}catch(e){}apply()}};
 })();
@@ -2664,7 +2705,7 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
  'use strict';
  const host=document.getElementById('tc-all-odds-grid');
  if(!host)return;
- const groups=GROUPS.join('');
+ const groups=GROUPS.flatMap(row=>Array.from(row));
  function renderAllOdds(){
   let html='';
   for(const c of groups){
@@ -3577,149 +3618,161 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <p class="tc-l30-note">Maximum 100 000 grilles par génération. Les grilles produites ici sont indépendantes des pronostics déjà saisis dans le bulletin principal.</p>
 <textarea id="tc-library30-output" readonly placeholder="Les grilles s'affichent ici..."></textarea>
 </div></div>
+
 <script id="tc-library30-script">
 (function(){
 'use strict';
-const names=["3 triples","4 triples","5 triples","6 triples","7 triples","8 triples","9 triples","3 à 10 doubles","2 triples + 4 doubles","4 triples + 3 doubles","4 triples · 2 à 4 verts","5 triples · 2 à 3 verts et 1 rouge min.","6 triples · 2 verts, 1 bleu, 1 rouge min.","6 triples · exactement 3 verts","7 triples · 2 à 4 verts et 1 bleu","8 triples · 3 verts et 2 rouges min.","9 triples · 3 à 5 verts","5 doubles · au moins 2 bleus","3 triples + 3 doubles · 2 rouges min.","Couverture des 3 couleurs","4 triples · couverture cible 3/4","5 triples · couverture cible 4/5","6 triples · couverture cible 5/6","7 triples · couverture cible 6/7","8 triples · couverture cible 7/8","9 triples · couverture cible 8/9","6 lignes · 2 verts, 1 bleu, 1 rouge min.","6 lignes · exactement 3 verts","6 lignes · 1 rouge sur ABC/DEF/GHI","6 lignes · budget maximal de grilles"];
-const setups=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
-const groups=[['A','B','C'],['D','E','F'],['G','H','I'],['J','K'],['L','M'],['N','O']];
-const $=x=>document.getElementById(x);
-let csv='',rows=[];
-function init(){
- if($('tc-library30-open'))return;
- const side=$('tc-side-menu');
- if(!side){const quick=$('tc-30-direct-open');if(quick){quick.onclick=()=>{$('tc-library30-modal').classList.add('tc-open')};}setTimeout(init,400);return}
- const head=document.createElement('div');head.className='tc-menu-heading';head.textContent='BIBLIOTHÈQUE DE SYSTÈMES';
- const block=document.createElement('div');block.className='tc-menu-actions';
- const btn=document.createElement('button');btn.type='button';btn.id='tc-library30-open';btn.textContent='▦  30 systèmes par groupes';block.append(btn);
- const anchor=side.querySelector('.tc-menu-heading');if(anchor){anchor.before(head,block)}else{side.append(head,block)}
- btn.onclick=()=>{$('tc-library30-modal').classList.add('tc-open')};
- $('tc-library30-close').onclick=()=>{$('tc-library30-modal').classList.remove('tc-open')};
- $('tc-library30-modal').addEventListener('click',e=>{if(e.target===$('tc-library30-modal'))$('tc-library30-modal').classList.remove('tc-open')});
- names.forEach((name,i)=>{const opt=new Option('TC-'+String(i+1).padStart(2,'0')+' · '+name,i);$('tc-library30-system').add(opt)});
- const quick=$('tc-30-direct-select');
- if(quick){quick.innerHTML='';names.forEach((name,i)=>quick.add(new Option('S'+String(i+1).padStart(2,'0')+' · '+name,String(i))));
-  $('tc-30-direct-open').onclick=()=>{
-   // La saisie des matchs est la destination commune aux 30 systèmes.
-   const chosen=Number(quick.value);
-   $('tc-library30-system').value=String(chosen);
-   change();
-   if(typeof showView==='function')showView('groups');
-   if(typeof bcSetMode==='function')bcSetMode('detail');
-   const view=document.getElementById('view-groups');
-   const entry=document.getElementById('groups');
-   const simple=document.getElementById('bulletin-groups');
-   if(!view||!entry)return;
-   view.classList.add('active');
-   view.hidden=false;
-   entry.hidden=false;
-   if(simple)simple.hidden=true;
-   const fixtureFilter=document.getElementById('sys-fixture-select');
-   if(fixtureFilter){fixtureFilter.value='all';fixtureFilter.dispatchEvent(new Event('change',{bubbles:true}));}
-   let active=new Set();
-   if(chosen<10){groups.flat().forEach(g=>active.add(g));}
-   else {
-     const combinations=chosen>=20?reduced().chosen.map(s=>s.split('')):grouped().map(c=>c.letters);
-     combinations.forEach(combo=>combo.forEach(g=>active.add(g)));
-   }
-   // Une condition sans résultat ne doit jamais laisser la page de saisie vide.
-   if(!active.size)groups.flat().forEach(g=>active.add(g));
-   const all=groups.flat();
-   // Les systèmes intégraux utilisent autant de groupes distincts que de triples/doubles.
-   // Pour les systèmes conditionnels, on utilise les groupes réellement possibles.
-   if(chosen<10){
-     const triples=Number($('tc-l30-triples').value)||0;
-     const doubles=Number($('tc-l30-doubles').value)||0;
-     const count=Math.min(all.length,Math.max(1,triples+doubles));
-     active=new Set(all.slice(0,count));
-   }
-   if(typeof window.tcSetCouponGroups==='function'){
-     window.tcSetCouponGroups(all.filter(g=>active.has(g)),'S'+String(chosen+1).padStart(2,'0')+' · '+names[chosen]);
-   }
-   entry.querySelectorAll('.group').forEach((node,index)=>{
-     node.style.setProperty('display',active.has(all[index])?'':'none');
-   });
-   const heading=view.querySelector('h2');
-   if(heading){
-     heading.setAttribute('data-selected-system','S'+String(chosen+1).padStart(2,'0'));
-   }
-   const target=view.querySelector('.groups-section')||entry;
-   target.scrollIntoView({behavior:'smooth',block:'start'});
-  };
-  quick.onchange=()=>{$('tc-library30-system').value=quick.value;change()};
-  $('tc-library30-system').addEventListener('change',()=>{quick.value=$('tc-library30-system').value});
- }
- let colors={A:'V',B:'B',C:'R',D:'V',E:'B',F:'R',G:'V',H:'B',I:'R',J:'V',K:'B',L:'V',M:'B',N:'V',O:'B'};
- groups.forEach((line,i)=>{const wrap=document.createElement('label');wrap.textContent=['ABC','DEF','GHI','JK','LM','NO'][i]+' : ';line.forEach(g=>{const select=document.createElement('select');select.dataset.group=g;[['V','Vert'],['B','Bleu'],['R','Rouge']].forEach(x=>select.add(new Option(g+' · '+x[1],x[0])));select.value=colors[g];select.onchange=update;select.style.margin='3px';wrap.append(select)});$('tc-library30-colors').append(wrap)});
- $('tc-library30-system').onchange=change;
- ['tc-l30-triples','tc-l30-doubles','tc-l30-sign'].forEach(id=>$(id).addEventListener('change',update));
- $('tc-library30-generate').onclick=generate;
- $('tc-library30-csv').onclick=()=>{if(!csv)return;const a=document.createElement('a');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download='totocalcio-systeme-'+(1+ +$('tc-library30-system').value)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),500)};
- change();
+const byId=id=>document.getElementById(id);
+let index=0,lines=[],result=null,page=0;
+const cache=new Map();
+const title=i=>'S'+String(i+1).padStart(2,'0')+' · '+TC_SYSTEM_NAMES[i];
+function calculate(){
+ const budget=Number(byId('tc-l30-budget')?.value)||30;
+ const key=JSON.stringify([index,lines,budget]);
+ if(!cache.has(key))cache.set(key,tcSystemCompute(index,lines,budget));
+ result=cache.get(key);return result;
 }
-function valid(x,i){
- const v=x.filter(t=>t==='V').length,b=x.filter(t=>t==='B').length,r=x.filter(t=>t==='R').length;
- switch(i){
- case 10:return v>=2&&v<=4;case 11:return v>=2&&v<=3&&r>=1;
- case 12:case 26:return v>=2&&b>=1&&r>=1;
- case 13:case 27:return v===3;case 14:return v>=2&&v<=4&&b>=1;
- case 15:return v>=3&&r>=2;case 16:return v>=3&&v<=5;
- case 17:return b>=2;case 18:return r>=2;case 19:return v>=1&&b>=1&&r>=1;
- case 28:return x.slice(0,3).includes('R');default:return true;
- }
+function notice(text){const el=byId('tc-library30-counter');if(el)el.textContent=text;}
+function update(){
+ try{
+  const t=Number(byId('tc-l30-triples').value),d=Number(byId('tc-l30-doubles').value);
+  lines=tcSystemRows(index,t,d);calculate();
+  const reduced=index>=20;
+  notice(result.rows.length.toLocaleString('fr-FR')+' grilles · '+lines.length+' lignes · '+lines.flat().length+' groupes'+(reduced?' · couverture '+result.covered+'/'+result.total+' scénarios à '+result.threshold+'/'+lines.length+' groupes concordants':''));
+  byId('tc-library30-generate').disabled=!result.rows.length;
+  byId('tc-library30-reduced').hidden=!reduced;
+  byId('tc-library30-reduced').textContent=reduced?'Couverture combinatoire vérifiée : '+result.covered+'/'+result.total+' scénarios. Aucun résultat sportif garanti.':'';
+  const cost=byId('budget-total');
+  if(cost){cost.dataset.grids=String(result.rows.length);const stake=Number(byId('stake').value);cost.textContent=Number.isFinite(stake)&&stake>=0?'Coût du système : '+(result.rows.length*stake).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})+' · '+result.rows.length.toLocaleString('fr-FR')+' grilles':'Mise invalide';}
+  byId('tc-library30-csv').disabled=!result.rows.length;
+ }catch(e){notice(e.message);byId('tc-library30-generate').disabled=true;result=null;}
 }
-function grouped(){
- const colors={};document.querySelectorAll('#tc-library30-colors select').forEach(s=>colors[s.dataset.group]=s.value);
- let combos=[{letters:[],colors:[]}];
- groups.forEach(line=>{combos=combos.flatMap(c=>line.map(g=>({letters:c.letters.concat(g),colors:c.colors.concat(colors[g])})))});
- return combos.filter(c=>valid(c.colors,+$('tc-library30-system').value));
-}
-function change(){
- const i=+$('tc-library30-system').value;
- $('tc-l30-triples').value=setups[i][0];$('tc-l30-doubles').value=setups[i][1];
- $('tc-library30-integral').hidden=i>=10;$('tc-library30-groups').hidden=i<10;$('tc-library30-reduced').hidden=i<20;
- $('tc-library30-description').textContent=i<10?'Développement intégral des signes 1 / X / 2.':i<20?'Sélection conditionnelle de groupes parmi six lignes.':'Sélection réduite par couverture calculée des groupes ; aucune garantie de résultat.';
+function select(i){
+ if(!Number.isInteger(i)||i<0||i>=30)return;
+ index=i;
+ for(const id of ['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select']){const el=byId(id);if(el)el.value=String(i);}
+ byId('tc-l30-triples').value=TC_SYSTEM_SETUPS[i][0];
+ byId('tc-l30-doubles').value=TC_SYSTEM_SETUPS[i][1];
+ byId('tc-l30-triples').disabled=i>=10;
+ byId('tc-l30-doubles').disabled=i>=10;
+ byId('tc-library30-description').textContent=title(i)+' — un groupe choisi par ligne, deux rencontres par groupe.';
  update();
 }
-function reduced(){
- const i=+$('tc-library30-system').value,universe=grouped().map(x=>x.letters.join(''));
- const thresholds=[3,4,5,4,5,4,4,5,4,5],budgets=[9,14,20,16,24,28,18,24,14,30];
- const need=thresholds[i-20],limit=budgets[i-20],covered=new Set(),chosen=[];
- const covers=s=>universe.filter(u=>[...u].reduce((n,ch,k)=>n+(ch===s[k]),0)>=need);
- const options=universe.map(x=>({x,cover:covers(x)}));
- for(let k=0;k<limit;k++){
-   let best=null,score=0;
-   for(const o of options){if(chosen.includes(o.x))continue;let n=0;for(const v of o.cover)if(!covered.has(v))n++;if(n>score){score=n;best=o}}
-   if(!best||!score)break;chosen.push(best.x);best.cover.forEach(x=>covered.add(x));
+function normalize(){
+ for(const id of ['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select']){
+  const el=byId(id);if(!el)continue;
+  el.replaceChildren(...TC_SYSTEM_NAMES.map((name,i)=>new Option(title(i),String(i))));
+  el.value=String(index);
  }
- return {chosen,covered:covered.size,total:universe.length,threshold:need};
+ const old=byId('tc30-direct');if(old)old.hidden=true;
+ const desc=byId('tc-library30-content')?.querySelector('h2+p');
+ if(desc)desc.textContent='Les mêmes 30 systèmes que dans le logiciel. Les grilles utilisent tes rencontres et pronostics.';
+ const colors=byId('tc-library30-groups');if(colors)colors.hidden=true;
+ const signs=byId('tc-l30-sign')?.closest('label');if(signs)signs.hidden=true;
+ const note=byId('tc-library30-content')?.querySelector('textarea')?.previousElementSibling;
+ if(note?.classList.contains('tc-l30-note'))note.textContent='Une lettre de groupe par ligne. Les équipes et les pronostics proviennent de Mes groupes.';
+ const integral=byId('tc-library30-integral');if(integral)integral.hidden=false;
 }
-function update(){
- const i=+$('tc-library30-system').value;
- const n=i<10?3**(+$('tc-l30-triples').value)*2**(+$('tc-l30-doubles').value):grouped().length;
- const red=i>=20?reduced():null;
- $('tc-library30-counter').textContent=red?red.chosen.length+' grilles réduites · couverture '+red.covered+'/'+red.total+' scénarios avec au moins '+red.threshold+' groupes concordants':(i<10?'Grilles intégrales : ':'Combinaisons de groupes admissibles : ')+n.toLocaleString('fr-FR');
- const priceBox=document.getElementById('budget-total');if(priceBox){priceBox.dataset.grids=String(red?red.chosen.length:n);if(typeof toolsRefresh==='function')toolsRefresh();}
- $('tc-library30-generate').disabled=n>100000||n<1;
- $('tc-library30-reduced').textContent=red?'Couverture calculée sur les scénarios de groupes. Il ne s’agit ni d’une garantie de gain ni d’une prédiction de résultats.':'';
- csv='';$('tc-library30-csv').disabled=true;$('tc-library30-output').value='';
+function open(scroll=true){
+ update();if(!result)return;
+ window.TC_ACTIVE_SYSTEM={index,lines:lines.map(r=>r.slice()),rows:result.rows};
+ GROUPS=lines.map(r=>r.slice());
+ mixSports=GROUPS.map((_,r)=>mixSports[r]||['football','football']);persistMix();
+ byId('mobile-line').value='all';
+ byId('groups').classList.remove('tc-line-filtering');
+ if(typeof bcSetMode==='function')bcSetMode('detail');else makeGroups();
+ document.body.classList.remove('bc-simple');
+ byId('bulletin-groups').hidden=true;byId('groups').hidden=false;
+ showView('groups');
+ window.tcSetCouponGroups?.(GROUPS.flat(),title(index));
+ const heading=byId('view-groups').querySelector('h2');
+ if(heading)heading.textContent='Saisie des rencontres · '+title(index);
+ let active=byId('tc-active-system-heading');
+ if(!active){active=document.createElement('p');active.id='tc-active-system-heading';byId('groups').before(active);}
+ active.textContent=title(index)+' · '+GROUPS.length+' lignes : '+GROUPS.map(row=>Array.from(row).join(' · ')).join(' / ');
+ window.TOTOCALCIO_RENCONTRES_SYSTEME?.applyFilter();
+ const dest=byId('destination');if(dest){dest.replaceChildren();destinations();}
+ try{localStorage.setItem('tc_system_layout_v2',JSON.stringify({index,triples:byId('tc-l30-triples').value,doubles:byId('tc-l30-doubles').value}));}catch(e){}
+ byId('tc-library30-modal')?.classList.remove('tc-open');
+ if(scroll)byId('view-groups').scrollIntoView({block:'start',behavior:'smooth'});
 }
-function generate(){
- const i=+$('tc-library30-system').value;
- if(i>=10){rows=i>=20?reduced().chosen.map(x=>x.split('')):grouped().map(c=>c.letters);csv='Grille;ABC;DEF;GHI;JK;LM;NO\n'+rows.map((x,k)=>(k+1)+';'+x.join(';')).join('\n')}
- else{
- const t=+$('tc-l30-triples').value,d=+$('tc-l30-doubles').value;
- if(!Number.isInteger(t)||!Number.isInteger(d)||t<0||t>9||d<0||d>10||3**t*2**d>100000)return;
- const sign=$('tc-l30-sign').value.split('');let parts=[[]];
- for(const s of Array.from({length:t},()=>['1','X','2']).concat(Array.from({length:d},()=>sign))){parts=parts.flatMap(p=>s.map(v=>p.concat(v)))}
- csv='Grille;'+Array.from({length:t+d},(_,k)=>'Match '+(k+1)).join(';')+'\n'+parts.map((p,k)=>(k+1)+';'+p.join(';')).join('\n');
+function csv(){
+ const data=calculate();const quote=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ const header=['Grille',...lines.map((_,i)=>'Ligne '+(i+1)),'Rencontres et pronostics'];
+ return '\uFEFF'+[header,...data.rows.map((row,n)=>[n+1,...row,row.flatMap(g=>[0,1].map(i=>{const d=getSlotData(g,i);return g+' '+(d[g+i+'a']||'Équipe 1')+' — '+(d[g+i+'b']||'Équipe 2')+' : '+displayPick(g,i);})).join(' | ')])].map(row=>row.map(quote).join(';')).join('\r\n');
+}
+function download(){
+ const blob=new Blob([csv()],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='TOTOCALCIO_'+String(index+1).padStart(2,'0')+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function tickets(){
+ if(!window.TC_ACTIVE_SYSTEM||JSON.stringify(GROUPS)!==JSON.stringify(lines))open(false);
+ let view=byId('view-audit-bulletins');
+ if(!view){view=document.createElement('div');view.id='view-audit-bulletins';view.className='view';document.querySelector('main').append(view);}
+ const data=calculate(),start=page*20;
+ if(start>=data.rows.length)page=0;
+ view.replaceChildren();
+ const section=document.createElement('section');
+ const h=document.createElement('h2');h.textContent='Mes bulletins · '+title(index);section.append(h);
+ const summary=document.createElement('p');summary.textContent=data.rows.length+' bulletins · '+lines.length*2+' rencontres par bulletin';section.append(summary);
+ function button(text,fn){const b=document.createElement('button');b.type='button';b.textContent=text;b.onclick=fn;b.style.margin='4px';section.append(b);return b;}
+ button('← Modifier mes rencontres',()=>showView('groups'));
+ button('💾 Sauvegarder',()=>showView('savepronos'));
+ button('Exporter les bulletins CSV',download);
+ const prev=button('← Précédents',()=>{page--;tickets();});prev.disabled=page===0;
+ const next=button('Suivants →',()=>{page++;tickets();});next.disabled=(page+1)*20>=data.rows.length;
+ data.rows.slice(page*20,page*20+20).forEach((row,n)=>{
+  const article=document.createElement('article');article.className='ticket';
+  const heading=document.createElement('h3');heading.textContent='Bulletin '+(page*20+n+1)+' — '+row.join(' · ');article.append(heading);
+  row.forEach(g=>[0,1].forEach(i=>{
+   const d=getSlotData(g,i),p=document.createElement('p');
+   p.textContent=g+' · '+(d[g+i+'a']||'Équipe 1')+' — '+(d[g+i+'b']||'Équipe 2')+' : '+displayPick(g,i);article.append(p);
+  }));section.append(article);
+ });
+ view.append(section);showView('audit-bulletins');view.scrollIntoView({block:'start',behavior:'smooth'});
+}
+function restore(v){
+ select(Number(v.system30)||0);
+ if(Array.isArray(v.groups)&&v.groups.length){
+  lines=v.groups.map(row=>Array.from(row));
+  byId('tc-l30-triples').value=lines.filter(row=>row.length===3).length;
+  byId('tc-l30-doubles').value=lines.filter(row=>row.length===2).length;
+  calculate();
+  window.TC_ACTIVE_SYSTEM={index,lines,rows:result.rows};
  }
- $('tc-library30-output').value=csv;
- $('tc-library30-csv').disabled=false;
+ update();
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+function setup(){
+ normalize();select(0);
+ const side=byId('tc-side-menu');
+ if(side&&!byId('tc-library30-open')){
+  const b=document.createElement('button');b.id='tc-library30-open';b.type='button';b.textContent='▦ 30 systèmes par groupes';side.prepend(b);
+ }
+ byId('tc-library30-close').onclick=()=>byId('tc-library30-modal').classList.remove('tc-open');
+ byId('tc-library30-modal').addEventListener('click',e=>{if(e.target===byId('tc-library30-modal'))e.target.classList.remove('tc-open');});
+ for(const id of ['tc-l30-triples','tc-l30-doubles'])byId(id).addEventListener('input',update);
+ const budget=document.createElement('label');budget.textContent='Budget maximal de grilles (S30)';
+ const input=document.createElement('input');input.type='number';input.id='tc-l30-budget';input.min='1';input.max='100000';input.value='30';input.oninput=update;budget.append(input);byId('tc-library30-integral').append(budget);
+ byId('tc-library30-generate').onclick=()=>{open(false);byId('tc-library30-output').value=csv();tickets();};
+ byId('tc-library30-csv').onclick=download;
+ document.addEventListener('change',e=>{
+  if(['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select'].includes(e.target.id)){e.stopImmediatePropagation();select(Number(e.target.value));}
+ },true);
+ document.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(['tc-30-direct-open','tc30-direct-open'].includes(b.id)){e.preventDefault();e.stopImmediatePropagation();open();}
+  else if(b.id==='tc-library30-open'){e.preventDefault();e.stopImmediatePropagation();byId('tc-library30-modal').classList.add('tc-open');}
+  else if(b.dataset.view==='mes-bulletins'||/^(3 · Voir mes bulletins|Voir mes bulletins|.*Systèmes de jeu)/.test(b.textContent.trim())){e.preventDefault();e.stopImmediatePropagation();tickets();}
+ },true);
+ byId('stake').addEventListener('input',update);
+ window.addEventListener('load',normalize,{once:true});
+ window.TC_SYSTEMS={open,select,update,tickets,restore,getRows:()=>calculate().rows};
+ try{const saved=JSON.parse(localStorage.getItem('tc_system_layout_v2')||'null');if(saved&&TC_SYSTEM_SETUPS[saved.index]){select(saved.index);byId('tc-l30-triples').value=saved.triples;byId('tc-l30-doubles').value=saved.doubles;open(false);}}catch(e){notice('La disposition précédente n’a pas pu être rétablie : '+e.message);}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
 </script>
+
 <script id="tc-hide-legacy-system-options">
 (function(){
  const legacy=new Set(['19','29','64','72']);
@@ -3746,121 +3799,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #view-thirty-systems .tc30-help{font-size:12px;color:#506477}
 #tc-systems-select option,#tc-beginner-select option{background:#fff;color:#182939}
 </style>
-<script id="tc-thirty-systems-20261017">
-(function(){
-'use strict';
-const LINES=['ABC','DEF','GHI','JK','LM','NO'];
-const COLORS={A:'V',B:'B',C:'R',D:'V',E:'B',F:'R',G:'V',H:'B',I:'R',J:'V',K:'B',L:'V',M:'B',N:'V',O:'B'};
-const kinds=[
- ['Intégral', 'integral'],['Conditionné','condition'],['Réduit 5/6','reduit']
-];
-const constraints=[
- {v:2,b:1,r:1,desc:'au moins 2 verts, 1 bleu, 1 rouge'},
- {v:3,b:1,r:0,desc:'au moins 3 verts et 1 bleu'},
- {v:2,b:2,r:0,desc:'au moins 2 verts et 2 bleus'},
- {v:1,b:2,r:1,desc:'au moins 1 vert, 2 bleus, 1 rouge'},
- {v:2,b:0,r:2,desc:'au moins 2 verts et 2 rouges'},
- {v:3,b:0,r:1,desc:'au moins 3 verts et 1 rouge'},
- {v:1,b:1,r:2,desc:'au moins 1 vert, 1 bleu et 2 rouges'},
- {v:4,b:1,r:0,desc:'au moins 4 verts et 1 bleu'},
- {v:2,b:3,r:0,desc:'au moins 2 verts et 3 bleus'},
- {v:1,b:3,r:1,desc:'au moins 1 vert, 3 bleus, 1 rouge'}
-];
-const SYSTEMS=kinds.flatMap(([name,mode],j)=>constraints.map((c,i)=>({
- id:'tc30-'+(j*10+i+1),num:j*10+i+1,name:'S'+String(j*10+i+1).padStart(2,'0')+' · '+name+' · '+c.desc,mode,...c
-})));
-let all=[''];for(const l of LINES)all=all.flatMap(a=>[...l].map(x=>a+x));
-function matches(s,c){let v=0,b=0,r=0;for(const letter of s){if(COLORS[letter]==='V')v++;else if(COLORS[letter]==='B')b++;else r++}return v>=c.v&&b>=c.b&&r>=c.r}
-function reduce(candidates){
- // Greedy set cover guaranteeing each admissible combination matches 5 or more of 6 groups.
- const remaining=new Set(candidates.map((_,i)=>i)),selected=[];
- const cover=(a,b)=>{let score=0;for(let k=0;k<6;k++)if(a[k]===b[k])score++;return score>=5};
- const neighborhoods=candidates.map(a=>candidates.map((b,i)=>cover(a,b)?i:-1).filter(x=>x>=0));
- while(remaining.size){
-  let winner=-1,score=-1;
-  neighborhoods.forEach((n,i)=>{let count=0;for(const idx of n)if(remaining.has(idx))count++;if(count>score){winner=i;score=count}});
-  if(winner<0||score<1)break;
-  selected.push(winner);for(const i of neighborhoods[winner])remaining.delete(i);
- }
- // Verify coverage; remove redundant selections only if they maintain coverage.
- for(let p=selected.length-1;p>=0;p--){const trial=selected.filter((_,i)=>i!==p);if(candidates.every((_,i)=>trial.some(x=>neighborhoods[x].includes(i))))selected.splice(p,1)}
- return {data:selected.map(i=>candidates[i]),covered:candidates.every((_,i)=>selected.some(x=>neighborhoods[x].includes(i)))};
-}
-const cache=new Map();
-function compute(sys){
- if(cache.has(sys.id))return cache.get(sys.id);
- const candidates=all.filter(x=>matches(x,sys));
- const result=sys.mode==='reduit'?reduce(candidates):{data:candidates,covered:true};
- const value={candidates,...result};cache.set(sys.id,value);return value;
-}
-function initialize(){
- const main=document.querySelector('main'),nav=document.querySelector('nav.nav'),primary=document.getElementById('tc-systems-select');
- if(!main||!primary||document.getElementById('view-thirty-systems'))return;
- const view=document.createElement('div');view.className='view';view.id='view-thirty-systems';
- view.innerHTML='<section class="tc30-panel"><h2 id="tc30-title">Systèmes de jeu</h2><p id="tc30-descr"></p><p class="tc30-stats" id="tc30-stats"></p><div class="tc30-controls"><button type="button" id="tc30-copy">Copier les combinaisons</button><button type="button" id="tc30-print">Imprimer les grilles</button></div><p class="tc30-help">Chaque combinaison indique un groupe choisi dans chaque ligne : ABC · DEF · GHI · JK · LM · NO. Les couleurs sont celles du système de groupes. La réduction 5/6 est une couverture combinatoire, pas une garantie de gains.</p><div class="tc30-items" id="tc30-items"></div></section>';
- main.append(view);
- const optgroup=document.createElement('optgroup');optgroup.label='30 systèmes — intégral / conditions / réduction';
- if(!Array.from(primary.options).some(o=>o.value==='tc30-1')){SYSTEMS.forEach(s=>optgroup.add(new Option(s.name,s.id)));primary.add(optgroup);}
- // The beginner selector is synchronized by its own mutation observer.
- let active=null;
- function show(id){
-  const sys=SYSTEMS.find(s=>s.id===id);if(!sys)return;
-  active=sys;
-  const result=compute(sys);
-  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v===view));
-  if(nav)nav.querySelectorAll('button[data-view]').forEach(b=>b.classList.remove('active'));
-  view.style.display='block';
-  document.getElementById('tc30-title').textContent='Système '+sys.num+' — '+(sys.mode==='integral'?'Intégral':sys.mode==='condition'?'Conditionné':'Réduit 5/6');
-  document.getElementById('tc30-descr').textContent='Conditions : '+sys.desc+'.';
-  document.getElementById('tc30-stats').textContent=result.candidates.length+' combinaisons admissibles · '+result.data.length+' grilles affichées'+(sys.mode==='reduit'?' · couverture 5/6 '+(result.covered?'vérifiée':'non vérifiée'):'');
-  const box=document.getElementById('tc30-items');box.replaceChildren();
-  const fragment=document.createDocumentFragment();
-  result.data.forEach((s,i)=>{const el=document.createElement('div');el.className='tc30-item';el.textContent=(i+1)+'. '+[...s].join(' · ');fragment.appendChild(el)});
-  box.appendChild(fragment);
-  primary.value=id;
- }
- function intercept(e){
-  if(SYSTEMS.some(s=>s.id===e.target.value)){e.stopImmediatePropagation();show(e.target.value);}
- }
- primary.addEventListener('change',intercept,true);
- const beginner=document.getElementById('tc-beginner-select');
- if(beginner){
-  function fillBeginner(){
-   const previous=beginner.value;
-   beginner.querySelectorAll('option[value^="tc30-"],optgroup[data-tc30]').forEach(el=>el.remove());
-   const group=document.createElement('optgroup');group.label='Les 30 systèmes de jeu';group.dataset.tc30='yes';
-   SYSTEMS.forEach(s=>group.appendChild(new Option(s.name,s.id)));
-   beginner.appendChild(group);
-   if(previous && Array.from(beginner.options).some(o=>o.value===previous))beginner.value=previous;
-  }
-  fillBeginner();
-  // Prior scripts rebuild the beginner selector: restore the 30 options after their update.
-  const beginnerObserver=new MutationObserver(()=>{
-   if(beginner.querySelectorAll('option[value^="tc30-"]').length!==30)fillBeginner();
-  });
-  beginnerObserver.observe(beginner,{childList:true,subtree:true});
-  const open=document.getElementById('tc-beginner-open');
-  if(open)open.addEventListener('click',e=>{
-   if(!/^tc30-\d+$/.test(beginner.value))return;
-   e.stopImmediatePropagation();e.preventDefault();
-   show(beginner.value);
-   const st=document.getElementById('tc-beginner-status');
-   if(st)st.textContent='Système ouvert : les combinaisons sont affichées.';
-   view.scrollIntoView({block:'start',behavior:'smooth'});
-  },true);
- }
- document.getElementById('tc30-copy').addEventListener('click',()=>{
-  if(!active)return;
-  const txt=compute(active).data.map((x,i)=>(i+1)+'. '+[...x].join(' - ')).join('\n');
-  if(navigator.clipboard)navigator.clipboard.writeText(txt).catch(()=>window.prompt('Copier',txt));else window.prompt('Copier',txt);
- });
- document.getElementById('tc30-print').addEventListener('click',()=>window.print());
- window.TOTOCALCIO_30_SYSTEMES={systems:SYSTEMS,compute,show};
- document.dispatchEvent(new Event('tc30-ready'));
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize);else initialize();
-})();
-</script>
+
 
 
 <style id="tc-only-thirty-style">
@@ -3980,58 +3919,7 @@ body>header.brand-header .live-score-link{grid-column:4!important;grid-row:1!imp
 body>header.brand-header .brand-copy{display:none!important}
 @media(max-width:650px){body>header.brand-header{min-height:73px!important;padding:3px 4px 3px 0!important}body>header.brand-header>.brand-wrap{grid-template-columns:38px 64px minmax(0,1fr) 62px!important;gap:3px!important;min-height:65px!important}body>header.brand-header .sport-logo-wrapper,body>header.brand-header .sport-logo-button,body>header.brand-header img.brand-logo{width:36px!important;height:36px!important;max-width:36px!important;max-height:36px!important}body>header.brand-header #tc-group-art span:first-child{display:none!important}body>header.brand-header #tc-group-art b{width:12px!important;height:17px!important;font-size:10px!important}body>header.brand-header #tc-five-sports-banner{height:65px!important;min-height:65px!important}body>header.brand-header #tc-five-sports-banner>img{height:65px!important;max-height:65px!important}body>header.brand-header .live-score-link{font-size:8px!important;padding:3px!important}}
 </style>
-<script id="tc-unique-match-entry-20261018">
-(function(){
-'use strict';
-const specs=[[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,3],[2,4],[4,3],[4,0],[5,0],[6,0],[6,0],[7,0],[8,0],[9,0],[0,5],[3,3],[6,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[6,0],[6,0],[6,0],[6,0]];
-function openMatches(event){
- event.preventDefault();event.stopImmediatePropagation();
- const select=document.getElementById('tc-30-direct-select');
- const n=Number(select?.value);
- if(!Number.isInteger(n)||n<0||n>=specs.length){alert('Choisissez un système.');return;}
- const [triples,doubles]=specs[n];
- const rows=[];let code=65;
- for(let i=0;i<triples+doubles;i++){
-   let letters='';
-   for(let j=0;j<(i<triples?3:2);j++)letters+=String.fromCharCode(code++);
-   rows.push(letters);
- }
- // Cette vue réutilise les vrais éditeurs de rencontres, sans formulaire en double.
- GROUPS=rows;
- const view=document.getElementById('view-groups');
- const holder=document.getElementById('groups');
- const simple=document.getElementById('bulletin-groups');
- if(!view||!holder)return;
- document.querySelectorAll('.view').forEach(v=>{v.classList.toggle('active',v===view);v.hidden=v!==view;});
- document.querySelectorAll('.nav [data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view==='groups'));
- if(typeof bcSetMode==='function')bcSetMode('detail');
- else if(typeof makeGroups==='function')makeGroups();
- document.body.classList.remove('bc-simple');
- if(simple){simple.hidden=true;simple.style.display='none';}
- holder.hidden=false;
- holder.style.removeProperty('display');
- const section=view.querySelector('.groups-section');
- if(section){section.hidden=false;section.style.removeProperty('display');}
- const first=holder.querySelector('.group');
- if(first)first.classList.add('tc-coupon-selected');
- if(typeof window.tcSetCouponGroups==='function')
-   window.tcSetCouponGroups(rows.join('').split(''),'S'+String(n+1).padStart(2,'0')+' · '+triples+' triples · '+doubles+' doubles');
- let title=document.getElementById('tc-active-system-heading');
- if(!title){title=document.createElement('div');title.id='tc-active-system-heading';holder.before(title);}
- title.textContent='S'+String(n+1).padStart(2,'0')+' · '+rows.length+' lignes : '+rows.map((r,i)=>(i+1)+' — '+r.split('').join(' · ')).join(' | ');
- title.style.cssText='padding:12px;background:#e7f3ea;color:#123a25;border:2px solid #5b9b72;border-radius:9px;font-weight:bold;margin-bottom:12px';
- const status=document.getElementById('tc-30-direct-status');
- if(status)status.textContent='Saisie des matchs et pronostics ouverte.';
- view.scrollIntoView({block:'start',behavior:'instant'});
-}
-function setup(){
- const b=document.getElementById('tc-30-direct-open');
- if(b)b.addEventListener('click',openMatches,true);
- document.getElementById('tc-dynamic-rows')?.remove();
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
-})();
-</script><style id="tc-compact-match-sheet-style">
+<style id="tc-compact-match-sheet-style">
 #view-groups.tc-sheet-mode .tc-coupon-core #groups{display:none!important}
 #view-groups .tc-compact-sheet{background:#f7f7f7;border:2px solid #99be57;border-radius:13px;overflow:hidden;margin:12px 0;max-width:100%}
 #view-groups .tc-compact-scroll{overflow-x:auto;max-height:70vh;overflow-y:auto}
@@ -4113,7 +4001,7 @@ window.tcTeamChampionshipMenu=function(original,input,host){
 'use strict';
 let busy=false,detail=false;
 const byId=id=>document.getElementById(id);
-function changed(el,val){if(!el)return;el.value=val;el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));}
+function changed(el,val){if(!el||el.disabled||el.readOnly)return;el.value=val;el.dispatchEvent(new Event(el.tagName==='SELECT'?'change':'input',{bubbles:true}));document.querySelectorAll('#tc-compact-match-sheet [data-source-key]').forEach(copy=>{const original=document.querySelector('#groups [data-key="'+copy.dataset.sourceKey+'"]');if(original&&copy.value!==original.value)copy.value=original.value;});}
 function build(){
  const holder=byId('groups'),view=byId('view-groups');
  if(!holder||!view||busy)return;
@@ -4149,8 +4037,8 @@ function build(){
      const second=inputs.find(x=>x.dataset.key?.endsWith('b'));
      const tr=document.createElement('tr');tr.dataset.systemLine=String(systemLine);
      const cell=(value)=>{const td=document.createElement('td');if(value!==undefined)td.textContent=value;tr.append(td);return td};
-     cell(count);
-     const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);if(window.tcTeamChampionshipMenu)window.tcTeamChampionshipMenu(original,input,td);return input};
+     cell(systemLine*2+i+1);
+     const name=(original)=>{const td=cell();const input=document.createElement('input');input.className='tc-sheet-team';input.dataset.sourceKey=original?.dataset.key||'';input.placeholder='Équipe…';input.setAttribute('aria-label',original?.getAttribute('aria-label')||'Nom équipe');input.value=original?.value||'';input.addEventListener('input',()=>changed(original,input.value));td.append(input);if(window.tcTeamChampionshipMenu)window.tcTeamChampionshipMenu(original,input,td);return input};
      const a=name(first);
      const sportCell=cell();
      const originalSport=fixture.querySelector('select.sport-ball-select');
@@ -4168,8 +4056,8 @@ function build(){
      const pickBtns=[];
      ['1','X','2'].forEach(value=>{
        const td=cell();const btn=document.createElement('button');btn.type='button';btn.className='tc-sheet-pick';btn.textContent='';btn.setAttribute('aria-label','Pronostic '+value);
-       btn.onclick=()=>{if(!pick)return;changed(pick,pick.value===value?'':value);update();};
-       td.append(btn);pickBtns.push([value,btn]);
+       btn.onclick=()=>{if(!pick||!Array.from(pick.options).some(o=>o.value===value))return;changed(pick,pick.value===value?'':value);update();};
+       if(!pick||!Array.from(pick.options).some(o=>o.value===value))btn.disabled=true;td.append(btn);pickBtns.push([value,btn]);
      });
      const td=cell();const select=document.createElement('select');select.className='tc-sheet-select';select.setAttribute('aria-label','Choix du pronostic');
      if(pick)select.innerHTML=pick.innerHTML;
@@ -4178,22 +4066,31 @@ function build(){
      td.append(select);
      const update=()=>{const val=pick?.value||'';select.value=val;pickBtns.forEach(([v,btn])=>{btn.classList.toggle('active',val===v);btn.textContent=val===v?'✓':''})};
      if(pick)pick.addEventListener('change',update);
+     for(const extra of editor.querySelectorAll('.jeux-field input,.tc-market-custom')){
+      const copy=extra.cloneNode(false);copy.removeAttribute('id');copy.removeAttribute('data-tc-market-custom');copy.removeAttribute('data-jeux-key');
+      copy.className='tc-sheet-select';copy.value=extra.value;copy.setAttribute('aria-label',extra.getAttribute('aria-label')||'Détail du pronostic');
+      copy.addEventListener('input',()=>changed(extra,copy.value));td.append(copy);
+      const visibility=()=>{copy.hidden=extra.hidden||!!extra.closest('[hidden]');};select.addEventListener('change',visibility);visibility();
+     }
+     const advice=document.createElement('button');advice.type='button';advice.textContent='🧠 IA';advice.setAttribute('aria-label','Analyse IA '+title+' match '+(i+1));advice.className='tc-sheet-ai';
+     advice.onclick=()=>{const old=editor.querySelector('[data-advice-group]');if(old)old.click();else{document.querySelector('.nav [data-view="ia"]')?.click();document.getElementById('tc-ia-refresh')?.click();}};
+     td.append(advice);
      update();body.append(tr);
    });
  });
  const bottom=document.createElement('div');bottom.className='tc-sheet-stats';
  const inner=document.createElement('div');inner.className='tc-sheet-stats-inner';
- inner.innerHTML='<div class="tc-sheet-stats-title">Infos pronostic</div><div class="tc-sheet-stats-grid"><div><b data-count="triples">0</b>Triples</div><div><b data-count="doubles">0</b>Doubles</div><div><b data-count="simples">0</b>Simples</div><div><b data-count="columns">1</b>Colonnes</div><div><b data-count="chance">1:1</b>Chance</div></div>';
+ inner.innerHTML='<div class="tc-sheet-stats-title">Infos système</div><div class="tc-sheet-stats-grid"><div><b data-count="triples">0</b>Lignes triples</div><div><b data-count="doubles">0</b>Lignes doubles</div><div><b data-count="simples">0</b>Pronos saisis</div><div><b data-count="columns">0</b>Grilles</div><div><b data-count="chance">0</b>Rencontres</div></div>';
  bottom.append(inner);sheet.append(bottom);
  // Comptage indicatif : une sélection par rencontre donne un simple.
  const calculate=()=>{
   let simple=0;
   table.querySelectorAll('.tc-sheet-select').forEach(s=>{if(s.value)simple++});
   inner.querySelector('[data-count="simples"]').textContent=String(simple);
-  inner.querySelector('[data-count="triples"]').textContent='0';
-  inner.querySelector('[data-count="doubles"]').textContent='0';
-  inner.querySelector('[data-count="columns"]').textContent='1';
-  inner.querySelector('[data-count="chance"]').textContent='1:1';
+  inner.querySelector('[data-count="triples"]').textContent=String(GROUPS.filter(row=>row.length===3).length);
+  inner.querySelector('[data-count="doubles"]').textContent=String(GROUPS.filter(row=>row.length===2).length);
+  inner.querySelector('[data-count="columns"]').textContent=document.getElementById('budget-total')?.dataset.grids||'0';
+  inner.querySelector('[data-count="chance"]').textContent=String(GROUPS.length*2);
  };
  table.addEventListener('change',calculate);calculate();
  if(typeof applyMobileFilter==='function')applyMobileFilter();
