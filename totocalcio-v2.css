@@ -15,3 +15,7 @@
 .pick-cell.group-ready.group-red{background:#ffe2e0;border-color:#db8984}
 .pick-cell.group-ready .pick-title{color:#1c3545;font-weight:800}
 .pick-cell.group-ready select{background:#fff;color:#182c3c}
+
+/* Équipes validées : couleurs des groupes de leur ligne commune. */
+.team-field input.team-input.team-validated{background:linear-gradient(105deg,#d9f2df 0%,#d9f2df 32%,#dcecff 35%,#dcecff 65%,#ffe2e0 68%,#ffe2e0 100%);border:2px solid #6e9d95;color:#173449;font-weight:800;opacity:1}
+.team-field input.team-input.team-validated:focus{outline:2px solid #236c92;outline-offset:1px}
