@@ -3267,40 +3267,7 @@ body.tc-beginner #view-groups .group .tc-match-advice{font-size:12px!important}
 @media(max-width:650px){.tc-mode-bar{gap:6px}.tc-mode-description{flex-basis:100%!important}}
 @media print{.tc-mode-bar,.tc-wizard{display:none!important}}
 </style>
-<script id="tc-dual-mode-script-v1">
-(function(){
-'use strict';
-function init(){
-const main=document.querySelector('main'),nav=document.querySelector('nav.nav');
-if(!main||!nav||document.getElementById('tc-mode-bar'))return;
-const bar=document.createElement('div');bar.className='tc-mode-bar no-print';bar.id='tc-mode-bar';
-const title=document.createElement('strong');title.textContent='Mode d’utilisation';bar.append(title);
-const toggle=document.createElement('div');toggle.className='tc-mode-switch';toggle.setAttribute('role','group');toggle.setAttribute('aria-label','Choisir le niveau d’utilisation');
-const help=document.createElement('span');help.className='tc-mode-description';bar.append(toggle,help);
-const wizard=document.createElement('section');wizard.className='tc-wizard no-print';wizard.id='tc-wizard';wizard.innerHTML='<h2>Bienvenue dans TOTOCALCIO PRO</h2><p>Trois étapes suffisent pour préparer ton bulletin. Les outils avancés restent disponibles en mode Expert.</p><div class="tc-wizard-steps" role="group" aria-label="Étapes de création"></div>';
-const steps=wizard.querySelector('.tc-wizard-steps');
-function go(view){const b=nav.querySelector('[data-view="'+view+'"]');if(b)b.click();else{const v=document.getElementById('view-'+view);if(v){nav.querySelector('[data-view="groups"]')?.click();v.scrollIntoView({behavior:'smooth'})}}}
-const actions=[
-{label:'1 · Choisir mes rencontres',fn:()=>go('groups'),view:'groups'},
-{label:'2 · Choisir mon système',fn:()=>{const sel=document.getElementById('tc-systems-select');if(sel){sel.focus();sel.scrollIntoView({block:'center',behavior:'smooth'})}else go('grids')},view:'systems'},
-{label:'3 · Voir mes bulletins',fn:()=>{const b=document.getElementById('mb-open-from-system');if(b&&b.offsetParent!==null)b.click();else{const sel=document.getElementById('tc-systems-select');if(sel){sel.focus();sel.scrollIntoView({block:'center',behavior:'smooth'})}else go('grids')}},view:'bulletins'}
-];
-for(const step of actions){const b=document.createElement('button');b.type='button';b.textContent=step.label;b.addEventListener('click',step.fn);steps.append(b)}
-let mode;try{mode=localStorage.getItem('tc_user_mode_v1')==='expert'?'expert':'beginner'}catch(e){mode='beginner'}
-function apply(value){
-mode=value;document.body.classList.toggle('tc-beginner',value==='beginner');document.body.classList.toggle('tc-expert',value==='expert');wizard.hidden=value==='expert';
-toggle.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===value)));
-help.textContent=value==='beginner'?'Débutant : saisie guidée, options techniques masquées. Passe en Expert à tout moment.':'Expert : tous les réglages, systèmes et outils de saisie sont accessibles.';
-try{localStorage.setItem('tc_user_mode_v1',value)}catch(e){}
-}
-for(const [id,label] of [['beginner','Débutant'],['expert','Expert']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.dataset.mode=id;b.addEventListener('click',()=>apply(id));toggle.append(b)}
-nav.parentNode.insertBefore(bar,nav);bar.after(wizard);
-const note=document.createElement('div');note.className='tc-mode-note';note.textContent='Le changement de mode ne supprime aucune rencontre, sélection ou sauvegarde.';wizard.append(note);
-apply(mode);
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-})();
-</script>
+
 <style id="tc-beginner-step2">
 .tc-beginner-system{background:#fff;border:1px solid #dfb17a;border-radius:10px;padding:12px;margin:0 0 10px;color:#252525}
 .tc-beginner-system h3{color:#aa2225!important;margin:0 0 7px;font-size:15px}
@@ -3466,32 +3433,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #tc-side-menu button:focus-visible{outline:2px solid #ffd66c!important;outline-offset:2px}
 @media(max-width:850px){#tc-side-menu{width:min(290px,85vw)!important}}
 </style>
-<script id="tc-nav-professionnelle-20261017-script">
-(function(){
-function tidy(){
- const side=document.getElementById('tc-side-menu'),nav=side?.querySelector('nav.nav');
- if(!side||!nav||side.dataset.tcNavProfessional)return;
- side.dataset.tcNavProfessional='1';
- const headings=[...side.querySelectorAll('.tc-menu-heading')];
- if(headings.length)headings[0].textContent='ACCÈS PRINCIPAUX';
- const allowed=new Set(['groups','savepronos','ia','mes-bulletins']);
- const extra=document.createElement('div');extra.className='tc-menu-actions tc-nav-secondary';
- const h=document.createElement('div');h.className='tc-menu-heading';h.textContent='AUTRES OUTILS';
- const targets=[...nav.querySelectorAll('button[data-view]')].filter(b=>!allowed.has(b.dataset.view));
- // Les pages restent accessibles : on déplace les boutons secondaires, sans retirer leurs fonctions.
- targets.forEach(b=>extra.append(b));
- const targetHeading=headings.find(x=>/Outils et résultats/i.test(x.textContent||''));
- if(targetHeading){targetHeading.after(h,extra)}else{side.append(h,extra)}
- const preferred=['groups','savepronos','ia','mes-bulletins'];
- preferred.forEach(k=>{const b=nav.querySelector('button[data-view="'+k+'"]');if(b)nav.append(b)});
- const primary=nav.querySelector('button[data-view="groups"]');if(primary)primary.textContent='▦  Mes groupes';
- const save=nav.querySelector('button[data-view="savepronos"]');if(save)save.textContent='💾  Sauvegarder';
- const ia=nav.querySelector('button[data-view="ia"]');if(ia)ia.textContent='✦  Analyse IA';
- const tickets=nav.querySelector('button[data-view="mes-bulletins"]');if(tickets)tickets.textContent='🎟  Mes bulletins';
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(tidy,0));else setTimeout(tidy,0);
-})();
-</script>
+
 
 <style id="tc-navigation-uniforme-20261017">
 /* Dimensions homogènes de tous les contrôles de la barre latérale. */
@@ -4303,6 +4245,84 @@ function setup(){
  root.addEventListener('change',schedule);
  new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
  window.addEventListener('resize',schedule,{passive:true});schedule();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+})();
+</script><style id="tc-refined-menu-style">
+#tc-side-menu.tc-refined{padding:12px!important;background:#102638!important;border-right:1px solid #2c465a!important}
+#tc-side-menu.tc-refined .tc-side-head{position:sticky;top:-12px;z-index:5;display:flex;align-items:center;gap:9px;padding:12px 0 16px;background:#102638;border-bottom:1px solid #345064;margin-bottom:16px}
+#tc-side-menu.tc-refined .tc-side-head img{width:38px;height:38px;object-fit:cover;border-radius:9px}
+#tc-side-menu.tc-refined .tc-side-brand{flex:1;min-width:0;color:white;font-size:14px;font-weight:850;line-height:1.3}
+#tc-side-menu.tc-refined .tc-side-brand small{display:block;color:#a9c5d8!important;font-size:10px;font-weight:500;margin-top:3px}
+#tc-side-menu.tc-refined .tc-side-head .tc-menu-close{display:none!important;position:static!important;float:none!important;margin:0!important;min-width:44px;padding:8px!important;white-space:nowrap}
+#tc-side-menu.tc-refined .tc-menu-section{font-size:10px;font-weight:800;letter-spacing:1px;color:#a9c5d8;padding:0 8px;margin:10px 0}
+#tc-side-menu.tc-refined nav.nav{display:flex!important;position:static!important;flex-direction:column!important;gap:7px!important;margin:0!important;padding:0!important;background:transparent!important;backdrop-filter:none!important}
+#tc-side-menu.tc-refined nav.nav>button,#tc-side-menu.tc-refined .tc-tool-items button{display:flex!important;align-items:center!important;justify-content:flex-start!important;min-height:42px!important;height:auto!important;max-height:none!important;width:100%!important;margin:0!important;padding:10px 12px!important;text-align:left!important;font-size:13px!important;font-weight:650!important;line-height:1.3!important;white-space:normal!important;border:1px solid #385268!important;border-radius:8px!important;background:#18354a!important;color:#e0eef9!important;box-shadow:none!important}
+#tc-side-menu.tc-refined nav.nav>button.active{background:#ed812b!important;color:#172536!important;border-color:#f3a565!important;font-weight:800!important}
+#tc-side-menu.tc-refined .tc-system-selector{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:6px!important;margin:0 0 8px!important;width:100%!important}
+#tc-side-menu.tc-refined .tc-system-selector label{color:#bed4e3!important;font-size:11px!important}
+#tc-side-menu.tc-refined .tc-system-selector select{width:100%!important;max-width:none!important;min-height:44px!important;height:auto!important;padding:9px!important;font-size:12px!important;background:#f6f9fc!important;color:#17364d!important;border:1px solid #afc4d3!important;border-radius:7px!important}
+#tc-side-menu.tc-refined .tc-side-tools{margin-top:18px;padding-top:12px;border-top:1px solid #345064;color:#c9dce9}
+#tc-side-menu.tc-refined .tc-side-tools summary{cursor:pointer;font-size:12px;font-weight:750;padding:9px 5px;color:#c9dce9}
+#tc-side-menu.tc-refined .tc-tool-items{display:grid;gap:6px;padding-top:8px}
+#tc-side-menu.tc-refined .tc-tool-items button{font-size:12px!important;background:#112c40!important}
+#tc-side-menu.tc-refined .tc-tool-items .tc-import{color:#bed4e3!important;font-size:11px!important;margin-top:6px}
+#tc-side-menu.tc-refined .tc-tool-items input[type=file]{max-width:100%;font-size:11px!important;background:white!important}
+#tc-side-menu .tc-hidden-controls{display:none!important}
+#tc-side-menu.tc-refined nav.nav>button.tc-hidden-group-link{display:none!important}
+#view-help .tc-help-panel{max-width:1050px;margin:auto;padding:22px!important}
+#view-help .tc-help-heading>span{font-size:10px;font-weight:850;letter-spacing:1.2px;color:#1c638b}
+#view-help .tc-help-heading h2{font-size:24px!important;margin:8px 0!important;color:#163a54!important}
+#view-help .tc-help-heading p{font-size:14px;line-height:1.6}
+#view-help .tc-help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:20px 0}
+#view-help article{position:relative;padding:18px;border:1px solid #c4d5df;border-radius:10px;background:#fff}
+#view-help .tc-help-step{display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:9px;background:#e4f0f7;color:#1b5b7c;font-weight:850;margin-bottom:10px}
+#view-help h3{font-size:16px!important;color:#163a54!important;margin:0 0 10px}
+#view-help p{font-size:13px;line-height:1.65;color:#354f60!important;margin:7px 0}
+#view-help details{padding:13px 0;border-top:1px solid #c4d5df}
+#view-help summary{font-size:14px;font-weight:750;color:#173d56;cursor:pointer}
+#view-help .tc-help-footer{padding-top:16px}
+@media(max-width:850px){
+#tc-side-menu.tc-refined .tc-side-head .tc-menu-close{display:block!important;font-size:11px!important}
+#tc-side-menu.tc-refined nav.nav>button,#tc-side-menu.tc-refined .tc-tool-items button{min-height:44px!important}
+#view-help .tc-help-grid{grid-template-columns:1fr}
+#view-help .tc-help-panel{padding:15px!important}
+}
+</style>
+<script id="tc-refined-menu-script">
+(function(){
+function setup(){
+ const side=document.getElementById('tc-side-menu'),nav=side?.querySelector('nav.nav');if(!side||!nav||document.getElementById('view-help'))return;
+ const view=document.createElement('div');view.className='view';view.id='view-help';view.hidden=true;
+ view.innerHTML="<section class=\"tc-help-panel\">\n<div class=\"tc-help-heading\"><span>GUIDE PRATIQUE</span><h2>Mode d’emploi de TOTOCALCIO PRO</h2><p>Du choix du système à la sauvegarde de tes bulletins.</p></div>\n<div class=\"tc-help-grid\">\n<article><span class=\"tc-help-step\">1</span><h3>Choisir ton système</h3><p>Sélectionne un des 30 systèmes. Les lignes et les groupes se mettent à jour automatiquement. « Ouvrir et développer » permet de retrouver la saisie.</p><p><strong>Exemple : six triples = six lignes de trois groupes</strong> : ABC, DEF, GHI, JKL, MNO et PQR. Un double comporte deux groupes.</p></article>\n<article><span class=\"tc-help-step\">2</span><h3>Renseigner les rencontres</h3><p>Chaque ligne comporte deux rencontres, communes à ses groupes. Les équipes saisies pour A se recopient dans B et C. Choisis le sport avec le ballon entre les participants.</p><p>En football, choisis un championnat puis un club, ou saisis librement les noms.</p></article>\n<article><span class=\"tc-help-step\">3</span><h3>Choisir les pronostics</h3><p>Les pronostics restent indépendants pour chaque groupe. Touche 1, X ou 2 lorsqu’ils sont proposés, ou utilise la liste des autres paris. Pour le tennis, complète le seuil si tu choisis un nombre de jeux.</p><p>Si les champs sont verrouillés, appuie sur « Déverrouiller les saisies ».</p></article>\n<article><span class=\"tc-help-step\">4</span><h3>Vérifier le coût</h3><p>Le coût correspond au nombre de grilles multiplié par la mise par grille. Vérifie le système affiché au-dessus des rencontres avant de consulter tes bulletins.</p><p>Une couverture de combinaisons décrit le système ; elle ne prédit pas les résultats sportifs.</p></article>\n<article><span class=\"tc-help-step\">5</span><h3>Consulter tes bulletins</h3><p>Ouvre « Mes bulletins » pour retrouver les combinaisons du système avec les rencontres et les pronostics saisis. Les boutons Précédents et Suivants permettent de parcourir les pages.</p><p>L’export CSV permet de récupérer les bulletins du système.</p></article>\n<article><span class=\"tc-help-step\">6</span><h3>Enregistrer et retrouver ton travail</h3><p>Dans « Mes sauvegardes », donne un nom au bulletin puis appuie sur « Enregistrer le bulletin ». Sélectionne-le dans la liste et utilise « Ouvrir » pour le restaurer.</p><p><strong>Les sauvegardes restent sur cet appareil et dans ce navigateur.</strong> Elles ne se transfèrent pas automatiquement sur un autre téléphone ou PC.</p></article>\n</div>\n<details open><summary>Utiliser le logiciel au toucher</summary><p>Dans la zone « Glisse ici », un mouvement vers la gauche affiche la ligne suivante ; vers la droite, la précédente. Les boutons font la même chose. « Toutes les lignes » rétablit l’affichage complet.</p><p>Pour fermer le menu : touche ✕ Fermer, touche l’extérieur, ou glisse vers la gauche dans le menu.</p></details>\n<details><summary>Installer l’icône sur ton téléphone</summary><p>Ouvre TOTOCALCIO dans Chrome, puis utilise « Installer TOTOCALCIO » ou le menu Chrome ⋮ → Ajouter à l’écran d’accueil. L’ajout de l’icône doit être confirmé sur le téléphone.</p></details>\n<details><summary>Quand une modification n’apparaît pas</summary><p>Appuie sur « Actualiser » dans le logiciel. Les noms saisis et les bulletins enregistrés restent conservés. Ne supprime pas les données de Chrome pour actualiser.</p></details>\n<details><summary>À quoi sert l’analyse IA ?</summary><p>Le bouton IA d’une rencontre prépare une demande d’analyse pour ChatGPT. Une analyse récente nécessite la vérification du match et de ses sources ; elle n’est pas une garantie de résultat.</p></details>\n<div class=\"tc-help-footer\"><button type=\"button\" id=\"tc-help-to-groups\">Revenir à mes groupes →</button></div>\n</section>";document.querySelector('main').append(view);
+ const help=document.createElement('button');help.type='button';help.dataset.view='help';help.textContent='ⓘ Mode d’emploi';
+ help.addEventListener('click',()=>{showView('help');view.scrollIntoView({block:'start',behavior:'smooth'});});
+ document.getElementById('tc-help-to-groups').onclick=()=>{showView('groups');document.getElementById('view-groups').scrollIntoView({block:'start',behavior:'smooth'});};
+ const close=side.querySelector('.tc-menu-close');
+ const head=document.createElement('div');head.className='tc-side-head';
+ const logo=document.createElement('img');logo.src='totocalcio-icons/totocalcio-pro-192.png';logo.alt='';logo.width=38;logo.height=38;
+ const brand=document.createElement('div');brand.className='tc-side-brand';brand.innerHTML='TOTOCALCIO PRO<small>Mes systèmes sportifs</small>';
+ head.append(logo,brand);if(close)head.append(close);
+ const title=document.createElement('div');title.className='tc-menu-section';title.textContent='ESPACE DE JEU';
+ const section=nav.querySelector('.tc-system-selector');if(section)section.querySelector('label').textContent='Choisir mon système';
+ const groupsLink=nav.querySelector('button[data-view="groups"]');if(groupsLink){groupsLink.hidden=true;groupsLink.classList.add('tc-hidden-group-link');}
+ const definitions=[['mes-bulletins','🎟 Mes bulletins'],['savepronos','💾 Mes sauvegardes'],['ia','✦ Analyse des matchs']];
+ const buttons=definitions.map(([id,label])=>{const b=nav.querySelector('button[data-view="'+id+'"]');if(b){b.textContent=label;b.hidden=false;b.classList.remove('tc-system-original');}return b;}).filter(Boolean);
+ const tools=document.createElement('details');tools.className='tc-side-tools';const summary=document.createElement('summary');summary.textContent='Outils complémentaires';tools.append(summary);
+ const toolItems=document.createElement('div');toolItems.className='tc-tool-items';tools.append(toolItems);
+ for(const id of ['tc-library30-open','calendar-nav','check-picks','open-results','export']){
+  const b=document.getElementById(id);if(b){b.hidden=false;b.classList.remove('tc-system-original');if(id==='tc-library30-open')b.textContent='⚙ Paramètres du système';toolItems.append(b);}
+ }
+ const importer=side.querySelector('.tc-import');if(importer)toolItems.append(importer);
+ const archive=document.createElement('div');archive.className='tc-hidden-controls';archive.hidden=true;
+ // Conserver les contrôles nécessaires aux gestionnaires existants dans un seul bloc masqué.
+ Array.from(nav.children).forEach(node=>{if(node!==section&&!buttons.includes(node))archive.append(node);});
+ nav.replaceChildren();if(section)nav.append(section);buttons.forEach(b=>nav.append(b));nav.append(help);if(groupsLink)nav.append(groupsLink);
+ while(side.firstChild)archive.append(side.firstChild);
+ // Le nav et les outils ont pu être déplacés dans l'archive pendant le nettoyage : les extraire.
+ side.replaceChildren(head,title,nav,tools,archive);
+ side.classList.add('tc-refined');
+ document.body.classList.remove('tc-beginner','tc-expert');
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
