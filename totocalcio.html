@@ -3674,6 +3674,9 @@ function restore(v){
   window.TC_ACTIVE_SYSTEM={index,lines,rows:result.rows};
  }
  update();
+ const heading=byId('view-groups').querySelector('h2');
+ if(heading)heading.innerHTML='Saisie des rencontres · '+safe(title(index))+' · <span id="group-sport-label">'+safe(SPORT_NAMES[sport])+'</span>';
+ try{localStorage.setItem('tc_system_layout_v2',JSON.stringify({index,triples:byId('tc-l30-triples').value,doubles:byId('tc-l30-doubles').value}));}catch(e){}
 }
 function setup(){
  normalize();select(0);
