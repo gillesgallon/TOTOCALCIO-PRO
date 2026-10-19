@@ -3012,6 +3012,7 @@ function init(){
  // Le sélecteur prend la place des anciens boutons; ceux-ci restent actifs en arrière-plan.
  original[0].before(wrap);
  function sync(){
+  if(window.TC_SYSTEMS){select.value=document.getElementById('tc-30-direct-select').value;return;}
   const active=original.find(b=>b.classList.contains('active'));
   if(active)select.value=active.dataset.view;
   else select.value='';
@@ -3583,8 +3584,9 @@ function select(i){
  for(const id of ['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select']){const el=byId(id);if(el)el.value=String(i);}
  byId('tc-l30-triples').value=TC_SYSTEM_SETUPS[i][0];
  byId('tc-l30-doubles').value=TC_SYSTEM_SETUPS[i][1];
- byId('tc-l30-triples').disabled=i>=10;
- byId('tc-l30-doubles').disabled=i>=10;
+ byId('tc-l30-triples').disabled=true;
+ byId('tc-l30-doubles').disabled=i!==7;
+ byId('tc-l30-doubles').min=i===7?'3':'0';
  byId('tc-library30-description').textContent=title(i)+' — un groupe choisi par ligne, deux rencontres par groupe.';
  update();
 }
@@ -3902,7 +3904,7 @@ function build(){
  sheet.innerHTML='';
  const tools=document.createElement('div');tools.className='tc-sheet-tools';
  const toggle=document.createElement('button');toggle.type='button';toggle.textContent=detail?'📋 Tableau compact':'✏️ Saisie détaillée';
- toggle.onclick=()=>{detail=!detail;toggle.textContent=detail?'📋 Tableau compact':'✏️ Saisie détaillée';view.classList.toggle('tc-sheet-mode',!detail);};
+ toggle.onclick=()=>{detail=!detail;toggle.textContent=detail?'📋 Tableau compact':'✏️ Saisie détaillée';view.classList.toggle('tc-sheet-mode',!detail);if(!detail)build();};
  tools.append(toggle);sheet.append(tools);
  const scroll=document.createElement('div');scroll.className='tc-compact-scroll';
  const table=document.createElement('table');table.className='tc-compact-table';
@@ -3961,7 +3963,7 @@ function build(){
       const visibility=()=>{copy.hidden=extra.hidden||!!extra.closest('[hidden]');};select.addEventListener('change',visibility);visibility();
      }
      const advice=document.createElement('button');advice.type='button';advice.textContent='🧠 IA';advice.setAttribute('aria-label','Analyse IA '+title+' match '+(i+1));advice.className='tc-sheet-ai';
-     advice.onclick=()=>{const old=editor.querySelector('[data-advice-group]');if(old)old.click();else{document.querySelector('.nav [data-view="ia"]')?.click();document.getElementById('tc-ia-refresh')?.click();}};
+     advice.onclick=()=>{const old=editor.querySelector('.tc-ai-tools button,[data-advice-group]');if(old)old.click();else{document.querySelector('.nav [data-view="ia"]')?.click();document.getElementById('tc-ia-refresh')?.click();}};
      td.append(advice);
      update();body.append(tr);
    });
@@ -4071,6 +4073,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 @media print{#view-groups .mobile-filter{display:none!important}}
 </style><style id="tc-audit-final-20261019">
 #tc30-direct,#tc-beginner-system{display:none!important}
+#tc-side-menu .tc-nav-secondary button:not([data-view="calendar"]){display:none!important}
+body.bc-simple #tc-compact-match-sheet{display:none!important}
 #view-groups .tc-sheet-ai{min-height:30px;padding:4px 7px;margin-top:4px}
 #view-audit-bulletins .ticket{margin:10px 0;padding:10px}
 #view-audit-bulletins .ticket p{margin:5px 0}
