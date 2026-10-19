@@ -1495,7 +1495,7 @@ const BULLETINS_KEY='totocalcio_named_bulletins_v1';
 let bulletins=[];try{const v=JSON.parse(localStorage.getItem(BULLETINS_KEY)||'[]');if(Array.isArray(v))bulletins=v.filter(b=>b&&typeof b.name==='string'&&b.state)}catch(e){}
 let undoSelections=null;
 function toolsNotice(t){for(const id of ['tools-message','savepronos-message']){const el=$(id);if(el)el.textContent=t;}}
-function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144,groups:GROUPS,system30:$('tc-30-direct-select')?.value,stake:$('stake')?.value,leaguePrefs:typeof leaguePrefs!=='undefined'?leaguePrefs:{},systemBudget:$('tc-l30-budget')?.value,teamChampionships:localStorage.getItem('tc-team-championships-v1')}))}
+function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144,groups:GROUPS,system30:window.TC_SYSTEMS?.getState().index??$('tc-30-direct-select')?.value,stake:$('stake')?.value,leaguePrefs:typeof leaguePrefs!=='undefined'?leaguePrefs:{},systemBudget:$('tc-l30-budget')?.value,teamChampionships:localStorage.getItem('tc-team-championships-v1')}))}
 function restoreSnapshot(v){
  if(!v||!v.sportsData)throw new Error('Ce bulletin ne contient pas de données valides.');
  if(v.system30!==undefined&&$('tc-30-direct-select')){
@@ -3592,7 +3592,10 @@ function calculate(){
 function notice(text){const el=byId('tc-library30-counter');if(el)el.textContent=text;}
 function update(){
  try{
-  const t=Number(byId('tc-l30-triples').value),d=Number(byId('tc-l30-doubles').value);
+  const preset=TC_SYSTEM_SETUPS[index];
+  const t=preset[0],d=index===7?Number(byId('tc-l30-doubles').value):preset[1];
+  if(index===7&&(!Number.isInteger(d)||d<3||d>10))throw Error('Choisis entre 3 et 10 doubles.');
+  byId('tc-l30-triples').value=String(t);byId('tc-l30-doubles').value=String(d);
   lines=tcSystemRows(index,t,d);calculate();
   const reduced=index>=20;
   notice(result.rows.length.toLocaleString('fr-FR')+' grilles · '+lines.length+' lignes · '+lines.flat().length+' groupes'+(reduced?' · couverture '+result.covered+'/'+result.total+' scénarios à '+result.threshold+'/'+lines.length+' groupes concordants':''));
@@ -3606,7 +3609,7 @@ function update(){
 }
 function select(i){
  if(!Number.isInteger(i)||i<0||i>=30)return;
- index=i;
+ index=i;page=0;
  for(const id of ['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select']){const el=byId(id);if(el)el.value=String(i);}
  byId('tc-l30-triples').value=TC_SYSTEM_SETUPS[i][0];
  byId('tc-l30-doubles').value=TC_SYSTEM_SETUPS[i][1];
@@ -3632,6 +3635,8 @@ function normalize(){
  const integral=byId('tc-library30-integral');if(integral)integral.hidden=false;
 }
 function open(scroll=true){
+ const chosen=byId('tc-30-direct-select')?.value;
+ if(chosen!==undefined&&/^\d+$/.test(chosen)&&Number(chosen)!==index)select(Number(chosen));
  update();if(!result)return;
  window.TC_ACTIVE_SYSTEM={index,lines:lines.map(r=>r.slice()),rows:result.rows};
  GROUPS=lines.map(r=>r.slice());
@@ -3690,19 +3695,20 @@ function tickets(){
  view.append(section);showView('audit-bulletins');view.scrollIntoView({block:'start',behavior:'smooth'});
 }
 function restore(v){
- select(Number(v.system30)||0);
+ const id=String(v.system30??'0');
+ if(!/^\d+$/.test(id)||!TC_SYSTEM_SETUPS[Number(id)])throw Error('Système sauvegardé inconnu.');
+ select(Number(id));
  if(v.systemBudget!==undefined&&byId('tc-l30-budget'))byId('tc-l30-budget').value=v.systemBudget;
- if(Array.isArray(v.groups)&&v.groups.length){
-  lines=v.groups.map(row=>Array.from(row));
-  byId('tc-l30-triples').value=lines.filter(row=>row.length===3).length;
-  byId('tc-l30-doubles').value=lines.filter(row=>row.length===2).length;
-  calculate();
-  window.TC_ACTIVE_SYSTEM={index,lines,rows:result.rows};
+ if(index===7&&Array.isArray(v.groups)){
+  const doubles=v.groups.filter(row=>Array.from(row).length===2).length;
+  if(doubles>=3&&doubles<=10)byId('tc-l30-doubles').value=String(doubles);
  }
- update();
+ update();if(!result)throw Error('Répartition du système invalide.');
+ GROUPS=lines.map(row=>row.slice());
+ window.TC_ACTIVE_SYSTEM={index,lines:lines.map(row=>row.slice()),rows:result.rows};
  const heading=byId('view-groups').querySelector('h2');
  if(heading)heading.innerHTML='Saisie des rencontres · '+safe(title(index))+' · <span id="group-sport-label">'+safe(SPORT_NAMES[sport])+'</span>';
- try{localStorage.setItem('tc_system_layout_v2',JSON.stringify({index,triples:byId('tc-l30-triples').value,doubles:byId('tc-l30-doubles').value}));}catch(e){}
+ try{localStorage.setItem('tc_system_layout_v2',JSON.stringify({index,triples:TC_SYSTEM_SETUPS[index][0],doubles:byId('tc-l30-doubles').value}));}catch(e){}
 }
 function setup(){
  normalize();select(0);
@@ -3718,7 +3724,7 @@ function setup(){
  byId('tc-library30-generate').onclick=()=>{open(false);byId('tc-library30-output').value=csv();tickets();};
  byId('tc-library30-csv').onclick=download;
  document.addEventListener('change',e=>{
-  if(['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select'].includes(e.target.id)){e.stopImmediatePropagation();select(Number(e.target.value));}
+  if(['tc-30-direct-select','tc-library30-system','tc-systems-select','tc30-direct-select','tc-beginner-select'].includes(e.target.id)){const chosen=e.target.value;if(!/^\d+$/.test(chosen)||!TC_SYSTEM_SETUPS[Number(chosen)])return;e.stopImmediatePropagation();select(Number(chosen));open(false);}
  },true);
  document.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
@@ -3728,8 +3734,8 @@ function setup(){
  },true);
  byId('stake').addEventListener('input',update);
  window.addEventListener('load',normalize,{once:true});
- window.TC_SYSTEMS={open,select,update,tickets,restore,getRows:()=>calculate().rows};
- try{const saved=JSON.parse(localStorage.getItem('tc_system_layout_v2')||'null');if(saved&&TC_SYSTEM_SETUPS[saved.index]){select(saved.index);byId('tc-l30-triples').value=saved.triples;byId('tc-l30-doubles').value=saved.doubles;}open(false);}catch(e){notice('La disposition précédente n’a pas pu être rétablie : '+e.message);}
+ window.TC_SYSTEMS={open,select,update,tickets,restore,getState:()=>({index,lines:lines.map(row=>row.slice())}),getRows:()=>calculate().rows};
+ try{const saved=JSON.parse(localStorage.getItem('tc_system_layout_v2')||'null');if(saved&&TC_SYSTEM_SETUPS[saved.index]){select(saved.index);if(saved.index===7&&Number(saved.doubles)>=3&&Number(saved.doubles)<=10)byId('tc-l30-doubles').value=String(saved.doubles);}open(false);}catch(e){notice('La disposition précédente n’a pas pu être rétablie : '+e.message);}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
 })();
