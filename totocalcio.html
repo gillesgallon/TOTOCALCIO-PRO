@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta name="totocalcio-build" content="20261019-bulletins-1"><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO PRO — 30 systèmes par groupes</title><style>
+<html lang="fr"><head><meta name="totocalcio-build" content="20261019-recopie-1"><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO PRO — 30 systèmes par groupes</title><style>
 :root{font-family:Arial,sans-serif;color:#1c2731;background:#f4f6f8}*{box-sizing:border-box}body{margin:0}header{background:#172e43;color:white;padding:20px 5%}h1{font-size:24px;margin:0 0 8px}h2{font-size:20px}main{max-width:1100px;margin:auto;padding:18px}section{background:white;padding:18px;border-radius:12px;margin:16px 0;box-shadow:0 1px 6px #0001}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}input,select,button{font:inherit;padding:9px;border:1px solid #bfc8d1;border-radius:7px;min-width:0}button{background:#135c85;color:white;border:0;cursor:pointer}button:hover{background:#104965}button:disabled{opacity:.45;cursor:default}.hint{font-size:13px;color:#536272}.league{width:190px}.matchselect{flex:1;min-width:230px}.group{border:1px solid #d6dee4;border-radius:9px;margin:10px 0;padding:12px}.group-title{font-weight:800;padding:7px 12px;border-radius:6px;display:inline-block;margin-bottom:8px}.green{background:#d8f3dc;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.red{background:#fee2e2;color:#b91c1c}.fixture{display:grid;grid-template-columns:1fr 28px 1fr 170px;align-items:center;gap:8px;margin:8px 0}.ball{text-align:center}.prono{width:100%}.date{font-size:11px;color:#566472;margin:2px 0 8px}.groups-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px}.group{margin:0}.developed{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.ticket{border:1px solid #cbd5df;border-radius:9px;padding:12px;break-inside:avoid}.ticket h3{margin:0 0 8px;font-size:16px}.ticket-row{display:grid;grid-template-columns:27px 1fr auto;gap:7px;align-items:center;font-size:12px;padding:4px 0;border-bottom:1px solid #edf0f3}.letter{text-align:center;font-weight:800;border-radius:4px;padding:5px}.pick{font-weight:800;max-width:130px;text-align:right}.muted{color:#697682}#status{padding:9px;border-radius:7px;background:#f0f5fa;margin-top:10px}#matches{max-height:340px;overflow:auto;border:1px solid #e1e6eb;border-radius:8px;margin-top:12px}.event{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px;border-bottom:1px solid #e7ebef}.event small{color:#566472}.event button{font-size:12px;white-space:nowrap}.event-name{flex:1}.stats{font-size:13px;color:#516477}.print-only{display:none}@media(max-width:580px){main{padding:10px}section{padding:12px}.fixture{grid-template-columns:1fr 23px 1fr;gap:5px}.fixture select{grid-column:1/-1}.groups-grid{grid-template-columns:1fr}.league{width:100%}}@media print{header,.no-print,#calendar,.toolbar,#status{display:none!important}body{background:white}section{box-shadow:none;padding:0}.groups-section{display:none}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;page-break-inside:avoid}.print-only{display:block}}
 
 :root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#e7eef9;background:#091421}body{background:linear-gradient(155deg,#0c2031,#091421 45%,#111b2c);min-height:100vh}header{background:linear-gradient(110deg,#12364c,#0e2338 62%,#103f42);padding:28px max(22px,calc((100vw - 1260px)/2));border-bottom:1px solid #2d5262}header h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.7px}header .subtitle{color:#c0d6e3;font-size:14px}main{max-width:1300px;padding:20px 22px 60px}section{background:#142536;border:1px solid #2c4255;border-radius:17px;box-shadow:0 8px 30px #0002;padding:24px;margin:0 0 18px}h2{color:#f3f7fd;margin:0 0 13px;font-size:21px}h3{color:#f3f7fd}.hint,.stats{color:#a9bdcf}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;position:sticky;top:0;z-index:4;background:#091421eb;padding:12px 0;backdrop-filter:blur(12px)}.nav button{background:#152e40;color:#b7ccdd;border:1px solid #365066;padding:12px 19px;font-weight:750}.nav button.active{background:#1f8c8c;color:#fff;border-color:#3faaaa}.dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.metric{background:#142536;border:1px solid #2c4255;border-radius:15px;padding:16px}.metric strong{font-size:27px;color:#fff;display:block}.metric small{color:#9db4c7}.progressbar{height:7px;background:#2c4255;border-radius:20px;overflow:hidden;margin-top:9px}.progressbar div{height:100%;width:0;background:#3ed4ae;transition:width .2s}.view{display:none}.view.active{display:block}input,select{background:#0c1c2b;border:1px solid #3a546a;color:#eaf3ff}input::placeholder{color:#7f98aa}button{background:#178b8e;font-weight:700}button:hover{background:#137578}.group{background:#102030;border:1px solid #344c5d;padding:15px}.group-title{margin-bottom:13px}.fixture{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);margin:10px 0}.fixture select{grid-column:1/-1}.ball{font-size:19px}label{color:#b9c9d8}.date{color:#91b6c5}.ticket{background:#102030;border:1px solid #344c5d;border-radius:12px}.ticket-row{border-color:#263b4b;color:#e8eff6}.pick{color:#6de3c1}.muted{color:#93a8ba}#status{background:#102e3b;color:#d5f5f5;border:1px solid #2d626b}#matches{border-color:#344c5d}.event{border-color:#344c5d}.event small{color:#a9bdcf}.group-header{display:flex;align-items:center;justify-content:space-between;gap:10px}.group-header .counter{font-size:12px;color:#a9bdcf}.pill{display:inline-block;background:#143e43;color:#70d8bd;border:1px solid #2e6b65;border-radius:20px;padding:5px 10px;font-size:12px}.toolbar{align-items:center}.toolbar button{white-space:normal}.guide{border-left:3px solid #3ed4ae;padding-left:13px;color:#b9cfdf;font-size:13px;margin-bottom:15px}.league{width:220px}.groups-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.developed{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}.empty-note{font-size:12px;color:#96b3c2}@media(max-width:760px){.dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:12px}.nav button{flex:1;padding:11px 6px;font-size:12px}section{padding:14px}.developed{grid-template-columns:1fr}.groups-grid{grid-template-columns:1fr}.metric strong{font-size:22px}}@media print{body{background:#fff;color:#000}.dashboard,.nav{display:none!important}.view{display:none!important}#view-grids{display:block!important}section{background:#fff;color:#000;border:0;box-shadow:none}.ticket{background:#fff;color:#000;border:1px solid #777}.ticket h3,.ticket-row{color:#000}.pick{color:#000}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;break-inside:avoid}.no-print{display:none!important}}
@@ -3522,7 +3522,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 (function(){
 'use strict';
 const byId=id=>document.getElementById(id);
-let index=0,lines=[],result=null,page=0,applying=false,ticketMode='single',ticketIndex=0;
+let index=0,lines=[],result=null,page=0,applying=false,ticketMode='single',ticketIndex=0,recopySite='Betclic',recopyMarks={};
+try{const savedSite=localStorage.getItem('tc_recopy_site_v1');if(['Betclic','Winamax'].includes(savedSite))recopySite=savedSite;recopyMarks=JSON.parse(localStorage.getItem('tc_recopy_marks_v1')||'{}')||{};if(typeof recopyMarks!=='object'||Array.isArray(recopyMarks))recopyMarks={};}catch(e){}
 const cache=new Map();
 const title=i=>'S'+String(i+1).padStart(2,'0')+' · '+TC_SYSTEM_NAMES[i];
 function calculate(){
@@ -3642,6 +3643,73 @@ function ticketTable(groups,recap){
  }
  scroll.append(table);return scroll;
 }
+
+function recopyEntries(groups){
+ return groups.flatMap(group=>[0,1].map(match=>{
+  const data=getSlotData(group,match),sport=getSlotSport(group,match),a=String(data[group+match+'a']||''),b=String(data[group+match+'b']||''),raw=data[group+match+'p']||'';
+  const pick=raw==='1'?'1 — '+(a||'Équipe / joueur 1'):raw==='2'?'2 — '+(b||'Équipe / joueur 2'):raw==='X'?'X — Match nul':ticketPickLabel(group,match);
+  return {group,match,sport,a,b,pick,complete:!!(a.trim()&&b.trim()&&raw&&pick!=='Jeux : nombre à préciser')};
+ }));
+}
+function recopyEntryText(entry){
+ return (SPORT_NAMES[entry.sport]||entry.sport)+' · '+(entry.a||'À renseigner')+' — '+(entry.b||'À renseigner')+'\nPari : '+entry.pick;
+}
+async function recopyCopy(text,button){
+ try{
+  if(!navigator.clipboard?.writeText)throw Error('clipboard');
+  await navigator.clipboard.writeText(text);
+  const old=button.textContent;button.textContent='✓ Copié';setTimeout(()=>{if(button.isConnected)button.textContent=old;},1800);
+ }catch(e){
+  let dialog=byId('tc-recopy-copy-dialog');
+  if(!dialog){
+   dialog=document.createElement('dialog');dialog.id='tc-recopy-copy-dialog';
+   const title=document.createElement('h3');title.textContent='Texte à copier';
+   const note=document.createElement('p');note.textContent='Sélectionne le texte et utilise Copier sur ton appareil.';
+   const area=document.createElement('textarea');area.readOnly=true;area.setAttribute('aria-label','Texte de la grille à copier');
+   const close=document.createElement('button');close.type='button';close.textContent='Fermer';close.onclick=()=>{if(dialog.close)dialog.close();else dialog.removeAttribute('open');};
+   dialog.append(title,note,area,close);document.body.append(dialog);
+  }
+  const area=dialog.querySelector('textarea');area.value=text;
+  if(dialog.showModal&&!dialog.open)dialog.showModal();else dialog.setAttribute('open','');
+  area.focus();area.select();
+ }
+}
+function recopyCard(groups,gridNumber,total){
+ const entries=recopyEntries(groups),stake=Number(byId('stake').value);
+ const identity=recopySite+'|'+JSON.stringify({system:index,groups,entries,stake});
+ let marks=Array.isArray(recopyMarks[identity])?recopyMarks[identity]:[];
+ const card=document.createElement('div');card.className='tc-recopy-card';
+ const head=document.createElement('div');head.className='tc-recopy-heading';
+ const titleNode=document.createElement('strong');titleNode.textContent='À recopier sur '+recopySite;
+ const subtitle=document.createElement('p');subtitle.textContent='Recherche chaque rencontre, puis choisis le pari indiqué.';
+ head.append(titleNode,subtitle);card.append(head);
+ const tools=document.createElement('div');tools.className='tc-recopy-tools';
+ const copy=document.createElement('button');copy.type='button';copy.id='tc-recopy-copy-grid';copy.textContent='📋 Copier cette grille';
+ copy.onclick=()=>recopyCopy(title(index)+' · Grille '+gridNumber+'/'+total+'\n'+recopySite+'\n\n'+entries.map((entry,i)=>(i+1)+'. '+recopyEntryText(entry)).join('\n\n')+'\n\nMise pour cette grille : '+(Number.isFinite(stake)?stake.toLocaleString('fr-FR',{style:'currency',currency:'EUR'}):'À renseigner'),copy);
+ const progress=document.createElement('span');progress.id='tc-recopy-progress';progress.setAttribute('role','status');
+ const updateProgress=()=>{progress.textContent=marks.length+' / '+entries.length+' rencontres cochées';};
+ tools.append(copy,progress);card.append(tools);
+ const list=document.createElement('ol');list.className='tc-recopy-list';
+ entries.forEach((entry,i)=>{
+  const li=document.createElement('li');li.className='tc-recopy-match';li.classList.toggle('tc-recopy-done',marks.includes(i));
+  const sport=document.createElement('small');sport.textContent=(SPORT_ICONS[entry.sport]||'')+' '+(SPORT_NAMES[entry.sport]||entry.sport)+' · Groupe '+entry.group+' · Match '+(entry.match+1);
+  const teams=document.createElement('strong');teams.className='tc-recopy-teams';teams.textContent=(entry.a||'Équipe / joueur 1 à renseigner')+' — '+(entry.b||'Équipe / joueur 2 à renseigner');
+  const pick=document.createElement('div');pick.className='tc-recopy-market';pick.textContent='Pari : '+entry.pick;
+  const controls=document.createElement('div');controls.className='tc-recopy-tools';
+  const label=document.createElement('label');const check=document.createElement('input');check.type='checkbox';check.checked=marks.includes(i);check.disabled=!entry.complete;check.setAttribute('aria-label','Marquer la rencontre '+(i+1)+' saisie sur '+recopySite);
+  label.append(check,document.createTextNode(' Saisi sur '+recopySite));
+  const rowCopy=document.createElement('button');rowCopy.type='button';rowCopy.textContent='Copier';rowCopy.setAttribute('aria-label','Copier la rencontre '+(i+1)+' et son pari');rowCopy.onclick=()=>recopyCopy(recopyEntryText(entry),rowCopy);
+  check.onchange=()=>{
+   marks=check.checked?Array.from(new Set(marks.concat(i))):marks.filter(n=>n!==i);
+   if(marks.length)recopyMarks[identity]=marks;else delete recopyMarks[identity];
+   try{localStorage.setItem('tc_recopy_marks_v1',JSON.stringify(recopyMarks));}catch(e){}
+   li.classList.toggle('tc-recopy-done',check.checked);updateProgress();
+  };
+  controls.append(label,rowCopy);li.append(sport,teams,pick,controls);list.append(li);
+ });
+ card.append(list);updateProgress();return card;
+}
+
 function tickets(keepPosition=false){
  if(!window.TC_ACTIVE_SYSTEM||JSON.stringify(GROUPS)!==JSON.stringify(lines))open(false);
  let view=byId('view-audit-bulletins');
@@ -3661,10 +3729,11 @@ function tickets(keepPosition=false){
  button(actions,'← Modifier mes rencontres',()=>showView('groups'));
  button(actions,'💾 Sauvegarder',()=>showView('savepronos'));
  button(actions,'Exporter les bulletins CSV',download);section.append(actions);
- const recap=document.createElement('details');recap.className='tc-ticket-recap';recap.open=true;
+ const recap=document.createElement('details');recap.className='tc-ticket-recap';recap.open=false;
  const summary=document.createElement('summary');summary.textContent='Récapitulatif du système · sports, équipes et pronostics';recap.append(summary,ticketTable([],true));section.append(recap);
  const viewer=document.createElement('div');viewer.id='tc-ticket-viewer';
- const titleNode=document.createElement('h3');titleNode.textContent='Consulter les grilles';viewer.append(titleNode);
+ const titleNode=document.createElement('h3');titleNode.textContent='Recopier mes grilles';viewer.append(titleNode);
+ const siteLabel=document.createElement('label');siteLabel.className='tc-recopy-site-label';siteLabel.textContent='Mon site de paris';const siteSelect=document.createElement('select');siteSelect.id='tc-recopy-site';siteSelect.setAttribute('aria-label','Site pour le suivi de la recopie');['Betclic','Winamax'].forEach(name=>siteSelect.add(new Option(name,name)));siteSelect.value=recopySite;siteSelect.onchange=()=>{recopySite=siteSelect.value;try{localStorage.setItem('tc_recopy_site_v1',recopySite);}catch(e){}tickets(true);};siteLabel.append(siteSelect);viewer.append(siteLabel);
  const modes=document.createElement('div');modes.className='tc-ticket-actions';
  const single=button(modes,'Grille par grille',()=>{ticketMode='single';tickets(true);},'tc-ticket-mode-single');single.setAttribute('aria-pressed',String(ticketMode==='single'));
  const list=button(modes,'Liste de 20 grilles',()=>{ticketMode='list';page=Math.floor(ticketIndex/20);tickets(true);},'tc-ticket-mode-list');list.setAttribute('aria-pressed',String(ticketMode==='list'));viewer.append(modes);
@@ -3688,7 +3757,7 @@ function tickets(keepPosition=false){
  const start=ticketMode==='single'?ticketIndex:page*20,end=ticketMode==='single'?start+1:start+20;
  data.rows.slice(start,end).forEach((row,n)=>{
   const article=document.createElement('article');article.className='ticket tc-system-ticket';article.dataset.gridIndex=String(start+n);
-  const heading=document.createElement('h3');heading.textContent='Grille '+(start+n+1)+' / '+data.rows.length+' — '+row.join(' · ');article.append(heading,ticketTable(row,false));viewer.append(article);
+  const heading=document.createElement('h3');heading.textContent='Grille '+(start+n+1)+' / '+data.rows.length+' — '+row.join(' · ');article.append(heading,ticketMode==='single'?recopyCard(row,start+n+1,data.rows.length):ticketTable(row,false));viewer.append(article);
  });
  section.append(viewer);view.append(section);showView('audit-bulletins');
  if(matchMedia('(max-width:850px)').matches&&document.body.classList.contains('tc-menu-open'))byId('tc-menu-toggle')?.click();
@@ -4350,7 +4419,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 function setup(){
  const side=document.getElementById('tc-side-menu'),nav=side?.querySelector('nav.nav');if(!side||!nav||document.getElementById('view-help'))return;
  const view=document.createElement('div');view.className='view';view.id='view-help';view.hidden=true;
- view.innerHTML="<section class=\"tc-help-panel\">\n<div class=\"tc-help-heading\"><span>GUIDE PRATIQUE</span><h2>Mode d’emploi de TOTOCALCIO PRO</h2><p>Du choix du système à la sauvegarde de tes bulletins.</p></div>\n<div class=\"tc-help-grid\">\n<article><span class=\"tc-help-step\">1</span><h3>Choisir ton système</h3><p>Sélectionne un des 30 systèmes. Les lignes et les groupes se mettent à jour automatiquement. « Ouvrir et développer » permet de retrouver la saisie.</p><p><strong>Exemple : six triples = six lignes de trois groupes</strong> : ABC, DEF, GHI, JKL, MNO et PQR. Un double comporte deux groupes.</p></article>\n<article><span class=\"tc-help-step\">2</span><h3>Renseigner les rencontres</h3><p>Chaque ligne comporte deux rencontres, communes à ses groupes. Les équipes saisies pour A se recopient dans B et C. Choisis le sport avec le ballon entre les participants.</p><p>En football, choisis un championnat puis un club, ou saisis librement les noms.</p></article>\n<article><span class=\"tc-help-step\">3</span><h3>Choisir les pronostics</h3><p>Les pronostics restent indépendants pour chaque groupe. Touche 1, X ou 2 lorsqu’ils sont proposés, ou utilise la liste des autres paris. Pour le tennis, complète le seuil si tu choisis un nombre de jeux.</p><p>Si les champs sont verrouillés, appuie sur « Déverrouiller les saisies ».</p></article>\n<article><span class=\"tc-help-step\">4</span><h3>Vérifier le coût</h3><p>Le coût correspond au nombre de grilles multiplié par la mise par grille. Vérifie le système affiché au-dessus des rencontres avant de consulter tes bulletins.</p><p>Une couverture de combinaisons décrit le système ; elle ne prédit pas les résultats sportifs.</p></article>\n<article><span class=\"tc-help-step\">5</span><h3>Consulter tes bulletins</h3><p>Ouvre « Mes bulletins » pour retrouver les combinaisons du système avec les rencontres et les pronostics saisis. Le mode « Grille par grille » affiche une seule grille. Utilise Précédente / Suivante ou saisis son numéro. Le mode « Liste de 20 grilles » reste disponible.</p><p>L’export CSV permet de récupérer les bulletins du système.</p></article>\n<article><span class=\"tc-help-step\">6</span><h3>Enregistrer et retrouver ton travail</h3><p>Dans « Mes sauvegardes », donne un nom au bulletin puis appuie sur « Enregistrer le bulletin ». Sélectionne-le dans la liste et utilise « Ouvrir » pour le restaurer.</p><p><strong>Les sauvegardes restent sur cet appareil et dans ce navigateur.</strong> Elles ne se transfèrent pas automatiquement sur un autre téléphone ou PC.</p></article>\n</div>\n<details open><summary>Utiliser le logiciel au toucher</summary><p>Dans la zone « Glisse ici », un mouvement vers la gauche affiche la ligne suivante ; vers la droite, la précédente. Les boutons font la même chose. « Toutes les lignes » rétablit l’affichage complet.</p><p>Pour fermer le menu : touche ✕ Fermer, touche l’extérieur, ou glisse vers la gauche dans le menu.</p></details>\n<details><summary>Installer l’icône sur ton téléphone</summary><p>Ouvre TOTOCALCIO dans Chrome, puis utilise « Installer TOTOCALCIO » ou le menu Chrome ⋮ → Ajouter à l’écran d’accueil. L’ajout de l’icône doit être confirmé sur le téléphone.</p></details>\n<details><summary>Quand une modification n’apparaît pas</summary><p>Appuie sur « Actualiser » dans le logiciel. Les noms saisis et les bulletins enregistrés restent conservés. Ne supprime pas les données de Chrome pour actualiser.</p></details>\n<details><summary>À quoi sert l’analyse IA ?</summary><p>Le bouton IA d’une rencontre prépare une demande d’analyse pour ChatGPT. Une analyse récente nécessite la vérification du match et de ses sources ; elle n’est pas une garantie de résultat.</p></details>\n<div class=\"tc-help-footer\"><button type=\"button\" id=\"tc-help-to-groups\">Revenir à mes groupes →</button></div>\n</section>";document.querySelector('main').append(view);
+ view.innerHTML="<section class=\"tc-help-panel\">\n<div class=\"tc-help-heading\"><span>GUIDE PRATIQUE</span><h2>Mode d’emploi de TOTOCALCIO PRO</h2><p>Du choix du système à la sauvegarde de tes bulletins.</p></div>\n<div class=\"tc-help-grid\">\n<article><span class=\"tc-help-step\">1</span><h3>Choisir ton système</h3><p>Sélectionne un des 30 systèmes. Les lignes et les groupes se mettent à jour automatiquement. « Ouvrir et développer » permet de retrouver la saisie.</p><p><strong>Exemple : six triples = six lignes de trois groupes</strong> : ABC, DEF, GHI, JKL, MNO et PQR. Un double comporte deux groupes.</p></article>\n<article><span class=\"tc-help-step\">2</span><h3>Renseigner les rencontres</h3><p>Chaque ligne comporte deux rencontres, communes à ses groupes. Les équipes saisies pour A se recopient dans B et C. Choisis le sport avec le ballon entre les participants.</p><p>En football, choisis un championnat puis un club, ou saisis librement les noms.</p></article>\n<article><span class=\"tc-help-step\">3</span><h3>Choisir les pronostics</h3><p>Les pronostics restent indépendants pour chaque groupe. Touche 1, X ou 2 lorsqu’ils sont proposés, ou utilise la liste des autres paris. Pour le tennis, complète le seuil si tu choisis un nombre de jeux.</p><p>Si les champs sont verrouillés, appuie sur « Déverrouiller les saisies ».</p></article>\n<article><span class=\"tc-help-step\">4</span><h3>Vérifier le coût</h3><p>Le coût correspond au nombre de grilles multiplié par la mise par grille. Vérifie le système affiché au-dessus des rencontres avant de consulter tes bulletins.</p><p>Une couverture de combinaisons décrit le système ; elle ne prédit pas les résultats sportifs.</p></article>\n<article><span class=\"tc-help-step\">5</span><h3>Consulter tes bulletins</h3><p>Ouvre « Mes bulletins » pour retrouver les combinaisons du système avec les rencontres et les pronostics saisis. Le mode « Grille par grille » affiche une seule grille. Utilise Précédente / Suivante ou saisis son numéro. Le mode « Liste de 20 grilles » reste disponible.</p><p>Choisis Betclic ou Winamax pour suivre ta recopie. Chaque rencontre affiche les équipes et le pari. Tu peux copier la grille entière ou une rencontre, puis cocher « Saisi » pour suivre ton avancement. Ces cases servent uniquement à ton suivi personnel. L’export CSV reste disponible.</p></article>\n<article><span class=\"tc-help-step\">6</span><h3>Enregistrer et retrouver ton travail</h3><p>Dans « Mes sauvegardes », donne un nom au bulletin puis appuie sur « Enregistrer le bulletin ». Sélectionne-le dans la liste et utilise « Ouvrir » pour le restaurer.</p><p><strong>Les sauvegardes restent sur cet appareil et dans ce navigateur.</strong> Elles ne se transfèrent pas automatiquement sur un autre téléphone ou PC.</p></article>\n</div>\n<details open><summary>Utiliser le logiciel au toucher</summary><p>Dans la zone « Glisse ici », un mouvement vers la gauche affiche la ligne suivante ; vers la droite, la précédente. Les boutons font la même chose. « Toutes les lignes » rétablit l’affichage complet.</p><p>Pour fermer le menu : touche ✕ Fermer, touche l’extérieur, ou glisse vers la gauche dans le menu.</p></details>\n<details><summary>Installer l’icône sur ton téléphone</summary><p>Ouvre TOTOCALCIO dans Chrome, puis utilise « Installer TOTOCALCIO » ou le menu Chrome ⋮ → Ajouter à l’écran d’accueil. L’ajout de l’icône doit être confirmé sur le téléphone.</p></details>\n<details><summary>Quand une modification n’apparaît pas</summary><p>Appuie sur « Actualiser » dans le logiciel. Les noms saisis et les bulletins enregistrés restent conservés. Ne supprime pas les données de Chrome pour actualiser.</p></details>\n<details><summary>À quoi sert l’analyse IA ?</summary><p>Le bouton IA d’une rencontre prépare une demande d’analyse pour ChatGPT. Une analyse récente nécessite la vérification du match et de ses sources ; elle n’est pas une garantie de résultat.</p></details>\n<div class=\"tc-help-footer\"><button type=\"button\" id=\"tc-help-to-groups\">Revenir à mes groupes →</button></div>\n</section>";document.querySelector('main').append(view);
  const help=document.createElement('button');help.type='button';help.dataset.view='help';help.textContent='ⓘ Mode d’emploi';
  help.addEventListener('click',()=>{showView('help');view.scrollIntoView({block:'start',behavior:'smooth'});});
  document.getElementById('tc-help-to-groups').onclick=()=>{showView('groups');document.getElementById('view-groups').scrollIntoView({block:'start',behavior:'smooth'});};
@@ -4404,4 +4473,26 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #view-audit-bulletins #tc-ticket-viewer>h3{margin:16px 0 10px;color:#163b55}
 @media(max-width:650px){#view-audit-bulletins .tc-ticket-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#view-audit-bulletins .tc-ticket-pager button{min-height:44px!important}}
 @media print{#view-audit-bulletins .tc-ticket-actions,#view-audit-bulletins .tc-ticket-pager{display:none!important}#view-audit-bulletins .tc-ticket-scroll{overflow:visible}#view-audit-bulletins .tc-ticket-table{min-width:0;font-size:10px}}
+</style><style id="tc-recopy-bookmakers-style">
+#view-audit-bulletins .tc-recopy-site-label{display:flex;align-items:center;flex-wrap:wrap;gap:10px;color:#183b54!important;font-size:13px}
+#view-audit-bulletins #tc-recopy-site{min-height:42px;background:white;color:#173a53;border:1px solid #9bb5c7;border-radius:7px;padding:7px 12px}
+#view-audit-bulletins .tc-recopy-heading>strong{display:block;font-size:17px;color:#153c59}
+#view-audit-bulletins .tc-recopy-heading p{font-size:12px;color:#4c6576!important;margin:6px 0}
+#view-audit-bulletins .tc-recopy-tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:10px 0}
+#view-audit-bulletins .tc-recopy-tools button{min-height:40px!important}
+#view-audit-bulletins .tc-recopy-list{list-style:none;padding:0;margin:12px 0;counter-reset:recopy}
+#view-audit-bulletins .tc-recopy-match{counter-increment:recopy;position:relative;padding:14px 14px 10px 46px;border:1px solid #c3d2dd;border-radius:9px;background:#fff;margin-bottom:9px}
+#view-audit-bulletins .tc-recopy-match:before{content:counter(recopy);position:absolute;left:12px;top:16px;width:23px;height:23px;background:#e8f0f6;color:#24536e;border-radius:6px;text-align:center;line-height:23px;font-weight:bold;font-size:12px}
+#view-audit-bulletins .tc-recopy-match>small{display:block;font-size:11px;color:#557184!important;margin-bottom:6px}
+#view-audit-bulletins .tc-recopy-teams{display:block;font-size:16px;color:#14354d;line-height:1.45}
+#view-audit-bulletins .tc-recopy-market{padding:8px 10px;background:#e8f4e9;color:#215737;border-radius:6px;font-size:14px;font-weight:750;margin-top:8px}
+#view-audit-bulletins .tc-recopy-tools label{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#36576d!important;margin:0}
+#view-audit-bulletins .tc-recopy-tools input[type=checkbox]{width:22px;height:22px;min-height:22px;accent-color:#21884b}
+#view-audit-bulletins .tc-recopy-done{border-color:#7db694;background:#f4faf5}
+#view-audit-bulletins #tc-recopy-progress{font-size:12px;color:#38614a}
+#tc-recopy-copy-dialog{max-width:min(650px,95vw);border:1px solid #91aec1;border-radius:12px;padding:20px;background:white;color:#183b54}
+#tc-recopy-copy-dialog::backdrop{background:#001a2a88}
+#tc-recopy-copy-dialog textarea{display:block;width:min(550px,80vw);height:45vh;padding:10px;font:14px Arial,sans-serif;background:white;color:#173a53}
+@media(max-width:650px){#view-audit-bulletins .tc-recopy-match{padding-left:40px}#view-audit-bulletins .tc-recopy-teams{font-size:15px}#view-audit-bulletins .tc-recopy-tools button{min-height:44px!important}}
+@media print{#view-audit-bulletins .tc-recopy-tools,#view-audit-bulletins .tc-recopy-site-label{display:none!important}}
 </style></body></html>
