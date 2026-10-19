@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO PRO — 30 systèmes par groupes</title><style>
+<html lang="fr"><head><meta name="totocalcio-build" content="20261019-checkup-1"><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>TOTOCALCIO PRO — 30 systèmes par groupes</title><style>
 :root{font-family:Arial,sans-serif;color:#1c2731;background:#f4f6f8}*{box-sizing:border-box}body{margin:0}header{background:#172e43;color:white;padding:20px 5%}h1{font-size:24px;margin:0 0 8px}h2{font-size:20px}main{max-width:1100px;margin:auto;padding:18px}section{background:white;padding:18px;border-radius:12px;margin:16px 0;box-shadow:0 1px 6px #0001}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:end}label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}input,select,button{font:inherit;padding:9px;border:1px solid #bfc8d1;border-radius:7px;min-width:0}button{background:#135c85;color:white;border:0;cursor:pointer}button:hover{background:#104965}button:disabled{opacity:.45;cursor:default}.hint{font-size:13px;color:#536272}.league{width:190px}.matchselect{flex:1;min-width:230px}.group{border:1px solid #d6dee4;border-radius:9px;margin:10px 0;padding:12px}.group-title{font-weight:800;padding:7px 12px;border-radius:6px;display:inline-block;margin-bottom:8px}.green{background:#d8f3dc;color:#166534}.blue{background:#dbeafe;color:#1d4ed8}.red{background:#fee2e2;color:#b91c1c}.fixture{display:grid;grid-template-columns:1fr 28px 1fr 170px;align-items:center;gap:8px;margin:8px 0}.ball{text-align:center}.prono{width:100%}.date{font-size:11px;color:#566472;margin:2px 0 8px}.groups-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px}.group{margin:0}.developed{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.ticket{border:1px solid #cbd5df;border-radius:9px;padding:12px;break-inside:avoid}.ticket h3{margin:0 0 8px;font-size:16px}.ticket-row{display:grid;grid-template-columns:27px 1fr auto;gap:7px;align-items:center;font-size:12px;padding:4px 0;border-bottom:1px solid #edf0f3}.letter{text-align:center;font-weight:800;border-radius:4px;padding:5px}.pick{font-weight:800;max-width:130px;text-align:right}.muted{color:#697682}#status{padding:9px;border-radius:7px;background:#f0f5fa;margin-top:10px}#matches{max-height:340px;overflow:auto;border:1px solid #e1e6eb;border-radius:8px;margin-top:12px}.event{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px;border-bottom:1px solid #e7ebef}.event small{color:#566472}.event button{font-size:12px;white-space:nowrap}.event-name{flex:1}.stats{font-size:13px;color:#516477}.print-only{display:none}@media(max-width:580px){main{padding:10px}section{padding:12px}.fixture{grid-template-columns:1fr 23px 1fr;gap:5px}.fixture select{grid-column:1/-1}.groups-grid{grid-template-columns:1fr}.league{width:100%}}@media print{header,.no-print,#calendar,.toolbar,#status{display:none!important}body{background:white}section{box-shadow:none;padding:0}.groups-section{display:none}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;page-break-inside:avoid}.print-only{display:block}}
 
 :root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#e7eef9;background:#091421}body{background:linear-gradient(155deg,#0c2031,#091421 45%,#111b2c);min-height:100vh}header{background:linear-gradient(110deg,#12364c,#0e2338 62%,#103f42);padding:28px max(22px,calc((100vw - 1260px)/2));border-bottom:1px solid #2d5262}header h1{font-size:clamp(24px,3vw,36px);letter-spacing:-.7px}header .subtitle{color:#c0d6e3;font-size:14px}main{max-width:1300px;padding:20px 22px 60px}section{background:#142536;border:1px solid #2c4255;border-radius:17px;box-shadow:0 8px 30px #0002;padding:24px;margin:0 0 18px}h2{color:#f3f7fd;margin:0 0 13px;font-size:21px}h3{color:#f3f7fd}.hint,.stats{color:#a9bdcf}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;position:sticky;top:0;z-index:4;background:#091421eb;padding:12px 0;backdrop-filter:blur(12px)}.nav button{background:#152e40;color:#b7ccdd;border:1px solid #365066;padding:12px 19px;font-weight:750}.nav button.active{background:#1f8c8c;color:#fff;border-color:#3faaaa}.dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}.metric{background:#142536;border:1px solid #2c4255;border-radius:15px;padding:16px}.metric strong{font-size:27px;color:#fff;display:block}.metric small{color:#9db4c7}.progressbar{height:7px;background:#2c4255;border-radius:20px;overflow:hidden;margin-top:9px}.progressbar div{height:100%;width:0;background:#3ed4ae;transition:width .2s}.view{display:none}.view.active{display:block}input,select{background:#0c1c2b;border:1px solid #3a546a;color:#eaf3ff}input::placeholder{color:#7f98aa}button{background:#178b8e;font-weight:700}button:hover{background:#137578}.group{background:#102030;border:1px solid #344c5d;padding:15px}.group-title{margin-bottom:13px}.fixture{grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);margin:10px 0}.fixture select{grid-column:1/-1}.ball{font-size:19px}label{color:#b9c9d8}.date{color:#91b6c5}.ticket{background:#102030;border:1px solid #344c5d;border-radius:12px}.ticket-row{border-color:#263b4b;color:#e8eff6}.pick{color:#6de3c1}.muted{color:#93a8ba}#status{background:#102e3b;color:#d5f5f5;border:1px solid #2d626b}#matches{border-color:#344c5d}.event{border-color:#344c5d}.event small{color:#a9bdcf}.group-header{display:flex;align-items:center;justify-content:space-between;gap:10px}.group-header .counter{font-size:12px;color:#a9bdcf}.pill{display:inline-block;background:#143e43;color:#70d8bd;border:1px solid #2e6b65;border-radius:20px;padding:5px 10px;font-size:12px}.toolbar{align-items:center}.toolbar button{white-space:normal}.guide{border-left:3px solid #3ed4ae;padding-left:13px;color:#b9cfdf;font-size:13px;margin-bottom:15px}.league{width:220px}.groups-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.developed{grid-template-columns:repeat(auto-fit,minmax(360px,1fr))}.empty-note{font-size:12px;color:#96b3c2}@media(max-width:760px){.dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:12px}.nav button{flex:1;padding:11px 6px;font-size:12px}section{padding:14px}.developed{grid-template-columns:1fr}.groups-grid{grid-template-columns:1fr}.metric strong{font-size:22px}}@media print{body{background:#fff;color:#000}.dashboard,.nav{display:none!important}.view{display:none!important}#view-grids{display:block!important}section{background:#fff;color:#000;border:0;box-shadow:none}.ticket{background:#fff;color:#000;border:1px solid #777}.ticket h3,.ticket-row{color:#000}.pick{color:#000}.developed{display:block}.ticket{display:inline-block;vertical-align:top;width:48%;margin:0 1% 8px 0;break-inside:avoid}.no-print{display:none!important}}
@@ -1495,7 +1495,7 @@ const BULLETINS_KEY='totocalcio_named_bulletins_v1';
 let bulletins=[];try{const v=JSON.parse(localStorage.getItem(BULLETINS_KEY)||'[]');if(Array.isArray(v))bulletins=v.filter(b=>b&&typeof b.name==='string'&&b.state)}catch(e){}
 let undoSelections=null;
 function toolsNotice(t){for(const id of ['tools-message','savepronos-message']){const el=$(id);if(el)el.textContent=t;}}
-function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144,groups:GROUPS,system30:$('tc-30-direct-select')?.value,stake:$('stake')?.value,leaguePrefs:typeof leaguePrefs!=='undefined'?leaguePrefs:{},teamChampionships:localStorage.getItem('tc-team-championships-v1')}))}
+function stateSnapshot(){return JSON.parse(JSON.stringify({sport,sportsData:sportDatas,mixSports,pairs64,choices72,choices144,groups:GROUPS,system30:$('tc-30-direct-select')?.value,stake:$('stake')?.value,leaguePrefs:typeof leaguePrefs!=='undefined'?leaguePrefs:{},systemBudget:$('tc-l30-budget')?.value,teamChampionships:localStorage.getItem('tc-team-championships-v1')}))}
 function restoreSnapshot(v){
  if(!v||!v.sportsData)throw new Error('Ce bulletin ne contient pas de données valides.');
  if(v.system30!==undefined&&$('tc-30-direct-select')){
@@ -2699,45 +2699,7 @@ body.tc-saisie-locked #view-groups #bulletin-groups .bc-go-systems{cursor:pointe
 @media(max-width:550px){#tc-all-odds-grid{grid-template-columns:1fr}#tc-all-odds>summary{font-size:14px}#tc-all-odds .tc-odds-counter{margin:5px 0 0}}
 @media print{#tc-all-odds{display:none!important}}
 </style>
-<script id="totocalcio-betclic-tous-groupes-script">
-/* 15 groupes A à O, 2 cotes par groupe. Réutilise les données déjà sauvegardées. */
-(function(){
- 'use strict';
- const host=document.getElementById('tc-all-odds-grid');
- if(!host)return;
- const groups=GROUPS.flatMap(row=>Array.from(row));
- function renderAllOdds(){
-  let html='';
-  for(const c of groups){
-   const row=GROUPS.findIndex(r=>r.includes(c));
-   const color=COLORS[GROUPS[row].indexOf(c)];
-   html+='<section class="tc-all-odds-card" data-tc-all-group="'+c+'"><div class="tc-all-odds-head"><span class="tc-all-odds-letter '+color+'">'+c+'</span> GROUPE '+c+'</div>';
-   for(let i=0;i<2;i++){
-    const d=getSlotData(c,i),sp=getSlotSport(c,i);
-    const a=d[c+i+'a']||'Équipe 1',b=d[c+i+'b']||'Équipe 2';
-    const title='Match '+(i+1)+' · '+SPORT_ICONS[sp]+' '+a+' — '+b;
-    // Identifiants distincts de ceux des formulaires de saisie habituels.
-    const odds=tcOddsHTML(c,i).replaceAll('tc-odd-'+c+i,'tc-all-odd-'+c+i);
-    html+='<div class="tc-all-odds-match"><div class="tc-all-odds-match-title">'+safe(title)+'</div>'+odds+'</div>';
-   }
-   html+='</section>';
-  }
-  host.innerHTML=html;
-  tcBindOdds(host);
- }
- const originalMakeGroups=makeGroups;
- makeGroups=function(...args){const value=originalMakeGroups(...args);renderAllOdds();return value};
- const allButton=document.querySelector('#tc-all-odds .tc-show-all-groups');
- allButton.addEventListener('click',()=>{
-  const filter=document.getElementById('sys-fixture-select');
-  if(filter){filter.value='all';filter.dispatchEvent(new Event('change',{bubbles:true}));}
-  document.getElementById('bc-simple-toggle')?.click();
-  document.getElementById('bulletin-groups')?.scrollIntoView({behavior:'smooth',block:'start'});
- });
- renderAllOdds();
- window.TOTOCALCIO_TOUTES_COTES={render:renderAllOdds,count:()=>host.querySelectorAll('[data-tc-odds]').length};
-})();
-</script>
+
 <style id="tc-sidebar-style">/* Navigation verticale TotoCalcio */
 #tc-side-menu{position:fixed;z-index:8000;top:0;left:0;bottom:0;width:255px;box-sizing:border-box;overflow:auto;background:#0c1d2b;border-right:2px solid #d6ad48;padding:16px 12px 24px;box-shadow:3px 0 18px #0005;color:#fff;font-family:inherit}
 #tc-side-menu .tc-menu-title{color:#ffdb72;font-size:21px;font-weight:900;letter-spacing:.8px;margin:4px 6px 12px}
@@ -3654,7 +3616,7 @@ function open(scroll=true){
  showView('groups');
  window.tcSetCouponGroups?.(GROUPS.flat(),title(index));
  const heading=byId('view-groups').querySelector('h2');
- if(heading)heading.textContent='Saisie des rencontres · '+title(index);
+ if(heading)heading.innerHTML='Saisie des rencontres · '+safe(title(index))+' · <span id="group-sport-label">'+safe(SPORT_NAMES[sport])+'</span>';
  let active=byId('tc-active-system-heading');
  if(!active){active=document.createElement('p');active.id='tc-active-system-heading';byId('groups').before(active);}
  active.textContent=title(index)+' · '+GROUPS.length+' lignes : '+GROUPS.map(row=>Array.from(row).join(' · ')).join(' / ');
@@ -3701,6 +3663,7 @@ function tickets(){
 }
 function restore(v){
  select(Number(v.system30)||0);
+ if(v.systemBudget!==undefined&&byId('tc-l30-budget'))byId('tc-l30-budget').value=v.systemBudget;
  if(Array.isArray(v.groups)&&v.groups.length){
   lines=v.groups.map(row=>Array.from(row));
   byId('tc-l30-triples').value=lines.filter(row=>row.length===3).length;
@@ -3992,7 +3955,7 @@ function build(){
      const update=()=>{const val=pick?.value||'';select.value=val;pickBtns.forEach(([v,btn])=>{btn.classList.toggle('active',val===v);btn.textContent=val===v?'✓':''})};
      if(pick)pick.addEventListener('change',update);
      for(const extra of editor.querySelectorAll('.jeux-field input,.tc-market-custom')){
-      const copy=extra.cloneNode(false);copy.removeAttribute('id');copy.removeAttribute('data-tc-market-custom');copy.removeAttribute('data-jeux-key');
+      const copy=extra.cloneNode(false);copy.disabled=false;copy.readOnly=false;copy.removeAttribute('id');copy.removeAttribute('data-tc-market-custom');copy.removeAttribute('data-jeux-key');
       copy.className='tc-sheet-select';copy.value=extra.value;copy.setAttribute('aria-label',extra.getAttribute('aria-label')||'Détail du pronostic');
       copy.addEventListener('input',()=>changed(extra,copy.value));td.append(copy);
       const visibility=()=>{copy.hidden=extra.hidden||!!extra.closest('[hidden]');};select.addEventListener('change',visibility);visibility();
@@ -4106,4 +4069,20 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 #view-groups #groups.tc-line-filtering>.group.mobile-hidden{display:none!important}
 #tc-compact-match-sheet tr[hidden]{display:none!important}
 @media print{#view-groups .mobile-filter{display:none!important}}
-</style></body></html>
+</style><style id="tc-audit-final-20261019">
+#tc30-direct,#tc-beginner-system{display:none!important}
+#view-groups .tc-sheet-ai{min-height:30px;padding:4px 7px;margin-top:4px}
+#view-audit-bulletins .ticket{margin:10px 0;padding:10px}
+#view-audit-bulletins .ticket p{margin:5px 0}
+#tc-compact-match-sheet .tc-sheet-stats-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media print{
+body.tc-print-current .view{display:none!important}
+body.tc-print-current .view.active{display:block!important}
+body.tc-print-current #tc-side-menu,body.tc-print-current #tc-30-direct,body.tc-print-current .tc-top-actions{display:none!important}
+body.tc-print-current #view-audit-bulletins button{display:none!important}
+}
+</style>
+<script id="tc-print-current-page">
+window.addEventListener('beforeprint',()=>document.body.classList.add('tc-print-current'));
+window.addEventListener('afterprint',()=>document.body.classList.remove('tc-print-current'));
+</script></body></html>
