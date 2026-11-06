@@ -1,4 +1,10 @@
-self.addEventListener('install',()=>self.skipWaiting());
+'use strict';
+self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
-// Toujours utiliser le réseau : aucune ancienne page mise en cache.
-self.addEventListener('fetch',()=>{});
+// À chaque ouverture, récupérer les fichiers publiés sans réutiliser le cache HTTP.
+// Ne modifie ni les sauvegardes du navigateur, ni les caches des autres logiciels.
+self.addEventListener('fetch',event=>{
+ const url=new URL(event.request.url);
+ if(event.request.method!=='GET'||url.origin!==self.location.origin||!url.href.startsWith(self.registration.scope))return;
+ event.respondWith(fetch(new Request(event.request,{cache:'no-store'})));
+});
